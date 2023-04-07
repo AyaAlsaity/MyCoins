@@ -1,8 +1,41 @@
 {
     "nameapp":"MyCoins",
+    
     "language":"English",
     "welcome":"Welcome",
     "next":"Next",
     "skip":"Skip",
-    "done":"Done"
+    "done":"Done",
+
+    "forgot1": "Forgot password ?",
+
+    "butt0": "Sign In",
+    "butt1": "I'm a new user.",
+    "butt2": "I'm  already a member.",
+    "butt3":"Sign Up",
+
+    "signup1": "Create Account",
+
+    "email1": "E-mail Address",
+    "email2": "Enter email",
+    "email3": "Please enter your email",
+    "email4": "Please enter a valid email address",
+
+    "pass1": "password",
+    "pass2": "Enter the password",
+    "pass3": "Please enter your password",
+    "pass4": "Password must be more than 8 characters long",
+    "pass5": "Enter your email to receive the confirmation code",
+    "pass6": "required field",
+    "pass7":"Make sure to type the same password in both fields",
+    "pass8":"Confirmation password",
+
+    "name1":"First Name",
+    "name2":"Enter first name",
+    "name3":"Please enter first name",
+
+    "name4":"Lest Name",
+    "name5":"Enter Lest name",
+    "name6":"Please enter Lest name"
+  
 }

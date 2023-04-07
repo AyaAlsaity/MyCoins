@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "505331015102",
+    "project_id": "mycoins-b3e54",
+    "storage_bucket": "mycoins-b3e54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505331015102:android:33a4807838bfdcd71d2def",
+        "android_client_info": {
+          "package_name": "com.example.mycoins"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505331015102-uc428lioqdhahpe5k26kjtuq4l8rcnaf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf1km8_hwSyyaEm8y03XoHQJiqS25G7MQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505331015102-uc428lioqdhahpe5k26kjtuq4l8rcnaf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

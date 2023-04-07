@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //Api
 import 'package:flutter/services.dart';
@@ -15,13 +17,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'helpers/consts.dart';
 //dark mode
 import 'providers/dark_theme_provider.dart';
+import 'screen/main_screens/home.dart';
+import 'screen/sub_screens/sign_in_screen.dart';
 // firebase
 
 
 
 
 
-void main() {
+Future<void> main() async {
+  // await Firebase.initializeApp();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -37,6 +46,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   Locale _locale = const Locale('ar');
 
   void setLocale(Locale locale) {
@@ -87,7 +97,7 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<DarkThemeProvider>(builder: (context, themeListener, _) {
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarColor:
-              themeListener.isDark ? darkGreyColor : lightWihteColor,
+              themeListener.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
         ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -114,7 +124,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         ),
       
-      home: const Scaffold(),
+      home:auth.currentUser != null
+              ? const HomeScreen()
+              : const LoginScreen(),
     );
       }
       ),
