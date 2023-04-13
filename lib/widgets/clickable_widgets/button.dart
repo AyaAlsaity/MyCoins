@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../helpers/consts.dart';
 
-
 class ButtonScreen extends StatefulWidget {
   const ButtonScreen({
     Key? key,
@@ -41,7 +40,7 @@ class _ButtonScreenState extends State<ButtonScreen> {
           widget.title,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,
               color: widget.isbackround ? secondeyTextColor : mainColor),
         ),
       ),
@@ -59,6 +58,7 @@ class ButtonSignOutScreen extends StatefulWidget {
     required this.heightt,
     required this.paddingg,
     this.icon = Icons.exit_to_app_rounded,
+    required this.ontap,
   }) : super(key: key);
   final bool isbackround;
   final String title;
@@ -66,41 +66,46 @@ class ButtonSignOutScreen extends StatefulWidget {
   final double heightt;
   final double paddingg;
   final IconData icon;
+  final VoidCallback ontap;
 
   @override
   State<ButtonSignOutScreen> createState() => _ButtonSignOutScreenState();
 }
 
-//button with Icon 
+//button with Icon
 class _ButtonSignOutScreenState extends State<ButtonSignOutScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.heightt,
-      width: widget.widthh,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: widget.isbackround ? warningColor : mainTextColor,
-        border: Border.all(color: warningColor, width: 2),
-      ),
-      // ignore: prefer_const_constructors
-      child: Padding(
-        padding: EdgeInsets.all(widget.paddingg),
+    return GestureDetector(
+      onTap: widget.ontap,
+      child: Container(
+        height: widget.heightt,
+        width: widget.widthh,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: widget.isbackround ? warningColor : mainTextColor,
+          border: Border.all(color: mainColor, width: 2),
+        ),
         // ignore: prefer_const_constructors
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              widget.title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: widget.isbackround ? mainTextColor : warningColor),
-            ),
-            const SizedBox(
-              width: 2,
-            ),
-            Icon(widget.icon, color: mainTextColor)
-          ],
+        child: Padding(
+          padding: EdgeInsets.all(widget.paddingg),
+          // ignore: prefer_const_constructors
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: widget.isbackround ? mainTextColor : mainColor),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Icon(widget.icon,
+                  color: widget.isbackround ? warningColor : mainColor)
+            ],
+          ),
         ),
       ),
     );

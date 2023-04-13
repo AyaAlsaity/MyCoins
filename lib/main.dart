@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //font
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mycoins/screen/auth_screens/splah_screen.dart';
 // provider
 import 'package:provider/provider.dart';
 //shared preferences
@@ -126,7 +127,7 @@ class _MyAppState extends State<MyApp> {
       
       home:auth.currentUser != null
               ? const HomeScreen()
-              : const LoginScreen(),
+              : const SplashScreen(),
     );
       }
       ),

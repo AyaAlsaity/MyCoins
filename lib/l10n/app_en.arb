@@ -6,6 +6,8 @@
     "next":"Next",
     "skip":"Skip",
     "done":"Done",
+    "contin":"Continue",
+    
 
     "forgot1": "Forgot password ?",
 
@@ -36,6 +38,41 @@
 
     "name4":"Lest Name",
     "name5":"Enter Lest name",
-    "name6":"Please enter Lest name"
+    "name6":"Please enter Lest name",
+    
+    "intro1title":"Welcome to mycoins",
+    "intro2title":"Convert cash into crypto, simply",
+    "intro3title":"Convert cash into crypto, simply",
+    "intro3desc":"A new way to manage and trade all your crypto easily and fastest in the market",
+
+    "fogottiti":"Forgot Password",
+    "fogotsubtiti":"Enter your email to receive the confirmation code",
+    "traw":"Try another way",
+    "conficode":"Confirmation Code",
+    "wjsaotrea":" We just sent an OTP to your registered email address ",
+    "dgacr":"Didnt get a code? Resend ",
+    "veotp":"Verify OTP",
+
+    "resttitl":"Reset your password",
+    "restsub":"Here's a tip: Use a combination of Numbers, Uppercase, lowercase and Special characters",
+
+    "rstsuss":"Reset successful",
+    "ycnlitya":"You can now log in to your account",
+
+    "proinfo":"Profile Information",
+    "favr":"Favourites",
+    "lag":"Language",
+    "dakmo":"Dark Mode",
+    "loout":"Log out",
+
+    "wjslyrea":" We just sent an link to your registered email address "
+
   
+   
+
+
+
+
+
+
 }

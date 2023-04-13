@@ -3,12 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycoins/helpers/consts.dart';
 import '../../main.dart';
-import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/button.dart';
+import '../../widgets/clickable_widgets/clickacble_text_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../widgets/static_widgets/status_dialog_content.dart';
-import 'package:provider/provider.dart';
+import '../auth_screens/forgot_pass_screen.dart';
 import 'sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -116,14 +115,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                AppLocalizations.of(context)!.forgot1,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                  color: mainColor,
-                                ),
-                              )
+                              ClickableText(
+                                  text: AppLocalizations.of(context)!.forgot1,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const ForgotPasswordScreen()));
+                                  }),
+                              // Text(
+                              //   AppLocalizations.of(context)!.forgot1,
+                              //   style: const TextStyle(
+                              //     fontWeight: FontWeight.w500,
+                              //     fontSize: 12,
+                              //     color: mainColor,
+                              //   ),
+                              // )
                             ],
                           ),
                           const SizedBox(
