@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mycoins/helpers/consts.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/dark_theme_provider.dart';
 
 class Infocard extends StatelessWidget {
   const Infocard({super.key, required this.nameText, required this.emailText});
@@ -8,20 +11,28 @@ class Infocard extends StatelessWidget {
   final String emailText;
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     return ListTile(
-      leading: const CircleAvatar(
-        backgroundColor: Color.fromARGB(255, 230, 222, 222),
-        child: Icon(
+      leading:  CircleAvatar(
+        backgroundColor: themeFunctions.isDark
+                          ? darkBackroundScreenColor
+                          : lightBackroundScreenColor,
+        child:const Icon(
           Icons.person,
           color: mainColor,
         ),
       ),
       title: Text(
         nameText,
-        style: const TextStyle(fontSize: 18, color: Colors.black),
+        style:  TextStyle(fontSize: 18, color:themeFunctions.isDark
+                          ? darktitleColor
+                          : mainTextColor),
       ),
       subtitle: Text(emailText,
-          style: const TextStyle(fontSize: 16, color: Colors.black)),
+          style:  TextStyle(fontSize: 16, color: themeFunctions.isDark
+                          ? darktitleColor
+                          : mainTextColor)),
     );
   }
 }

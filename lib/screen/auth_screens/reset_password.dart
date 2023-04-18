@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycoins/screen/auth_screens/successful_reset%20.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/main_button_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 
@@ -20,8 +23,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(paddingAll + 5),
@@ -30,9 +40,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
+                decoration:  BoxDecoration(
+                  color: themeFunctions.isDark ? darkBackroundScreenColor: lightBackroundScreenColor,
+                  borderRadius:const BorderRadius.all(
                     Radius.circular(20),
                   ),
                 ),

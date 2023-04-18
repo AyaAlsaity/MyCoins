@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mycoins/widgets/static_widgets/drawer_widgets/info_card.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../helpers/consts.dart';
 import '../../../main.dart';
 import '../../../providers/dark_theme_provider.dart';
 import 'drawer_item.dart';
@@ -15,13 +16,15 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final themeFunctions =
-        Provider.of<DarkThemeProvider>(context, listen: false);
+        Provider.of<DarkThemeProvider>(context, listen: true);
     FirebaseAuth auth = FirebaseAuth.instance;
     return SizedBox(
       width: 330,
       child: Drawer(
         child: Material(
-          color: Colors.white,
+          color: themeFunctions.isDark
+                          ? darkBackroundScreenColor
+                          : lightBackroundScreenColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 70, 24, 0),
             child: Column(
@@ -31,15 +34,15 @@ class CustomDrawer extends StatelessWidget {
                   nameText: 'Areej',
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 const Divider(
                   thickness: 1,
                   height: 10,
-                  color: Colors.grey,
+                  color: greyColor,
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 DrawerItem(
                     title: AppLocalizations.of(context)!.proinfo,
@@ -78,10 +81,10 @@ class CustomDrawer extends StatelessWidget {
                 const Divider(
                   thickness: 1,
                   height: 10,
-                  color: Colors.grey,
+                  color: greyColor,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 DrawerItem(
                   title: AppLocalizations.of(context)!.loout,

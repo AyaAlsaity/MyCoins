@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycoins/helpers/consts.dart';
 
 import '../../main.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
 import '../sub_screens/notifications_screen.dart';
+import '../sub_screens/details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,10 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          iconTheme: const IconThemeData(color: mainColor),
-          elevation: 1,
-          shadowColor: mainColor.withOpacity(1),
-          backgroundColor: Colors.white,
+          // iconTheme: const IconThemeData(color: mainColor),
+           systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
           title: const Center(
               child: Text(
             "My Coins",
@@ -48,15 +50,15 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Center(
-            child: Text('Aya'),
+            child: Text('DetailsScreen'),
           ),
           IconButton(
               onPressed: () async {
-                auth.signOut();
-                Navigator.pushAndRemoveUntil(
+              
+                Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: ((context) => const MyApp())),
-                    (route) => false);
+                    CupertinoPageRoute(builder: ((context) => const DetailsScreen())),
+                );
               },
               icon: const Icon(
                 Icons.start,

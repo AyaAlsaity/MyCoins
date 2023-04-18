@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import '../../helpers/consts.dart';
 import 'intro_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,6 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+       appBar: AppBar(
+      elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
       body: Center(
         child: Image.asset(
           'assets/images/logo2.png',

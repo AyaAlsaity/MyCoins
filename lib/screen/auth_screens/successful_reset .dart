@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mycoins/helpers/consts.dart';
+import 'package:provider/provider.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/button.dart';
-import '../sub_screens/sign_in_screen.dart';
+import 'sign_in_screen.dart';
 
 class ResetSuccessful extends StatefulWidget {
   const ResetSuccessful({super.key});
@@ -14,8 +18,16 @@ class ResetSuccessful extends StatefulWidget {
 class _ResetSuccessfulState extends State<ResetSuccessful> {
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(80.0),
         child: Column(
@@ -23,9 +35,9 @@ class _ResetSuccessfulState extends State<ResetSuccessful> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
+              decoration:  BoxDecoration(
+                color: themeFunctions.isDark ? darkBackroundContinarColor: lightBackroundScreenColor,
+                borderRadius:const BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/consts.dart';
+import '../../providers/dark_theme_provider.dart';
 
 class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget(
@@ -30,6 +32,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool ispasswordshow = true;
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -72,31 +76,32 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               icon: Icon(
                 // ignore: dead_code
                 ispasswordshow ? Icons.visibility : Icons.visibility_off,
+                color: themeFunctions.isDark ? Colors.white54: greyTextColor,
               ),
             ):widget.perfix,
-                fillColor: lightBackroundScreenColor,
+                fillColor: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,
                 filled: true,
                 hintText: widget.hintText,
-                hintStyle:const TextStyle(
-                  color: greyTextColor,
+                hintStyle: TextStyle(
+                  color: themeFunctions.isDark ? Colors.white54: greyTextColor,
                   fontSize: 12,
                 ),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(15),
                     borderSide:
-                        const BorderSide(color:lightBackroundScreenColor)),
-                focusColor: lightBackroundScreenColor,
+                         BorderSide(color:themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,)),
+                focusColor: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,
                 errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(15),
                     borderSide: const BorderSide(color: warningColor)),
                 focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(15),
                     borderSide:
-                        const BorderSide(color: lightBackroundScreenColor)),
+                         BorderSide(color: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,)),
                 enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(15),
                     borderSide:
-                        const BorderSide(color: lightBackroundScreenColor)),
+                         BorderSide(color: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,)),
               ))
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycoins/helpers/consts.dart';
 
 class ClickableText extends StatefulWidget {
   const ClickableText({
@@ -6,7 +7,7 @@ class ClickableText extends StatefulWidget {
     required this.text,
     required this.onPressed,
     this.fontSize = 14,
-    this.color = const Color(0xFFF1D970),
+    this.color = mainColor,
     this.useColors = false,
     this.enabled = true,
     this.withUnderline = false,
@@ -39,7 +40,7 @@ class _ClickableTextState extends State<ClickableText> {
           style: TextStyle(
               fontSize: widget.fontSize,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFFF1D970),
+              color: mainColor,
               //themeListener.isDark && !widget.useColors
               //     ? lightWihteColor.withOpacity(widget.enabled ? 1 : 0.3)
               //     : widget.color.withOpacity(widget.enabled ? 1 : 0.3),

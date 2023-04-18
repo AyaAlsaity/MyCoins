@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../../helpers/consts.dart';
 
 class WayToresetPassword extends StatefulWidget {
   const WayToresetPassword({super.key});
@@ -12,6 +15,12 @@ class _WayToresetPasswordState extends State<WayToresetPassword> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
       body: Center(
         child: Column(
           children: [

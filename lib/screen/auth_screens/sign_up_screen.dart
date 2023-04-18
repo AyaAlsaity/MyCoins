@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../main.dart';
 import 'package:flutter/material.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../widgets/clickable_widgets/clickacble_text_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 import '../../widgets/static_widgets/status_dialog_content.dart';
 import 'sign_in_screen.dart';
@@ -18,8 +22,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  // FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  
   final GlobalKey<FormState> registerForm = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController listNameController = TextEditingController();
@@ -31,9 +34,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-        backgroundColor: lightBackroundScreenColor,
+       
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () => showCustomFlushbar(
         //       AppLocalizations.of(context)!.pass7,
@@ -41,6 +45,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         //       Icons.error,
         //       context),
         // ),
+         appBar: AppBar(
+          elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
         body: SafeArea(
           child: Form(
             key: registerForm,
@@ -55,12 +65,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   Container(
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration:  BoxDecoration(
+                      borderRadius:const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      color: secondeyTextColor,
+                       color: themeFunctions.isDark ? darkBackroundContinarColor : secondeyTextColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(paddingAll + 5),
@@ -72,10 +82,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Center(
                             child: Text(
                               AppLocalizations.of(context)!.butt3,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color: Colors.black87,
+                                color: themeFunctions.isDark ? Colors.white70: Colors.black87,
                               ),
                             ),
                           ),
@@ -146,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           TextFieldWidget(
                             label: AppLocalizations.of(context)!.name4,
-                            controller: firstNameController,
+                            controller: listNameController,
                             keyboardType: TextInputType.name,
                             hintText: AppLocalizations.of(context)!.name5,
                             validator: (String? value) {
@@ -158,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ispassword: false,
                           ),
                           const SizedBox(
-                            height: sizedBoxNotSameComponents,
+                             height: sizedBoxNotSameComponents+5,
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -180,7 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 } else {
                                   showCustomFlushbar(
                                       AppLocalizations.of(context)!.pass7,
-                                      Colors.red,
+                                      warningColor,
                                       Icons.error,
                                       context);
                                 }
@@ -192,29 +202,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               // widthh: 560,
                               // heightt: 50,
                               widthh: double.infinity,
-                              heightt: size.width / 7.3,
+                              heightt: size.width / 7.5,
                               paddingg: 13,
                             ),
                           ),
                           const SizedBox(
-                            height: sizedBoxSameComponents,
+                            height: sizedBoxNotSameComponents+10,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                          ClickableText(
+                                  text: AppLocalizations.of(context)!.butt2,
+                                  onPressed: () {
+                                     Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => const LoginScreen()),
+                                    builder: (context) =>
+                                        const LoginScreen()),
                               );
-                            },
-                            child: ButtonScreen(
-                              isbackround: false,
-                              title: AppLocalizations.of(context)!.butt2,
-                              widthh: double.infinity,
-                              heightt: size.width / 7.3,
-                              paddingg: 13,
-                            ),
-                          ),
+                                  }),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       CupertinoPageRoute(
+                          //           builder: (context) => const LoginScreen()),
+                          //     );
+                          //   },
+                          //   child: ButtonScreen(
+                          //     isbackround: false,
+                          //     title: AppLocalizations.of(context)!.butt2,
+                          //     widthh: double.infinity,
+                          //     heightt: size.width / 7.3,
+                          //     paddingg: 13,
+                          //   ),
+                          // ),
                           //  Row TextButton
                           const SizedBox(
                             height: sizedBoxNotSameComponents,

@@ -1,13 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycoins/helpers/consts.dart';
+import 'package:provider/provider.dart';
 import '../../main.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/button.dart';
 import '../../widgets/clickable_widgets/clickacble_text_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../auth_screens/forgot_pass_screen.dart';
+import 'forgot_pass_screen.dart';
 import 'sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,9 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-        backgroundColor: lightBackroundScreenColor,
+      appBar: AppBar(
+        elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
         body: SafeArea(
           child: Form(
             key: loginForm,
@@ -48,12 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration:  BoxDecoration(
+                      borderRadius:const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      color: secondeyTextColor,
+                      color: themeFunctions.isDark ? darkBackroundContinarColor : secondeyTextColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(paddingAll + 5),
@@ -66,10 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               AppLocalizations.of(context)!.butt0,
                               //  ' Log In',
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color: Colors.black87,
+                                color: themeFunctions.isDark ? Colors.white70: Colors.black87,
                               ),
                             ),
                           ),
@@ -117,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               ClickableText(
                                   text: AppLocalizations.of(context)!.forgot1,
+                                  fontSize: 11,
                                   onPressed: () {
                                     Navigator.push(
                                         context,
@@ -135,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           const SizedBox(
-                            height: sizedBoxNotSameComponents - 5,
+                            height: sizedBoxNotSameComponents+5,
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -157,30 +167,35 @@ class _LoginScreenState extends State<LoginScreen> {
                               isbackround: true,
                               title: AppLocalizations.of(context)!.butt0,
                               widthh: double.infinity,
-                              heightt: size.width / 7.3,
+                              heightt: size.width / 7.5,
                               paddingg: 13,
                             ),
                           ),
                           const SizedBox(
-                            height: sizedBoxSameComponents,
+                            height: sizedBoxNotSameComponents+10,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                          ClickableText(
+                                  text: AppLocalizations.of(context)!.butt1,
+                                  onPressed: () {
+                                     Navigator.push(
                                 context,
                                 CupertinoPageRoute(
                                     builder: (context) =>
                                         const RegisterScreen()),
                               );
-                            },
-                            child: ButtonScreen(
-                              isbackround: false,
-                              title: AppLocalizations.of(context)!.butt1,
-                              widthh: double.infinity,
-                              heightt: size.width / 7.3,
-                              paddingg: 13,
-                            ),
-                          ),
+                                  }),
+                          // GestureDetector(
+                          //   onTap: () {
+                             
+                          //   },
+                          //   child: ButtonScreen(
+                          //     isbackround: false,
+                          //     title: AppLocalizations.of(context)!.butt1,
+                          //     widthh: double.infinity,
+                          //     heightt: size.width / 7.3,
+                          //     paddingg: 13,
+                          //   ),
+                          // ),
                           const SizedBox(
                             height: sizedBoxNotSameComponents,
                           ),

@@ -18,13 +18,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'helpers/consts.dart';
 //dark mode
 import 'providers/dark_theme_provider.dart';
+import 'screen/main_screens/TabsScreen.dart';
 import 'screen/main_screens/home.dart';
-import 'screen/sub_screens/sign_in_screen.dart';
 // firebase
-
-
-
-
 
 Future<void> main() async {
   // await Firebase.initializeApp();
@@ -37,7 +33,7 @@ Future<void> main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-    static void setLocale(BuildContext context, Locale locale) {
+  static void setLocale(BuildContext context, Locale locale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state!.setLocale(locale);
   }
@@ -96,12 +92,12 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: Consumer<DarkThemeProvider>(builder: (context, themeListener, _) {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarColor:
-              themeListener.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
         ));
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -117,20 +113,123 @@ class _MyAppState extends State<MyApp> {
             ),
           ],
           locale: _locale,
-     
-      theme: ThemeData(
-        textTheme:
+          theme: ThemeData(
+            scaffoldBackgroundColor: themeListener.isDark
+              ? darkBackroundScreenColor
+              : lightBackroundScreenColor,
+            appBarTheme:  AppBarTheme(
+              titleTextStyle: GoogleFonts.tajawal(),
+              elevation: 0.2,
+              backgroundColor: themeListener.isDark
+              ? darkBackroundScreenColor
+              : lightBackroundScreenColor,
+              systemOverlayStyle:  SystemUiOverlayStyle(
+                statusBarColor: themeListener.isDark
+              ? darkBackroundScreenColor
+              : lightBackroundScreenColor,
+              ),
+               iconTheme: const IconThemeData(color: mainColor),
+            ),
+            textTheme:
                 GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme),
+           
+             colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: themeListener.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
+            ),
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+              
+            
+            primaryColor: mainColor,
+            scrollbarTheme: ScrollbarThemeData(
+              thickness: MaterialStateProperty.all<double>(10),
+              trackVisibility: MaterialStateProperty.all<bool>(true),
+            ).copyWith(
+              thumbColor: MaterialStateProperty.all(lightBackroundScreenColor),
+              trackColor:
+                  MaterialStateProperty.all(lightBackroundScreenColor.withOpacity(0.2)),
+            ),
+            progressIndicatorTheme: const ProgressIndicatorThemeData(
+              color: mainColor,
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              fillColor: themeListener.isDark
+                  ? darkBackroundScreenColor
+                  : lightBackroundScreenColor,
+              filled: true,
+              isDense: false,
+              border: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 0,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: warningColor,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: warningColor,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: mainColor.withOpacity(0.2),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
 
-        primarySwatch: Colors.blue,
-        ),
-      
-      home:auth.currentUser != null
-              ? const HomeScreen()
+
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: mainColor.withOpacity(0.5),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: mainColor.withOpacity(0.2),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+              hintStyle: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: greyTextColor,
+              ),
+              errorStyle: const TextStyle(
+                fontSize: 9,
+                color: warningColor,
+              ),
+            ),
+
+         
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              selectedItemColor: mainColor,
+              unselectedItemColor:
+                  themeListener.isDark ? lightBackroundScreenColor : darkBackroundScreenColor,
+              backgroundColor:
+                  themeListener.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
+              selectedLabelStyle: const TextStyle(
+                  color: mainColor, fontSize: 10, fontWeight: FontWeight.w600),
+              unselectedLabelStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600),
+              showUnselectedLabels: true,
+              elevation: 0,
+            ),
+          ),
+          home: auth.currentUser != null
+              ? const TabsScreen()
               : const SplashScreen(),
-    );
-      }
-      ),
+        );
+      }),
     );
   }
 }

@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycoins/screen/sub_screens/sign_in_screen.dart';
-import 'package:mycoins/widgets/static_widgets/Custom_dialog.dart';
+import 'package:flutter/services.dart';
+import 'package:mycoins/screen/auth_screens/sign_in_screen.dart';
+import 'package:mycoins/widgets/static_widgets/custom_dialog.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/consts.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/main_button_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
@@ -25,12 +28,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: mainColor),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+        // elevation: 0,
+        // backgroundColor: Colors.white,
+        // iconTheme: const IconThemeData(color: mainColor),
       ),
       body: Padding(
         padding: const EdgeInsets.all(paddingAll + 5),
@@ -61,26 +69,37 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(
                 height: size.height * 0.185,
               ),
-              TextFieldWidget(
-                controller: emailController,
-                validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return AppLocalizations.of(context)!.email3;
-                  }
+              Container(
+                 decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(paddingAll),
+                    color: themeFunctions.isDark
+                          ? darkBackroundContinarColor
+                          : secondeyTextColor,
+                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFieldWidget(
+                    controller: emailController,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return AppLocalizations.of(context)!.email3;
+                      }
 
-                  if (!value.contains('.com') || !value.contains('@')) {
-                    return AppLocalizations.of(context)!.email4;
-                  }
+                      if (!value.contains('.com') || !value.contains('@')) {
+                        return AppLocalizations.of(context)!.email4;
+                      }
 
-                  return null;
-                },
-                label: AppLocalizations.of(context)!.email1,
-                hintText: AppLocalizations.of(context)!.email2,
-                ispassword: false,
-                keyboardType: TextInputType.emailAddress,
+                      return null;
+                    },
+                    label: AppLocalizations.of(context)!.email1,
+                    hintText: AppLocalizations.of(context)!.email2,
+                    ispassword: false,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                ),
               ),
               SizedBox(
-                height: size.height * 0.2,
+                height: size.height * 0.15,
               ),
               MainButton(
                   // isActive: false,

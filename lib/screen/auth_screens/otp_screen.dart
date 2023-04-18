@@ -33,9 +33,14 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Color mainColor = const Color(0xFFF5C249);
+    // Color mainColor = const Color(0xFFF5C249);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -96,7 +101,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           inactiveColor: mainColor.withOpacity(0.2),
                           borderWidth: 1,
                           inactiveFillColor: mainColor.withOpacity(0.09),
-                          errorBorderColor: Colors.red,
+                          errorBorderColor: warningColor,
                           selectedColor: mainColor,
                           selectedFillColor: mainColor.withOpacity(0.2),
                           activeColor: mainColor,
@@ -109,7 +114,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       enableActiveFill: true,
                       controller: otpController,
                       hintCharacter: '',
-                      textStyle: TextStyle(color: mainColor, fontSize: 20),
+                      textStyle: const TextStyle(color: mainColor, fontSize: 20),
                       hintStyle: const TextStyle(
                           fontSize: 24,
                           color: Colors.black54,
@@ -140,7 +145,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: Text(
                     AppLocalizations.of(context)!.dgacr,
                     // "Didnt get a code? Resend ",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,

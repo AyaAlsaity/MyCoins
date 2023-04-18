@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycoins/helpers/consts.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -13,9 +14,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: mainColor),
+        // elevation: 0,
+        // backgroundColor: Colors.white,
+        // iconTheme: const IconThemeData(color: mainColor),
+         systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
       ),
       body: const Center(
         child: Text('Notifications Screen'),

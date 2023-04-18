@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mycoins/helpers/consts.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/dark_theme_provider.dart';
 
 class DrawerItem extends StatelessWidget {
   const DrawerItem(
@@ -13,6 +16,8 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     return InkWell(
       focusColor: mainColor.withOpacity(0.1),
       splashColor: mainColor.withOpacity(0.4),
@@ -31,7 +36,9 @@ class DrawerItem extends StatelessWidget {
             ),
             Text(
               title,
-              style: const TextStyle(fontSize: 18, color: Colors.black),
+              style:  TextStyle(fontSize: 16, color: themeFunctions.isDark
+                          ? darktitleColor
+                          : mainTextColor),
             )
           ],
         ),

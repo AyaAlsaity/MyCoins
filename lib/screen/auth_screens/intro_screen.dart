@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import '../../helpers/consts.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/clickacble_text_widget.dart';
 import '../../widgets/clickable_widgets/main_button_widget.dart';
 
-import '../../widgets/static_widgets/single_intro_screen.dart';
-import '../sub_screens/sign_in_screen.dart';
+import '../../widgets/intro_widgets/single_intro_screen.dart';
+import 'sign_in_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -16,9 +20,12 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  
   int currentIndex = 1;
   @override
   Widget build(BuildContext context) {
+     final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     List<Widget> pages = [
       SingleIntroScreen(
         image: 'assets/images/intro1.png',
@@ -41,12 +48,15 @@ class _IntroScreenState extends State<IntroScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: darkBackroundScreenColor,
+        ),
+        // elevation: 0,
+        // backgroundColor: Colors.white,
         centerTitle: false,
         title: Text(
           "$currentIndex/3",
-          style: const TextStyle(color: Color(0xff191A1D)),
+          style:  TextStyle(color:themeFunctions.isDark ? darktitleColor : mainTextColor,),
         ),
         actions: [
           Center(
@@ -54,7 +64,8 @@ class _IntroScreenState extends State<IntroScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: ClickableText(
                   text: "skip",
-                  color: const Color(0xff191A1D),
+                  color: mainTextColor,
+                  fontSize: 16,
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -75,14 +86,14 @@ class _IntroScreenState extends State<IntroScreen> {
             activeSize: const Size(18.0, 9.0),
             activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0)),
-            activeColor: const Color(0xFFF1D970),
+            activeColor: mainColor,
             // themeListener.isDark ? lightWihteColor : mainColor,
-            color: const Color(0xFFF1D970).withOpacity(0.6)
+            color: mainColor.withOpacity(0.6)
             //  themeListener.isDark
             //     ? lightWihteColor.withOpacity(0.5)
             //     : mainColor.withOpacity(0.5),
             ),
-        globalBackgroundColor: const Color(0xffffffff),
+        globalBackgroundColor: themeFunctions.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
         // themeListener.isDark ? darkGreyColor : lightWihteColor,
         rawPages: pages,
         onChange: (index) {
