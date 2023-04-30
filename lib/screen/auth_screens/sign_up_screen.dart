@@ -22,7 +22,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  
+
   final GlobalKey<FormState> registerForm = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController listNameController = TextEditingController();
@@ -34,10 +34,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-     final themeFunctions =
+    final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-       
+
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () => showCustomFlushbar(
         //       AppLocalizations.of(context)!.pass7,
@@ -45,12 +45,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         //       Icons.error,
         //       context),
         // ),
-         appBar: AppBar(
+        appBar: AppBar(
           elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: darkBackroundScreenColor,
+          ),
         ),
-      ),
         body: SafeArea(
           child: Form(
             key: registerForm,
@@ -58,19 +58,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/images/logIn5.png',
+                    'assets/images/logIn6.png',
                     width: double.infinity,
                     height: size.height / 3.3,
                     fit: BoxFit.contain,
                   ),
                   Container(
                     width: double.infinity,
-                    decoration:  BoxDecoration(
-                      borderRadius:const BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                       color: themeFunctions.isDark ? darkBackroundContinarColor : secondeyTextColor,
+                      color: themeFunctions.isDark
+                          ? darkBackroundContinarColor
+                          : secondeyTextColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(paddingAll + 5),
@@ -85,7 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color: themeFunctions.isDark ? Colors.white70: Colors.black87,
+                                color: themeFunctions.isDark
+                                    ? Colors.white70
+                                    : Colors.black87,
                               ),
                             ),
                           ),
@@ -168,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ispassword: false,
                           ),
                           const SizedBox(
-                             height: sizedBoxNotSameComponents+5,
+                            height: sizedBoxNotSameComponents + 5,
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -207,18 +211,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: sizedBoxNotSameComponents+10,
+                            height: sizedBoxNotSameComponents + 10,
                           ),
                           ClickableText(
-                                  text: AppLocalizations.of(context)!.butt2,
-                                  onPressed: () {
-                                     Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) =>
-                                        const LoginScreen()),
-                              );
-                                  }),
+                              text: AppLocalizations.of(context)!.butt2,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()),
+                                );
+                              }),
                           // GestureDetector(
                           //   onTap: () {
                           //     Navigator.push(

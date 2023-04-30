@@ -20,11 +20,10 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  
   int currentIndex = 1;
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+    final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     List<Widget> pages = [
       SingleIntroScreen(
@@ -56,18 +55,20 @@ class _IntroScreenState extends State<IntroScreen> {
         centerTitle: false,
         title: Text(
           "$currentIndex/3",
-          style:  TextStyle(color:themeFunctions.isDark ? darktitleColor : mainTextColor,),
+          style: TextStyle(
+            color: themeFunctions.isDark ? darktitleColor : mainTextColor,
+          ),
         ),
         actions: [
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: ClickableText(
-                  text: "skip",
+                  text: AppLocalizations.of(context)!.skip,
                   color: mainTextColor,
                   fontSize: 16,
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         CupertinoPageRoute(
                             builder: (context) => const LoginScreen()));
@@ -77,8 +78,6 @@ class _IntroScreenState extends State<IntroScreen> {
         ],
       ),
       body: IntroductionScreen(
-        showSkipButton: false,
-        showBackButton: false,
         showDoneButton: false,
         showNextButton: false,
         dotsDecorator: DotsDecorator(
@@ -93,7 +92,9 @@ class _IntroScreenState extends State<IntroScreen> {
             //     ? lightWihteColor.withOpacity(0.5)
             //     : mainColor.withOpacity(0.5),
             ),
-        globalBackgroundColor: themeFunctions.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
+        globalBackgroundColor: themeFunctions.isDark
+            ? darkBackroundScreenColor
+            : lightBackroundScreenColor,
         // themeListener.isDark ? darkGreyColor : lightWihteColor,
         rawPages: pages,
         onChange: (index) {
@@ -115,7 +116,9 @@ class _IntroScreenState extends State<IntroScreen> {
                 // txtColor:
                 //     currentIndex != 3 ? Colors.transparent : darkGreyColor,
                 radius: 16,
-                text: currentIndex == 3 ? "Get Started " : "next",
+                text: currentIndex == 3
+                    ? AppLocalizations.of(context)!.butt0
+                    : AppLocalizations.of(context)!.next,
                 // ? AppLocalizations.of(context)!.signin
                 // : AppLocalizations.of(context)!.scrolltonext,
                 widthFromScreen: 0.5,

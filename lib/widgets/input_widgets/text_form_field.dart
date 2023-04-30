@@ -12,13 +12,15 @@ class TextFieldWidget extends StatefulWidget {
       required this.validator,
       required this.hintText,
       this.obSecureText = false,
-      this.readOnlyy=false,
-      this.perfix, required this.ispassword, required this.keyboardType});
+      this.readOnlyy = false,
+      this.perfix,
+      required this.ispassword,
+      required this.keyboardType});
   final TextEditingController controller;
   final String? label;
   final String hintText;
   final FormFieldValidator<String?> validator;
-  final bool ispassword ;
+  final bool ispassword;
   final TextInputType keyboardType;
 
   final bool obSecureText;
@@ -32,7 +34,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool ispasswordshow = true;
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+    final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -44,64 +46,82 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               children: [
                 Text(
                   widget.label ?? "",
-                  style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500,
-                      color: mainTextColor.withOpacity(0.5)),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: darktitleColor),
                 ),
               ],
             ),
           const SizedBox(
             height: 5,
           ),
-          
           TextFormField(
-            
               controller: widget.controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: widget.validator,
-              obscureText: widget.ispassword? ispasswordshow:widget.obSecureText,
-              keyboardType:widget.keyboardType,
-              readOnly :widget.readOnlyy,
-
+              obscureText:
+                  widget.ispassword ? ispasswordshow : widget.obSecureText,
+              keyboardType: widget.keyboardType,
+              readOnly: widget.readOnlyy,
               decoration: InputDecoration(
-            
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 13.0, horizontal: 16),
-                suffixIcon:widget.ispassword? IconButton(
-              onPressed: () {
-                setState(() {
-                  ispasswordshow = !ispasswordshow;
-                });
-              },
-              icon: Icon(
-                // ignore: dead_code
-                ispasswordshow ? Icons.visibility : Icons.visibility_off,
-                color: themeFunctions.isDark ? Colors.white54: greyTextColor,
-              ),
-            ):widget.perfix,
-                fillColor: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 13.0, horizontal: 16),
+                suffixIcon: widget.ispassword
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            ispasswordshow = !ispasswordshow;
+                          });
+                        },
+                        icon: Icon(
+                            // ignore: dead_code
+                            ispasswordshow
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: mainColor
+                            //  themeFunctions.isDark
+                            //     ? Colors.white54
+                            //     : greyTextColor,
+                            ),
+                      )
+                    : widget.perfix,
+                fillColor: themeFunctions.isDark
+                    ? Colors.white30
+                    : lightBackroundScreenColor,
                 filled: true,
                 hintText: widget.hintText,
                 hintStyle: TextStyle(
-                  color: themeFunctions.isDark ? Colors.white54: greyTextColor,
+                  color: themeFunctions.isDark ? Colors.white54 : greyTextColor,
                   fontSize: 12,
                 ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                         BorderSide(color:themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,)),
-                focusColor: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,
+                    borderSide: BorderSide(
+                      color: themeFunctions.isDark
+                          ? Colors.white30
+                          : lightBackroundScreenColor,
+                    )),
+                focusColor: themeFunctions.isDark
+                    ? Colors.white30
+                    : lightBackroundScreenColor,
                 errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: const BorderSide(color: warningColor)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                         BorderSide(color: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,)),
+                    borderSide: BorderSide(
+                      color: themeFunctions.isDark
+                          ? Colors.white30
+                          : lightBackroundScreenColor,
+                    )),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                         BorderSide(color: themeFunctions.isDark ? Colors.white30: lightBackroundScreenColor,)),
+                    borderSide: BorderSide(
+                      color: themeFunctions.isDark
+                          ? Colors.white30
+                          : lightBackroundScreenColor,
+                    )),
               ))
         ],
       ),

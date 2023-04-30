@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mycoins/screen/auth_screens/sign_in_screen.dart';
+import 'package:mycoins/widgets/clickable_widgets/button.dart';
 import 'package:mycoins/widgets/static_widgets/custom_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../../widgets/clickable_widgets/main_button_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 
@@ -28,7 +28,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+    final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -47,35 +47,43 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: size.height * 0.125,
+                height: size.height * 0.01,
               ),
               Column(
                 children: [
                   Text(
                     AppLocalizations.of(context)!.fogottiti,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        color: themeFunctions.isDark
+                            ? darktitleColor
+                            : mainTextColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
                   ),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
                   Text(
                     AppLocalizations.of(context)!.fogotsubtiti,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 16),
+                    style: TextStyle(
+                        color: themeFunctions.isDark
+                            ? darktitleColor
+                            : mainTextColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16),
                   ),
                 ],
               ),
               SizedBox(
-                height: size.height * 0.185,
+                height: size.height * 0.100,
               ),
               Container(
-                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(paddingAll),
-                    color: themeFunctions.isDark
-                          ? darkBackroundContinarColor
-                          : secondeyTextColor,
-                  ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(paddingAll),
+                  color: themeFunctions.isDark
+                      ? darkBackroundContinarColor
+                      : secondeyTextColor,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldWidget(
@@ -99,38 +107,66 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height * 0.15,
+                height: size.height * 0.1,
               ),
-              MainButton(
-                  // isActive: false,
-                  text: AppLocalizations.of(context)!.contin,
-                  withBorder: false,
-                  onPressed: () {
-                    passwordReset();
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return CustomDialog(
-                            title: "title",
-                            subtitle: AppLocalizations.of(context)!.wjslyrea,
-                            // " We just sent an link to your registered email address ",
-                            btnText: AppLocalizations.of(context)!.butt0,
-                            onpress: () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreen()));
-                            },
-                            image:
-                                Image.asset("assets/images/white_success.png"),
-                          );
-                        });
-                    // Navigator.push(
-                    //     context,
-                    //     CupertinoPageRoute(
-                    //         builder: (context) => const OtpScreen()));
-                  }),
+              GestureDetector(
+                onTap: () {
+                  passwordReset();
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialog(
+                          title: "title",
+                          subtitle: AppLocalizations.of(context)!.wjslyrea,
+                          // " We just sent an link to your registered email address ",
+                          btnText: AppLocalizations.of(context)!.butt0,
+                          onpress: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          },
+                          image: Image.asset("assets/images/white_success.png"),
+                        );
+                      });
+                },
+                child: ButtonScreen(
+                    isbackround: true,
+                    title: AppLocalizations.of(context)!.contin,
+                    widthh: double.infinity,
+                    heightt: size.width / 7.5,
+                    paddingg: 13),
+              ),
+              // MainButton(
+              //     // isActive: false,
+              //     text: AppLocalizations.of(context)!.contin,
+              //     withBorder: false,
+              //     onPressed: () {
+              //       passwordReset();
+              //       showDialog(
+              //           context: context,
+              //           builder: (context) {
+              //             return CustomDialog(
+              //               title: "title",
+              //               subtitle: AppLocalizations.of(context)!.wjslyrea,
+              //               // " We just sent an link to your registered email address ",
+              //               btnText: AppLocalizations.of(context)!.butt0,
+              //               onpress: () {
+              //                 Navigator.push(
+              //                     context,
+              //                     CupertinoPageRoute(
+              //                         builder: (context) =>
+              //                             const LoginScreen()));
+              //               },
+              //               image:
+              //                   Image.asset("assets/images/white_success.png"),
+              //             );
+              //           });
+              //       // Navigator.push(
+              //       //     context,
+              //       //     CupertinoPageRoute(
+              //       //         builder: (context) => const OtpScreen()));
+              //     }),
             ],
           ),
         )),

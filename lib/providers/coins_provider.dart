@@ -5,35 +5,32 @@ import 'package:flutter/material.dart';
 import '../models/coins_model.dart';
 import '../services/api.dart';
 
-
-
-class GamesProvider with ChangeNotifier {
+class CoinsProvider with ChangeNotifier {
   bool isLoading = false;
   bool isFailed = false;
 
-  List<CoinsModel> gamesList = [];
+  List<CoinsModel> coinsList = [];
 
   final _api = Api();
 
-  getGames() async {
+  getCoins() async {
     isLoading = true;
-    
-         var response = await _api.get('/api/v3/coins/markets?vs_currency=usd&sparkline=true',
-        {});
-     
+
+    var response = await _api
+        .get('/api/v3/coins/markets?vs_currency=usd&sparkline=true', {});
 
     if (response.statusCode == 200) {
       var rawData = json.decode(response.body);
-      setGames(rawData);
+      setCoins(rawData);
     }
   }
 
-  setGames(jsonData) {
-    gamesList.clear();
+  setCoins(jsonData) {
+    coinsList.clear();
     isLoading = false;
 
     for (var i in jsonData) {
-      gamesList.add(CoinsModel.fromJson(i));
+      coinsList.add(CoinsModel.fromJson(i));
     }
 
     notifyListeners();

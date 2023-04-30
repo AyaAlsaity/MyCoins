@@ -3,11 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mycoins/helpers/consts.dart';
-
-import '../../main.dart';
+import 'package:mycoins/screen/sub_screens/notifications_screen.dart';
+import 'package:mycoins/widgets/clickable_widgets/carrenci_colum_data.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
-import '../sub_screens/notifications_screen.dart';
-import '../sub_screens/details_screen.dart';
+import '../../widgets/static_widgets/slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,10 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // iconTheme: const IconThemeData(color: mainColor),
-           systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: darkBackroundScreenColor,
+          ),
           title: const Center(
               child: Text(
             "My Coins",
@@ -46,24 +44,23 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ]),
       drawer: const CustomDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Center(
-            child: Text('DetailsScreen'),
-          ),
-          IconButton(
-              onPressed: () async {
-              
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: ((context) => const DetailsScreen())),
-                );
-              },
-              icon: const Icon(
-                Icons.start,
-              )),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            SizedBox(
+              height: 20,
+            ),
+            SliderWidget(),
+
+            Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8,
+                ),
+                child: CarrenciColumData())
+
+            //   ),
+          ],
+        ),
       ),
     );
   }

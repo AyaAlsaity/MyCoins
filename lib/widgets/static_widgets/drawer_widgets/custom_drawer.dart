@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycoins/screen/auth_screens/sign_in_screen.dart';
 import 'package:mycoins/widgets/static_widgets/drawer_widgets/info_card.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,8 +24,8 @@ class CustomDrawer extends StatelessWidget {
       child: Drawer(
         child: Material(
           color: themeFunctions.isDark
-                          ? darkBackroundScreenColor
-                          : lightBackroundScreenColor,
+              ? darkBackroundScreenColor
+              : lightBackroundScreenColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 70, 24, 0),
             child: Column(
@@ -62,9 +63,9 @@ class CustomDrawer extends StatelessWidget {
                     title: AppLocalizations.of(context)!.lag,
                     icon: Icons.language,
                     onPressed: () {
-                      AppLocalizations.of(context)!.localeName == 'ar'
-                          ? MyApp.setLocale(context, const Locale('en'))
-                          : MyApp.setLocale(context, const Locale('ar'));
+                      AppLocalizations.of(context)!.localeName == 'en'
+                          ? MyApp.setLocale(context, const Locale('ar'))
+                          : MyApp.setLocale(context, const Locale('en'));
                     }),
                 const SizedBox(
                   height: 30,
@@ -94,7 +95,7 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(
-                            builder: ((context) => const MyApp())),
+                            builder: ((context) => const LoginScreen())),
                         (route) => false);
                   },
                 ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/consts.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../clickable_widgets/main_button_widget.dart';
 
 class CustomDialog extends StatelessWidget {
@@ -19,14 +21,19 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeFunctions =
+        Provider.of<DarkThemeProvider>(context, listen: true);
     return Dialog(
+      backgroundColor: themeFunctions.isDark
+          ? darkBackroundContinarColor
+          : secondeyTextColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
             SizedBox(
-              height: 250,
+              height: 260,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
                 child: Column(
@@ -36,8 +43,12 @@ class CustomDialog extends StatelessWidget {
                       Text(
                         title,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                        style: TextStyle(
+                            color: themeFunctions.isDark
+                                ? darktitleColor
+                                : mainTextColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
                       const SizedBox(
                         height: sizedBoxSameComponents,
@@ -46,8 +57,12 @@ class CustomDialog extends StatelessWidget {
                         subtitle,
                         // " We just sent an link to your registered email address ",
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 18),
+                        style: TextStyle(
+                            color: themeFunctions.isDark
+                                ? darktitleColor
+                                : mainTextColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18),
                       ),
                       const SizedBox(
                         height: sizedBoxNotSameComponents,

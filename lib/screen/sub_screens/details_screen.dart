@@ -124,7 +124,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               });
             },
             icon: Icon(
-              isOk1 ? Icons.favorite : Icons.favorite_border_outlined,
+              isOk1 ? Icons.star : Icons.star_border_outlined,
               color: mainColor,
             ),
           ),
@@ -209,7 +209,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Text(
                                     listDetails[index].name,
                                     style: TextStyle(
-                                      fontSize: 11,
+                                      fontSize: 18,
                                       color: themeFunctions.isDark
                                           ? darkMainTextColor
                                           : Colors.grey.shade700,
@@ -219,7 +219,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Text(
                                     listDetails[index].number.toString(),
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 16,
                                       color: themeFunctions.isDark
                                           ? darktitleColor
                                           : mainTextColor,

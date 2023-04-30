@@ -19,7 +19,6 @@ import 'helpers/consts.dart';
 //dark mode
 import 'providers/dark_theme_provider.dart';
 import 'screen/main_screens/TabsScreen.dart';
-import 'screen/main_screens/home.dart';
 // firebase
 
 Future<void> main() async {
@@ -33,6 +32,7 @@ Future<void> main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  
   static void setLocale(BuildContext context, Locale locale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state!.setLocale(locale);
@@ -44,7 +44,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  Locale _locale = const Locale('ar');
+  Locale _locale = const Locale('en');
 
   void setLocale(Locale locale) {
     setState(() {
@@ -92,8 +92,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: Consumer<DarkThemeProvider>(builder: (context, themeListener, _) {
-        SystemChrome.setSystemUIOverlayStyle(
-          const SystemUiOverlayStyle(
+        SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           statusBarColor: darkBackroundScreenColor,
         ));
         return MaterialApp(
@@ -115,39 +114,38 @@ class _MyAppState extends State<MyApp> {
           locale: _locale,
           theme: ThemeData(
             scaffoldBackgroundColor: themeListener.isDark
-              ? darkBackroundScreenColor
-              : lightBackroundScreenColor,
-            appBarTheme:  AppBarTheme(
+                ? darkBackroundScreenColor
+                : lightBackroundScreenColor,
+            appBarTheme: AppBarTheme(
               titleTextStyle: GoogleFonts.tajawal(),
               elevation: 0.2,
               backgroundColor: themeListener.isDark
-              ? darkBackroundScreenColor
-              : lightBackroundScreenColor,
-              systemOverlayStyle:  SystemUiOverlayStyle(
+                  ? darkBackroundScreenColor
+                  : lightBackroundScreenColor,
+              systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: themeListener.isDark
-              ? darkBackroundScreenColor
-              : lightBackroundScreenColor,
+                    ? darkBackroundScreenColor
+                    : lightBackroundScreenColor,
               ),
-               iconTheme: const IconThemeData(color: mainColor),
+              iconTheme: const IconThemeData(color: mainColor),
             ),
             textTheme:
                 GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme),
-           
-             colorScheme: ColorScheme.fromSwatch().copyWith(
-              secondary: themeListener.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: themeListener.isDark
+                  ? darkBackroundScreenColor
+                  : lightBackroundScreenColor,
             ),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-              
-            
             primaryColor: mainColor,
             scrollbarTheme: ScrollbarThemeData(
               thickness: MaterialStateProperty.all<double>(10),
               trackVisibility: MaterialStateProperty.all<bool>(true),
             ).copyWith(
               thumbColor: MaterialStateProperty.all(lightBackroundScreenColor),
-              trackColor:
-                  MaterialStateProperty.all(lightBackroundScreenColor.withOpacity(0.2)),
+              trackColor: MaterialStateProperty.all(
+                  lightBackroundScreenColor.withOpacity(0.2)),
             ),
             progressIndicatorTheme: const ProgressIndicatorThemeData(
               color: mainColor,
@@ -182,8 +180,6 @@ class _MyAppState extends State<MyApp> {
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(10)),
-
-
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: mainColor.withOpacity(0.5),
@@ -207,14 +203,14 @@ class _MyAppState extends State<MyApp> {
                 color: warningColor,
               ),
             ),
-
-         
             bottomNavigationBarTheme: BottomNavigationBarThemeData(
               selectedItemColor: mainColor,
-              unselectedItemColor:
-                  themeListener.isDark ? lightBackroundScreenColor : darkBackroundScreenColor,
-              backgroundColor:
-                  themeListener.isDark ? darkBackroundScreenColor : lightBackroundScreenColor,
+              unselectedItemColor: themeListener.isDark
+                  ? lightBackroundScreenColor
+                  : darkBackroundScreenColor,
+              backgroundColor: themeListener.isDark
+                  ? darkBackroundScreenColor
+                  : lightBackroundScreenColor,
               selectedLabelStyle: const TextStyle(
                   color: mainColor, fontSize: 10, fontWeight: FontWeight.w600),
               unselectedLabelStyle: const TextStyle(

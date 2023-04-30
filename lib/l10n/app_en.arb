@@ -6,6 +6,7 @@
     "next":"Next",
     "skip":"Skip",
     "done":"Done",
+    "getstar":"Get Started ",
     "contin":"Continue",
     
 
@@ -65,7 +66,9 @@
     "dakmo":"Dark Mode",
     "loout":"Log out",
 
-    "wjslyrea":" We just sent an link to your registered email address "
+    "wjslyrea":" We just sent an link to your registered email address ",
+
+    "alcuuren":"all currencies"
 
   
    

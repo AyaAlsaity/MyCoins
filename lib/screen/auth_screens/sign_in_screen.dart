@@ -29,15 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-     final themeFunctions =
+    final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
+        appBar: AppBar(
+          elevation: 0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: darkBackroundScreenColor,
+          ),
         ),
-      ),
         body: SafeArea(
           child: Form(
             key: loginForm,
@@ -50,19 +50,21 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/images/logIn5.png',
+                    'assets/images/logIn6.png',
                     width: double.infinity,
                     height: size.height / 3.3,
                     fit: BoxFit.contain,
                   ),
                   Container(
                     width: double.infinity,
-                    decoration:  BoxDecoration(
-                      borderRadius:const BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      color: themeFunctions.isDark ? darkBackroundContinarColor : secondeyTextColor,
+                      color: themeFunctions.isDark
+                          ? darkBackroundContinarColor
+                          : secondeyTextColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(paddingAll + 5),
@@ -75,10 +77,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               AppLocalizations.of(context)!.butt0,
                               //  ' Log In',
-                              style:  TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color: themeFunctions.isDark ? Colors.white70: Colors.black87,
+                                color: themeFunctions.isDark
+                                    ? Colors.white70
+                                    : Colors.black87,
                               ),
                             ),
                           ),
@@ -145,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           const SizedBox(
-                            height: sizedBoxNotSameComponents+5,
+                            height: sizedBoxNotSameComponents + 5,
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -155,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         email: emailController.text,
                                         password: passwordController.text)
                                     .then((value) async {
-                                  Navigator.pushAndRemoveUntil(
+                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) => const MyApp()),
@@ -172,21 +176,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: sizedBoxNotSameComponents+10,
+                            height: sizedBoxNotSameComponents + 10,
                           ),
                           ClickableText(
-                                  text: AppLocalizations.of(context)!.butt1,
-                                  onPressed: () {
-                                     Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) =>
-                                        const RegisterScreen()),
-                              );
-                                  }),
+                              text: AppLocalizations.of(context)!.butt1,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const RegisterScreen()),
+                                );
+                              }),
                           // GestureDetector(
                           //   onTap: () {
-                             
+
                           //   },
                           //   child: ButtonScreen(
                           //     isbackround: false,
