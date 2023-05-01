@@ -62,6 +62,8 @@ dependencies:
   image_picker:
   # geolocator:
   cloud_firestore:
+  fl_chart:
+  money_converter:
 
 dev_dependencies:
   flutter_test:

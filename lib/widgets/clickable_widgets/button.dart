@@ -28,14 +28,14 @@ class _ButtonScreenState extends State<ButtonScreen> {
       height: widget.heightt,
       width: widget.widthh,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         color: widget.isbackround ? mainColor : secondeyTextColor,
         border: Border.all(color: mainColor, width: 2),
       ),
-      // ignore: prefer_const_constructors
+     
       child: Padding(
         padding: EdgeInsets.all(widget.paddingg),
-        // ignore: prefer_const_constructors
+       
         child: Text(
           widget.title,
           textAlign: TextAlign.center,

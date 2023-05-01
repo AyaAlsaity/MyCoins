@@ -87,8 +87,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color: themeFunctions.isDark
-                                    ? Colors.white70
+                                color:themeFunctions.isDark
+                                    ? secondeyTextColor
                                     : Colors.black87,
                               ),
                             ),

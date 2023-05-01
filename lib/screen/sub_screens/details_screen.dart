@@ -1,11 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import '../../helpers/consts.dart';
 import '../../models/details_map.dart';
 import '../../providers/dark_theme_provider.dart';
+import '../../widgets/static_widgets/chartWidget.dart';
 import '../../widgets/static_widgets/continarDarkmode.dart';
+import '../../widgets/static_widgets/money_converter_widget.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -102,20 +104,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
               width: 5,
             ),
             Text(
-              'Bitcoin',
-              style: TextStyle(
-                  color: themeFunctions.isDark ? darktitleColor : mainTextColor,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
               '(btc)'.toUpperCase(),
               style: TextStyle(
                 fontSize: 14,
                 color: themeFunctions.isDark ? darktitleColor : mainTextColor,
               ),
             ),
+            Text(
+
+              'Bitcoin',
+              style: TextStyle(
+                  color: themeFunctions.isDark ? darktitleColor : mainTextColor,
+                  fontWeight: FontWeight.bold),
+            ),
+            
           ],
         ),
+        
         actions: [
           IconButton(
             onPressed: () {
@@ -130,16 +135,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () { Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const moneyConverter())); },
+                                                child: Icon(Icons.local_convenience_store_rounded),
+
+      ),
       body: SingleChildScrollView(
+      
         child: Padding(
-          padding: const EdgeInsets.all(paddingAll),
+          padding: const EdgeInsets.all(paddingAll-5),
           child: Column(
             children: [
               Row(
                 // mainAxisAlignment : MainAxisAlignment.center,
                 children: [
                   Text(
-                    '586578312211', //$ ?
+                    '\$586578312211',
                     style: TextStyle(
                       fontSize: 24,
                       color: themeFunctions.isDark
@@ -183,6 +197,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingAll),
                 child: Container(
+                   width: size.width,
+                    height: size.width/1.8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(paddingAll),
+                      color: themeFunctions.isDark
+                          ? darkBackroundContinarColor
+                          : secondeyTextColor,
+                    ),
+                    child: const Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child:  ExpenseGraphDesign(),
+                    )),
+              ),
+              const SizedBox(
+                height: sizedBoxNotSameComponents + 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingAll),
+                child: Container(
                   width: size.width,
                   height: size.height * 1.13,
                   decoration: BoxDecoration(
@@ -209,7 +242,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Text(
                                     listDetails[index].name,
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 12,
                                       color: themeFunctions.isDark
                                           ? darkMainTextColor
                                           : Colors.grey.shade700,
@@ -219,7 +252,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Text(
                                     listDetails[index].number.toString(),
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 12,
                                       color: themeFunctions.isDark
                                           ? darktitleColor
                                           : mainTextColor,

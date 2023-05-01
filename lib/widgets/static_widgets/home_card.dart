@@ -33,7 +33,7 @@ class _HomeCardState extends State<HomeSliderCard> {
         // ),
         Container(
           width: double.infinity,
-          height: 70,
+          // height: 70,
           decoration: BoxDecoration(
             color: themeListener.isDark
                 ? darkBackroundContinarColor
@@ -69,13 +69,13 @@ class _HomeCardState extends State<HomeSliderCard> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 14),
+                        // const SizedBox(height: 5),
                         Text(
                           'Text',
                           style: TextStyle(
@@ -93,14 +93,14 @@ class _HomeCardState extends State<HomeSliderCard> {
                             color: themeListener.isDark
                                 ? darktitleColor
                                 : mainTextColor,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(
-                      width: 140,
+                      width: 80,
                     ),
                     Text(
                       '+2,304%',

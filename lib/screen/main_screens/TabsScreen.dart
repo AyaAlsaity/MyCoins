@@ -3,7 +3,7 @@ import 'package:mycoins/screen/main_screens/home.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../sub_screens/notifications_screen.dart';
+import '../sub_screens/favorite_screen.dart';
 import '../sub_screens/profile_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _TabsScreenState extends State<TabsScreen> {
         child: currentIndex == 0
             ? const ProfileScreen()
             : currentIndex == 1
-                ? const NotificationsScreen()
+                ? const FavoriteScreen()
                 : const HomeScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -53,28 +53,28 @@ class _TabsScreenState extends State<TabsScreen> {
                 height: size.width / 13,
                 fit: BoxFit.contain,
                 color:
-                    currentIndex == 0 ? mainColor : mainColor.withOpacity(0.3),
+                    currentIndex == 0 ? mainColor : mainColor.withOpacity(0.6),
               )),
-          BottomNavigationBarItem(
+              BottomNavigationBarItem(
               label: '',
-              icon: Image.asset(
-                'assets/icons/notificationIcon.png',
-                width: size.width / 13,
-                height: size.width / 13,
-                fit: BoxFit.contain,
-                color:
-                    currentIndex == 1 ? mainColor : mainColor.withOpacity(0.3),
-              )),
-          BottomNavigationBarItem(
+              icon:Icon(Icons.star,
+              size: size.width/11,
+              color:
+                    currentIndex == 1 ? mainColor : mainColor.withOpacity(0.6), 
+              ),
+              ),
+               BottomNavigationBarItem(
               label: '',
               icon: Image.asset(
                 'assets/icons/homeIcon.png',
                 width: size.width / 13,
                 height: size.width / 13,
                 color:
-                    currentIndex == 2 ? mainColor : mainColor.withOpacity(0.3),
+                    currentIndex == 2? mainColor : mainColor.withOpacity(0.6),
                 fit: BoxFit.contain,
-              ))
+              )),
+             
+         
         ],
       ),
     );

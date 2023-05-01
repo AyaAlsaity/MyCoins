@@ -17,8 +17,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -43,20 +45,26 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           ]),
+      
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            SizedBox(
+          children:   [
+             const SizedBox(
               height: 20,
             ),
-            SliderWidget(),
-
-            Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                ),
-                child: CarrenciColumData())
+             const SliderWidget(),
+              
+               const SizedBox(
+              height: 20,
+            ),
+              SizedBox(
+                width: double.infinity,
+                height: size.height,
+                child:  const SingleChildScrollView(
+                  scrollDirection : Axis.horizontal,
+                  child: CarrenciColumData())
+                  )
 
             //   ),
           ],

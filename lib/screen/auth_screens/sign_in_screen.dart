@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
                                 color: themeFunctions.isDark
-                                    ? Colors.white70
+                                    ? secondeyTextColor
                                     : Colors.black87,
                               ),
                             ),
@@ -138,14 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             builder: (context) =>
                                                 const ForgotPasswordScreen()));
                                   }),
-                              // Text(
-                              //   AppLocalizations.of(context)!.forgot1,
-                              //   style: const TextStyle(
-                              //     fontWeight: FontWeight.w500,
-                              //     fontSize: 12,
-                              //     color: mainColor,
-                              //   ),
-                              // )
                             ],
                           ),
                           const SizedBox(
@@ -188,18 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           const RegisterScreen()),
                                 );
                               }),
-                          // GestureDetector(
-                          //   onTap: () {
-
-                          //   },
-                          //   child: ButtonScreen(
-                          //     isbackround: false,
-                          //     title: AppLocalizations.of(context)!.butt1,
-                          //     widthh: double.infinity,
-                          //     heightt: size.width / 7.3,
-                          //     paddingg: 13,
-                          //   ),
-                          // ),
+                          
                           const SizedBox(
                             height: sizedBoxNotSameComponents,
                           ),
@@ -207,6 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                
+                
                 ],
               ),
             ),

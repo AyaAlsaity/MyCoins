@@ -8,6 +8,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../helpers/consts.dart';
 import '../../../main.dart';
 import '../../../providers/dark_theme_provider.dart';
+import '../../../screen/sub_screens/favorite_screen.dart';
+import '../../../screen/sub_screens/infoApp_screen.dart';
 import 'drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -54,11 +56,18 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 DrawerItem(
                     title: AppLocalizations.of(context)!.favr,
-                    icon: Icons.favorite_outline,
-                    onPressed: () {}),
+                    icon: Icons.star,
+                    onPressed: () {
+                       Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => const FavoriteScreen()),
+                                      (route) => false);
+                    }),
                 const SizedBox(
                   height: 30,
                 ),
+                
                 DrawerItem(
                     title: AppLocalizations.of(context)!.lag,
                     icon: Icons.language,
@@ -71,8 +80,8 @@ class CustomDrawer extends StatelessWidget {
                   height: 30,
                 ),
                 DrawerItem(
-                    title: AppLocalizations.of(context)!.dakmo,
-                    icon: themeListener.isDark ? Icons.dark_mode : Icons.sunny,
+                    title:themeListener.isDark ? AppLocalizations.of(context)!.lakmo:AppLocalizations.of(context)!.dakmo,
+                    icon: themeListener.isDark ? Icons.sunny:Icons.dark_mode,
                     onPressed: () {
                       themeFunctions.switchMode();
                     }),
@@ -85,7 +94,20 @@ class CustomDrawer extends StatelessWidget {
                   color: greyColor,
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
+                ),
+                 DrawerItem(
+                    title: AppLocalizations.of(context)!.settings,
+                    icon: Icons.settings,
+                    onPressed: () {
+                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const InfoAppScreen()));
+                    }),
+                const SizedBox(
+                  height: 10,
                 ),
                 DrawerItem(
                   title: AppLocalizations.of(context)!.loout,
@@ -99,6 +121,7 @@ class CustomDrawer extends StatelessWidget {
                         (route) => false);
                   },
                 ),
+                
               ],
             ),
           ),

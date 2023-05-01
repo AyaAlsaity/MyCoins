@@ -55,15 +55,15 @@ class _MyAppState extends State<MyApp> {
   getLocalLang() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? localCode = prefs.getString('langCode');
-    if (localCode == 'en') {
-      setState(() {
-        _locale = const Locale('en');
-        setLocale(const Locale('en'));
-      });
-    } else {
+    if (localCode == 'ar') {
       setState(() {
         _locale = const Locale('ar');
         setLocale(const Locale('ar'));
+      });
+    } else {
+      setState(() {
+        _locale = const Locale('en');
+        setLocale(const Locale('en'));
       });
     }
   }
@@ -149,60 +149,64 @@ class _MyAppState extends State<MyApp> {
             ),
             progressIndicatorTheme: const ProgressIndicatorThemeData(
               color: mainColor,
-            ),
-            inputDecorationTheme: InputDecorationTheme(
-              fillColor: themeListener.isDark
-                  ? darkBackroundScreenColor
-                  : lightBackroundScreenColor,
-              filled: true,
-              isDense: false,
-              border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              focusedErrorBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: warningColor,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              errorBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: warningColor,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: mainColor.withOpacity(0.2),
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: mainColor.withOpacity(0.5),
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: mainColor.withOpacity(0.2),
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-              hintStyle: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: greyTextColor,
-              ),
-              errorStyle: const TextStyle(
-                fontSize: 9,
-                color: warningColor,
-              ),
-            ),
+           
+           ),
+          
+            // inputDecorationTheme: InputDecorationTheme(
+            //   fillColor: themeListener.isDark
+            //       ? darkBackroundScreenColor
+            //       : lightBackroundScreenColor,
+            //   filled: true,
+            //   isDense: false,
+            //   border: OutlineInputBorder(
+            //       borderSide: const BorderSide(
+            //         color: Colors.transparent,
+            //         width: 0,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   focusedErrorBorder: OutlineInputBorder(
+            //       borderSide: const BorderSide(
+            //         color: warningColor,
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   errorBorder: OutlineInputBorder(
+            //       borderSide: const BorderSide(
+            //         color: warningColor,
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   enabledBorder: OutlineInputBorder(
+            //       borderSide: BorderSide(
+            //         color: mainColor.withOpacity(0.2),
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   focusedBorder: OutlineInputBorder(
+            //       borderSide: BorderSide(
+            //         color: mainColor.withOpacity(0.5),
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   disabledBorder: OutlineInputBorder(
+            //       borderSide: BorderSide(
+            //         color: mainColor.withOpacity(0.2),
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10)),
+            //   contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+            //   hintStyle: const TextStyle(
+            //     fontWeight: FontWeight.w400,
+            //     fontSize: 14,
+            //     color: greyTextColor,
+            //   ),
+            //   errorStyle: const TextStyle(
+            //     fontSize: 9,
+            //     color: warningColor,
+            //   ),
+            // ),
+           
+           
             bottomNavigationBarTheme: BottomNavigationBarThemeData(
               selectedItemColor: mainColor,
               unselectedItemColor: themeListener.isDark

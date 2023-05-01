@@ -24,7 +24,7 @@ class _SliderWidgetState extends State<SliderWidget> {
       options: CarouselOptions(
         autoPlay: true,
         enableInfiniteScroll: true,
-        height: size.height * 0.1,
+        height: size.height * 0.13,
         viewportFraction: 0.9,
       ),
       items: cardlist

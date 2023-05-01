@@ -19,8 +19,10 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final double width = MediaQuery.of(context).size.width;
     return DataTable(
+      
+       dividerThickness:2,
         dataRowHeight: 60,
-        columnSpacing: 0,
+        columnSpacing: 2,
         horizontalMargin: 0,
         columns: [
           DataColumn(
@@ -45,7 +47,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
               label: Row(
             children: [
               Container(
-                width: width * 0.1,
+                width: width * 0.2,
                 alignment: Alignment.center,
                 child: Text(
                   "Coin",
@@ -128,6 +130,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 ),
               ),
             )),
+            
             DataCell(GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -138,11 +141,11 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
               child: Container(
                 alignment: Alignment.center,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 4,
+                      height: 10,
                     ),
                     Container(
                       width: 20,
@@ -167,11 +170,13 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                         fontSize: 16,
                       ),
                     ),
+                   
                   ],
                 ),
               ),
             )),
             DataCell(Container(
+              width: 110,
               alignment: Alignment.center,
               child: Text(
                 '\$24,000.00',
@@ -203,10 +208,11 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
               ),
             )),
             DataCell(Container(
-              padding: const EdgeInsets.only(right: 20),
-              alignment: Alignment.centerRight,
+             width: 110,
+              // padding: const EdgeInsets.only(right: 20),
+              // alignment: Alignment.centerRight,
               child: Text(
-                '\$200,000,000,000',
+                '\$200,000',
                 textAlign: TextAlign.right,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,

@@ -40,137 +40,158 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         // backgroundColor: Colors.white,
         // iconTheme: const IconThemeData(color: mainColor),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(paddingAll + 5),
-        child: Center(
-            child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: size.height * 0.01,
+      body: Center(
+          child: SingleChildScrollView(
+        child: Column(
+          
+          children: [
+            SizedBox(
+              height: size.height * 0.15,
+            ),
+            Center(
+              child: Text(
+                AppLocalizations.of(context)!.fogottiti,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: themeFunctions.isDark
+                        ? darktitleColor
+                        : mainTextColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700),
               ),
-              Column(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.fogottiti,
-                    style: TextStyle(
-                        color: themeFunctions.isDark
-                            ? darktitleColor
-                            : mainTextColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.fogotsubtiti,
-                    style: TextStyle(
-                        color: themeFunctions.isDark
-                            ? darktitleColor
-                            : mainTextColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16),
-                  ),
-                ],
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            Center(
+              child: Text(
+                AppLocalizations.of(context)!.fogotsubtiti,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: themeFunctions.isDark
+                        ? darktitleColor
+                        : mainTextColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16),
               ),
-              SizedBox(
-                height: size.height * 0.100,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(paddingAll),
-                  color: themeFunctions.isDark
-                      ? darkBackroundContinarColor
-                      : secondeyTextColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFieldWidget(
-                    controller: emailController,
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return AppLocalizations.of(context)!.email3;
-                      }
+            ),
+            SizedBox(
+              height: size.height * 0.150,
+            ),
 
-                      if (!value.contains('.com') || !value.contains('@')) {
-                        return AppLocalizations.of(context)!.email4;
-                      }
+ Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    color: themeFunctions.isDark
+                        ? darkBackroundContinarColor
+                        : secondeyTextColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(paddingAll + 5),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: sizedBoxNotSameComponents,
+                        ),
+                         TextFieldWidget(
+                      controller: emailController,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return AppLocalizations.of(context)!.email3;
+                        }
 
-                      return null;
-                    },
-                    label: AppLocalizations.of(context)!.email1,
-                    hintText: AppLocalizations.of(context)!.email2,
-                    ispassword: false,
-                    keyboardType: TextInputType.emailAddress,
+                        if (!value.contains('.com') || !value.contains('@')) {
+                          return AppLocalizations.of(context)!.email4;
+                        }
+
+                        return null;
+                      },
+                      label: AppLocalizations.of(context)!.email1,
+                      hintText: AppLocalizations.of(context)!.email2,
+                      ispassword: false,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.1,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        passwordReset();
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CustomDialog(
+                                title: "title",
+                                subtitle: AppLocalizations.of(context)!.wjslyrea,
+                                // " We just sent an link to your registered email address ",
+                                btnText: AppLocalizations.of(context)!.butt0,
+                                onpress: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => const LoginScreen()));
+                                },
+                                image: Image.asset("assets/images/white_success.png"),
+                              );
+                            });
+                      },
+                      child: ButtonScreen(
+                          isbackround: true,
+                          title: AppLocalizations.of(context)!.contin,
+                          widthh: double.infinity,
+                          heightt: size.width / 7.5,
+                          paddingg: 13),
+                    ),
+              
+                       const SizedBox(
+                          height: sizedBoxNotSameComponents,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: size.height * 0.1,
-              ),
-              GestureDetector(
-                onTap: () {
-                  passwordReset();
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomDialog(
-                          title: "title",
-                          subtitle: AppLocalizations.of(context)!.wjslyrea,
-                          // " We just sent an link to your registered email address ",
-                          btnText: AppLocalizations.of(context)!.butt0,
-                          onpress: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => const LoginScreen()));
-                          },
-                          image: Image.asset("assets/images/white_success.png"),
-                        );
-                      });
-                },
-                child: ButtonScreen(
-                    isbackround: true,
-                    title: AppLocalizations.of(context)!.contin,
-                    widthh: double.infinity,
-                    heightt: size.width / 7.5,
-                    paddingg: 13),
-              ),
-              // MainButton(
-              //     // isActive: false,
-              //     text: AppLocalizations.of(context)!.contin,
-              //     withBorder: false,
-              //     onPressed: () {
-              //       passwordReset();
-              //       showDialog(
-              //           context: context,
-              //           builder: (context) {
-              //             return CustomDialog(
-              //               title: "title",
-              //               subtitle: AppLocalizations.of(context)!.wjslyrea,
-              //               // " We just sent an link to your registered email address ",
-              //               btnText: AppLocalizations.of(context)!.butt0,
-              //               onpress: () {
-              //                 Navigator.push(
-              //                     context,
-              //                     CupertinoPageRoute(
-              //                         builder: (context) =>
-              //                             const LoginScreen()));
-              //               },
-              //               image:
-              //                   Image.asset("assets/images/white_success.png"),
-              //             );
-              //           });
-              //       // Navigator.push(
-              //       //     context,
-              //       //     CupertinoPageRoute(
-              //       //         builder: (context) => const OtpScreen()));
-              //     }),
-            ],
-          ),
-        )),
-      ),
+              
+
+
+
+           
+            // MainButton(
+            //     // isActive: false,
+            //     text: AppLocalizations.of(context)!.contin,
+            //     withBorder: false,
+            //     onPressed: () {
+            //       passwordReset();
+            //       showDialog(
+            //           context: context,
+            //           builder: (context) {
+            //             return CustomDialog(
+            //               title: "title",
+            //               subtitle: AppLocalizations.of(context)!.wjslyrea,
+            //               // " We just sent an link to your registered email address ",
+            //               btnText: AppLocalizations.of(context)!.butt0,
+            //               onpress: () {
+            //                 Navigator.push(
+            //                     context,
+            //                     CupertinoPageRoute(
+            //                         builder: (context) =>
+            //                             const LoginScreen()));
+            //               },
+            //               image:
+            //                   Image.asset("assets/images/white_success.png"),
+            //             );
+            //           });
+            //       // Navigator.push(
+            //       //     context,
+            //       //     CupertinoPageRoute(
+            //       //         builder: (context) => const OtpScreen()));
+            //     }),
+          ],
+        ),
+      )),
     );
   }
 }

@@ -64,7 +64,12 @@
     "favr":"Favourites",
     "lag":"Language",
     "dakmo":"Dark Mode",
+    "lakmo":"Light Mode",
     "loout":"Log out",
+
+    "support":"Technical Support",
+    
+    "settings":"settings",
 
     "wjslyrea":" We just sent an link to your registered email address ",
 

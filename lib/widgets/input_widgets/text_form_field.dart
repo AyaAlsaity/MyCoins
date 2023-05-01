@@ -46,10 +46,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               children: [
                 Text(
                   widget.label ?? "",
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: darktitleColor),
+                      color:themeFunctions.isDark ? secondeyTextColor : darktitleColor),
                 ),
               ],
             ),
@@ -75,14 +75,12 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                           });
                         },
                         icon: Icon(
-                            // ignore: dead_code
+                           
                             ispasswordshow
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                             color: mainColor
-                            //  themeFunctions.isDark
-                            //     ? Colors.white54
-                            //     : greyTextColor,
+                            
                             ),
                       )
                     : widget.perfix,
@@ -115,13 +113,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                           ? Colors.white30
                           : lightBackroundScreenColor,
                     )),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      color: themeFunctions.isDark
-                          ? Colors.white30
-                          : lightBackroundScreenColor,
-                    )),
+                // enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(15),
+                //     borderSide: BorderSide(
+                //       color: themeFunctions.isDark
+                //           ? Colors.white30
+                //           : lightBackroundScreenColor,
+                //     )),
               ))
         ],
       ),
