@@ -153,7 +153,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
       child: ListTile(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const DetailsScreen()));
+              MaterialPageRoute(builder: (context) => DetailsScreen(coin: coin,)));
         },
         leading: Image.network(
           coin.image ?? '',

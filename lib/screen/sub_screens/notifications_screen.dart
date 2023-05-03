@@ -1,14 +1,16 @@
+import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mycoins/helpers/consts.dart';
 import 'package:mycoins/screen/sub_screens/search_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/notification_tiles.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
-import '../main_screens/conversion.dart';
+
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -18,6 +20,25 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
+
+  String notificationTitle = 'My Coins';
+  String notificationBody = 'Thanks for download my coins app.';
+  
+
+  @override
+  void initState() {
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+
+    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+
+    super.initState();
+  }
+
+  _changeBody(String msg) => setState(() => notificationBody = msg);
+  _changeTitle(String msg) => setState(() => notificationTitle = msg);
+
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
@@ -48,26 +69,142 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ],
       ),
       drawer: const CustomDrawer(),
-      body: ListView.separated(
-          physics: const ClampingScrollPhysics(),
-          padding: EdgeInsets.zero,
-          itemCount: 12,
-          itemBuilder: (context, index) {
-            return NotificationTiles(
-              title: 'My Coins',
-              subtitle: 'Thanks for download My Coins app.',
-              enable: true,
-              ontap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const NotificationDetails())),
-              key: null,
-            );
-          },
-          separatorBuilder: (context, index) {
-            return const Divider();
-          }),
+
+      body: RefreshIndicator(
+        color: mainColor,
+        backgroundColor: themeListener.isDark
+            ? darkBackroundContinarColor
+            : secondeyTextColor,
+        onRefresh: () async {
+          initState();
+        },
+        child: ListView.separated(
+            physics: const ClampingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemCount: 12,
+            itemBuilder: (context, index) {
+              return NotificationTiles(
+                title: notificationTitle,
+                subtitle:  notificationBody,
+                enable: true,
+                ontap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const NotificationDetails())),
+                key: null,
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Divider();
+            }),
+      ),
     );
   }
 }
+
+Future<void> onBackgroundMessage(RemoteMessage message) async {
+  await Firebase.initializeApp();
+
+  if (message.data.containsKey('data')) {
+    // Handle data message
+    final data = message.data['data'];
+  }
+
+  if (message.data.containsKey('notification')) {
+    // Handle notification message
+    final notification = message.data['notification'];
+  }
+  // Or do other work.
+}
+
+class FCM {
+  final _firebaseMessaging = FirebaseMessaging.instance;
+
+  final streamCtlr = StreamController<String>.broadcast();
+  final titleCtlr = StreamController<String>.broadcast();
+  final bodyCtlr = StreamController<String>.broadcast();
+
+  setNotifications() {
+    FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
+
+    // handle when app in active state
+    forgroundNotification();
+
+    // handle when app running in background state
+    backgroundNotification();
+
+    // handle when app completely closed by the user
+    terminateNotification();
+
+    // dispose();
+
+    // With this token you can test it easily on your phone
+    final token =
+        _firebaseMessaging.getToken().then((value) => print('Token: $value'));
+  }
+
+  forgroundNotification() {
+    FirebaseMessaging.onMessage.listen(
+      (message) async {
+        if (message.data.containsKey('data')) {
+          // Handle data message
+          streamCtlr.sink.add(message.data['data']);
+        }
+        if (message.data.containsKey('notification')) {
+          // Handle notification message
+          streamCtlr.sink.add(message.data['notification']);
+        }
+        // Or do other work.
+        titleCtlr.sink.add(message.notification!.title!);
+        bodyCtlr.sink.add(message.notification!.body!);
+      },
+    );
+  }
+
+  backgroundNotification() {
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) async {
+        if (message.data.containsKey('data')) {
+          // Handle data message
+          streamCtlr.sink.add(message.data['data']);
+        }
+        if (message.data.containsKey('notification')) {
+          // Handle notification message
+          streamCtlr.sink.add(message.data['notification']);
+        }
+        // Or do other work.
+        titleCtlr.sink.add(message.notification!.title!);
+        bodyCtlr.sink.add(message.notification!.body!);
+      },
+    );
+  }
+
+  terminateNotification() async {
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      if (initialMessage.data.containsKey('data')) {
+        // Handle data message
+        streamCtlr.sink.add(initialMessage.data['data']);
+      }
+      if (initialMessage.data.containsKey('notification')) {
+        // Handle notification message
+        streamCtlr.sink.add(initialMessage.data['notification']);
+      }
+      // Or do other work.
+      titleCtlr.sink.add(initialMessage.notification!.title!);
+      bodyCtlr.sink.add(initialMessage.notification!.body!);
+    }
+  }
+
+  dispose() {
+    streamCtlr.close();
+    bodyCtlr.close();
+    titleCtlr.close();
+  }
+}
+
+
+
 
 class NotificationDetails extends StatefulWidget {
   const NotificationDetails({super.key});

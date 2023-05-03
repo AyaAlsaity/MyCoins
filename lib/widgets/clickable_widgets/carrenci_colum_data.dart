@@ -132,12 +132,12 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
             )),
             DataCell(GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const DetailsScreen(
-                            // coin: coin,
-                            )));
+                // Navigator.push(
+                //     context,
+                //     CupertinoPageRoute(
+                //         builder: (context) =>  DetailsScreen(
+                //              coin: null,
+                //             )));
               },
               child: Container(
                 alignment: Alignment.center,
