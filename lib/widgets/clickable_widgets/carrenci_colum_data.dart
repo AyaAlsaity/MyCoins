@@ -16,11 +16,11 @@ class CarrenciColumData extends StatefulWidget {
 class _CarrenciColumDataState extends State<CarrenciColumData> {
   @override
   Widget build(BuildContext context) {
+    // final CoinsearchModel coin;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final double width = MediaQuery.of(context).size.width;
     return DataTable(
-      
-       dividerThickness:2,
+        dividerThickness: 2,
         dataRowHeight: 60,
         columnSpacing: 2,
         horizontalMargin: 0,
@@ -130,13 +130,14 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 ),
               ),
             )),
-            
             DataCell(GestureDetector(
               onTap: () {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const DetailsScreen()));
+                        builder: (context) => const DetailsScreen(
+                            // coin: coin,
+                            )));
               },
               child: Container(
                 alignment: Alignment.center,
@@ -170,7 +171,6 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                         fontSize: 16,
                       ),
                     ),
-                   
                   ],
                 ),
               ),
@@ -207,8 +207,8 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 ],
               ),
             )),
-            DataCell(Container(
-             width: 110,
+            DataCell(SizedBox(
+              width: 110,
               // padding: const EdgeInsets.only(right: 20),
               // alignment: Alignment.centerRight,
               child: Text(

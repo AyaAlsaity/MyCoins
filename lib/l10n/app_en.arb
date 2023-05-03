@@ -41,7 +41,7 @@
     "name5":"Enter Lest name",
     "name6":"Please enter Lest name",
     
-    "intro1title":"Welcome to mycoins",
+    "intro1title":"Welcome to My Coins",
     "intro2title":"Convert cash into crypto, simply",
     "intro3title":"Convert cash into crypto, simply",
     "intro3desc":"A new way to manage and trade all your crypto easily and fastest in the market",
@@ -70,6 +70,11 @@
     "support":"Technical Support",
     
     "settings":"settings",
+    "helpsupport":"Help & Support",
+
+    "lanen":"English",
+    
+    "lanar":"Arabic",
 
     "wjslyrea":" We just sent an link to your registered email address ",
 

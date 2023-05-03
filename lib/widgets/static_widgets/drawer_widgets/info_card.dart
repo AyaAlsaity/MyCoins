@@ -17,10 +17,14 @@ class Infocard extends StatelessWidget {
       leading: CircleAvatar(
         backgroundColor:
             themeFunctions.isDark ? darkBackroundScreenColor : Colors.white,
-        child: const Icon(
-          Icons.person,
-          color: mainColor,
-        ),
+        child: Image.asset("assets/images/woman.png"
+            // 'images/woman.png',
+            ),
+
+        //  const Icon(
+        //   Icons.person,
+        //   color: mainColor,
+        // ),
       ),
       title: Text(
         nameText,

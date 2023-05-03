@@ -9,7 +9,7 @@ import '../../../helpers/consts.dart';
 import '../../../main.dart';
 import '../../../providers/dark_theme_provider.dart';
 import '../../../screen/sub_screens/favorite_screen.dart';
-import '../../../screen/sub_screens/infoApp_screen.dart';
+import '../../../screen/sub_screens/settings_screen.dart';
 import 'drawer_item.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -18,14 +18,13 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    final themeFunctions =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    
     FirebaseAuth auth = FirebaseAuth.instance;
     return SizedBox(
       width: 330,
       child: Drawer(
         child: Material(
-          color: themeFunctions.isDark
+          color: themeListener.isDark
               ? darkBackroundScreenColor
               : lightBackroundScreenColor,
           child: Padding(
@@ -47,29 +46,32 @@ class CustomDrawer extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                DrawerItem(
-                    title: AppLocalizations.of(context)!.proinfo,
-                    icon: Icons.person,
-                    onPressed: () {}),
-                const SizedBox(
-                  height: 30,
-                ),
+                // DrawerItem(
+                //     title: AppLocalizations.of(context)!.proinfo,
+                //     icon: Icons.person,
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           CupertinoPageRoute(
+                //               builder: (context) => const ProfileScreen()));
+                //     }),
+
                 DrawerItem(
                     title: AppLocalizations.of(context)!.favr,
                     icon: Icons.star,
                     onPressed: () {
-                       Navigator.pushAndRemoveUntil(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => const FavoriteScreen()),
-                                      (route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const FavoriteScreen()),
+                          (route) => false);
                     }),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
-                
                 DrawerItem(
-                    title: AppLocalizations.of(context)!.lag,
+                    title:
+                        " ${AppLocalizations.of(context)!.lag}   (${AppLocalizations.of(context)!.localeName == 'en' ? (AppLocalizations.of(context)!.lanen) : (AppLocalizations.of(context)!.lanar)})",
                     icon: Icons.language,
                     onPressed: () {
                       AppLocalizations.of(context)!.localeName == 'en'
@@ -77,13 +79,15 @@ class CustomDrawer extends StatelessWidget {
                           : MyApp.setLocale(context, const Locale('en'));
                     }),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 DrawerItem(
-                    title:themeListener.isDark ? AppLocalizations.of(context)!.lakmo:AppLocalizations.of(context)!.dakmo,
-                    icon: themeListener.isDark ? Icons.sunny:Icons.dark_mode,
+                    title: themeListener.isDark
+                        ? AppLocalizations.of(context)!.lakmo
+                        : AppLocalizations.of(context)!.dakmo,
+                    icon: themeListener.isDark ? Icons.sunny : Icons.dark_mode,
                     onPressed: () {
-                      themeFunctions.switchMode();
+                      themeListener.switchMode();
                     }),
                 const SizedBox(
                   height: 30,
@@ -94,17 +98,28 @@ class CustomDrawer extends StatelessWidget {
                   color: greyColor,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                 DrawerItem(
+                DrawerItem(
                     title: AppLocalizations.of(context)!.settings,
                     icon: Icons.settings,
                     onPressed: () {
                       Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const InfoAppScreen()));
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const SettingScreen()));
+                    }),
+                const SizedBox(
+                  height: 10,
+                ),
+                DrawerItem(
+                    title: AppLocalizations.of(context)!.helpsupport,
+                    icon: Icons.help,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const SettingScreen()));
                     }),
                 const SizedBox(
                   height: 10,
@@ -121,7 +136,6 @@ class CustomDrawer extends StatelessWidget {
                         (route) => false);
                   },
                 ),
-                
               ],
             ),
           ),

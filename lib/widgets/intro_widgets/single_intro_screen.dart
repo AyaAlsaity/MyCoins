@@ -89,3 +89,59 @@ class SingleIntroScreen extends StatelessWidget {
     );
   }
 }
+
+class IntroCard extends StatelessWidget {
+  const IntroCard(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.description});
+  final String image;
+  final String title;
+  final String description;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
+    return Column(
+      children: [
+        Image.asset(
+          image,
+          width: size.width,
+          height: size.height * 0.4,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: themeListener.isDark ? darktitleColor : mainTextColor,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        SizedBox(
+          height: size.height * 0.02,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: themeListener.isDark ? darktitleColor : mainTextColor,
+              // themeListener.isDark
+              //     ? lightGreyColor.withOpacity(0.7)
+              //     : darkGreyColor.withOpacity(0.7)
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

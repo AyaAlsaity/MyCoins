@@ -56,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.contain,
                   ),
                   Container(
+                    height: 465,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -151,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         email: emailController.text,
                                         password: passwordController.text)
                                     .then((value) async {
-                                   Navigator.pushAndRemoveUntil(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) => const MyApp()),
@@ -180,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           const RegisterScreen()),
                                 );
                               }),
-                          
                           const SizedBox(
                             height: sizedBoxNotSameComponents,
                           ),
@@ -188,8 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                
-                
                 ],
               ),
             ),

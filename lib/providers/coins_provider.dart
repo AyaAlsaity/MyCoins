@@ -16,8 +16,8 @@ class CoinsProvider with ChangeNotifier {
   getCoins() async {
     isLoading = true;
 
-    var response = await _api
-        .get('/api/v3/coins/markets?vs_currency=usd&sparkline=true', {});
+    var response =
+        await _api.get('coins/markets?vs_currency=usd&sparkline=true', {});
 
     if (response.statusCode == 200) {
       var rawData = json.decode(response.body);

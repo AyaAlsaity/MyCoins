@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mycoins/screen/main_screens/home.dart';
+import 'package:mycoins/screen/sub_screens/notifications_screen.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../sub_screens/favorite_screen.dart';
-import '../sub_screens/profile_screen.dart';
+import 'conversion.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -21,20 +21,21 @@ class _TabsScreenState extends State<TabsScreen> {
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      
       body: AnimatedSwitcher(
         // animationDuration
         duration: kThemeAnimationDuration,
         child: currentIndex == 0
-            ? const ProfileScreen()
+            ? const NotificationsScreen()
+            // : currentIndex == 1
+            //     ? const CoinSearchScreen()
             : currentIndex == 1
-                ? const FavoriteScreen()
+                ? const ConversionScreen()
                 : const HomeScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  themeFunctions.isDark
-          ? darkBackroundBottomNavigationBarColor
-          : lightBackroundBottomNavigationBarColor,
+        backgroundColor: themeFunctions.isDark
+            ? darkBackroundBottomNavigationBarColor
+            : lightBackroundBottomNavigationBarColor,
         elevation: 0.5,
         currentIndex: currentIndex,
         onTap: (index) {
@@ -42,39 +43,55 @@ class _TabsScreenState extends State<TabsScreen> {
             currentIndex = index;
           });
         },
-        selectedItemColor: successColor,
-        unselectedItemColor: warningColor,
+        selectedItemColor: mainColor,
         items: [
           BottomNavigationBarItem(
-              label: '',
+              label: currentIndex == 0 ? 'Notification' : "",
               icon: Image.asset(
-                'assets/icons/profileIcon.png',
-                width: size.width / 13,
-                height: size.width / 13,
+                'assets/icons/notificationIcon.png',
+                width: currentIndex == 0 ? size.width / 12 : size.width / 15,
+                height: currentIndex == 0 ? size.width / 12 : size.width / 15,
                 fit: BoxFit.contain,
                 color:
                     currentIndex == 0 ? mainColor : mainColor.withOpacity(0.6),
               )),
-              BottomNavigationBarItem(
-              label: '',
-              icon:Icon(Icons.star,
-              size: size.width/11,
-              color:
-                    currentIndex == 1 ? mainColor : mainColor.withOpacity(0.6), 
-              ),
-              ),
-               BottomNavigationBarItem(
-              label: '',
+          // BottomNavigationBarItem(
+          //     label: currentIndex == 1 ? 'Search' : "",
+          //     icon: Image.asset(
+          //       'assets/icons/searchIcon.png',
+          //       width: currentIndex == 1 ? size.width / 13 : size.width / 15,
+          //       height: currentIndex == 1 ? size.width / 13 : size.width / 15,
+          //       fit: BoxFit.contain,
+          //       color:
+          //           currentIndex == 1 ? mainColor : mainColor.withOpacity(0.6),
+          //     )),
+          BottomNavigationBarItem(
+              label: currentIndex == 1 ? 'Conversion ' : "",
+              icon: Column(
+                children: [
+                  Image.asset(
+                    'assets/icons/currency_exchange.png',
+                    width:
+                        currentIndex == 1 ? size.width / 12 : size.width / 15,
+                    height:
+                        currentIndex == 1 ? size.width / 12 : size.width / 15,
+                    fit: BoxFit.contain,
+                    color: currentIndex == 1
+                        ? mainColor
+                        : mainColor.withOpacity(0.6),
+                  ),
+                ],
+              )),
+          BottomNavigationBarItem(
+              label: currentIndex == 2 ? 'Market ' : "",
               icon: Image.asset(
-                'assets/icons/homeIcon.png',
-                width: size.width / 13,
-                height: size.width / 13,
+                'assets/icons/monitoring.png',
+                width: currentIndex == 2 ? size.width / 12 : size.width / 15,
+                height: currentIndex == 2 ? size.width / 12 : size.width / 15,
                 color:
-                    currentIndex == 2? mainColor : mainColor.withOpacity(0.6),
+                    currentIndex == 2 ? mainColor : mainColor.withOpacity(0.6),
                 fit: BoxFit.contain,
               )),
-             
-         
         ],
       ),
     );

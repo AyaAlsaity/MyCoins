@@ -8,7 +8,7 @@ class ButtonScreen extends StatefulWidget {
     required this.isbackround,
     required this.title,
     required this.widthh,
-    required this.heightt, 
+    required this.heightt,
     required this.paddingg,
   }) : super(key: key);
   final bool isbackround;
@@ -32,10 +32,8 @@ class _ButtonScreenState extends State<ButtonScreen> {
         color: widget.isbackround ? mainColor : secondeyTextColor,
         border: Border.all(color: mainColor, width: 2),
       ),
-     
       child: Padding(
         padding: EdgeInsets.all(widget.paddingg),
-       
         child: Text(
           widget.title,
           textAlign: TextAlign.center,

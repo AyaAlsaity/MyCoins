@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mycoins/models/coins_search_model.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../models/details_map.dart';
@@ -10,7 +11,10 @@ import '../../widgets/static_widgets/continarDarkmode.dart';
 import '../../widgets/static_widgets/money_converter_widget.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+  const DetailsScreen({super.key,
+  //  required this.coin
+   });
+    // final CoinsearchModel coin;
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
