@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
-import 'notifications_screen.dart';
+import '../main_screens/notifications_screen.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -16,44 +17,58 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  bool isOk1 = false;
+  FirebaseFirestore firestore=FirebaseFirestore.instance;
+  bool isOk1 = true; //
+   QuerySnapshot? listFavorites;
+   DocumentSnapshot? listcoins;
+   Future<DocumentSnapshot<Object?>?> getFavorites() async {
+     listFavorites=await firestore.collection('favorites').get();
+     for (var coin in listFavorites!.docs) {
+       listcoins=coin;
+      }
+      return listcoins;
+  }
+  @override
+  void initState() {
+   
+    super.initState();
+     listcoins=getFavorites() as DocumentSnapshot<Object?>?;
+  }
   @override
   Widget build(BuildContext context) {
+    
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
      Size size = MediaQuery.of(context).size;
+     
     return Scaffold(
       appBar: AppBar(
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: darkBackroundScreenColor,
           ),
-          title: const Center(
-              child: Text(
-            "My Coins",
-            style: TextStyle(
-                color: mainColor, fontSize: 24, fontWeight: FontWeight.w600),
-          )),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const NotificationsScreen()));
-              },
-              icon: const Icon(
-                Icons.notifications,
-              ),
-            )
-          ]),
-      drawer: const CustomDrawer(),
-      body:Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            // const SizedBox(
-            //   height: 50,
-            // ),
-            Container(
+        ),
+     
+      body: RefreshIndicator(
+        color: mainColor,
+        backgroundColor: themeListener.isDark
+            ? darkBackroundContinarColor
+            : secondeyTextColor,
+        onRefresh: () async {
+          //
+          
+        },
+          child:listcoins==null?
+          Center(
+            child: Text("Not found favotrites",
+             style: TextStyle(
+                      fontSize: 20,
+                      color: themeListener.isDark ? darktitleColor : mainTextColor,
+                    ),
+            ),
+          )
+          :ListView.builder(
+            
+            itemBuilder:((context, index){
+              return Container(
               width: double.infinity,
               height: size.width/4,
               decoration: BoxDecoration(
@@ -70,7 +85,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                  'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+                 listcoins!.get('image').toString(),
                   width: 40,
                   height: 40,
               ),
@@ -87,14 +102,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   Row(
                     children: [
                        Text(
-              'Bitcoin',
+               listcoins!.get('name').toString(),
               style: TextStyle(
                   color: themeListener.isDark ? darktitleColor : mainTextColor,
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
                       Text(
-                        '(btc)'.toUpperCase(),
+                         listcoins!.get('symbol').toString().toUpperCase(),
                         style: TextStyle(
                           fontSize: 16,
                           color: themeListener.isDark ? darktitleColor : mainTextColor,
@@ -106,7 +121,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               height: 5,
             ),
                   Text(
-                    '\$30325',
+                    '\$${ listcoins!.get('current_price').toString()}',
                     style: TextStyle(
                       fontSize: 14,
                       color: themeListener.isDark ? darktitleColor : mainTextColor,
@@ -116,9 +131,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ),
              IconButton(
             onPressed: () {
-              setState(() {
-                isOk1 = !isOk1;
-              });
+              // setState(() {
+              //   isOk1 = !isOk1;
+              // });
             },
             icon: Icon(
               isOk1 ?Icons.star_border_outlined: Icons.star ,
@@ -129,10 +144,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
                 ),
         
-            ),
-          ],
-        ),
+            );
+                            
+              
+            }) ,
+             itemCount: listFavorites!.docs.length,
+           
+          ),  
+            
       ),
     );
   }
 }
+
+
+        

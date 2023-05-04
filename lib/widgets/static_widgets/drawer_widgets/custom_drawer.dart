@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,32 @@ import '../../../screen/sub_screens/favorite_screen.dart';
 import '../../../screen/sub_screens/settings_screen.dart';
 import 'drawer_item.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+    QuerySnapshot? listUsers;
+ FirebaseFirestore firestore=FirebaseFirestore.instance;
+   DocumentSnapshot? listuser;
+
+  //  Future<DocumentSnapshot<Object?>?> getUsers() async {
+  //    listUsers=await firestore.collection('users').get();
+  //    for (var coin in listUsers!.docs) {
+  //      listuser=coin;
+  //     }
+  //     return listuser;
+  // }
+
+  // @override
+  // void initState() {
+   
+  //   super.initState();
+  //    listuser=getUsers() as DocumentSnapshot<Object?>?;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +56,12 @@ class CustomDrawer extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(24, 70, 24, 0),
             child: Column(
               children: [
-                const Infocard(
-                  emailText: 'areej @ gmail.com',
+                 const Infocard(
+                  emailText:'areej @ gmail.com',
                   nameText: 'Areej',
+
+                  //  emailText:listuser==null? 'areej @ gmail.com':listuser!.get('email').toString(),
+                  // nameText: listuser==null? 'Areej':listuser!.get('name').toString(),
                 ),
                 const SizedBox(
                   height: 20,
@@ -60,11 +88,11 @@ class CustomDrawer extends StatelessWidget {
                     title: AppLocalizations.of(context)!.favr,
                     icon: Icons.star,
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => const FavoriteScreen()),
-                          (route) => false);
+                              builder: (context) => const FavoriteScreen()));
+                          
                     }),
                 const SizedBox(
                   height: 10,

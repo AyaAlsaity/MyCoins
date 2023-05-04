@@ -63,7 +63,7 @@ dependencies:
   # geolocator:
   cloud_firestore:
   fl_chart:
-  money_converter:
+  # firebase_storage:
 
 dev_dependencies:
   flutter_test:

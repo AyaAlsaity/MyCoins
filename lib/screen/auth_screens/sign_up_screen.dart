@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -21,18 +22,22 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+
   FirebaseAuth auth = FirebaseAuth.instance;
+ 
+   FirebaseFirestore firestore=FirebaseFirestore.instance;
+   int indexFavorite=0;
 
   final GlobalKey<FormState> registerForm = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController listNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmationController =
-      TextEditingController();
+  final TextEditingController passwordConfirmationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference users=firestore.collection('users'); 
     Size size = MediaQuery.of(context).size;
     final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
@@ -179,6 +184,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (registerForm.currentState!.validate()) {
                                 if (passwordController.text ==
                                     passwordConfirmationController.text) {
+                                      await users.doc("user$indexFavorite").set({
+                                        'name':"${firstNameController.text} ${listNameController.text}",
+                                        'email':"${emailController.text}",
+                                      });
                                   await auth
                                       .createUserWithEmailAndPassword(
                                           email: emailController.text,

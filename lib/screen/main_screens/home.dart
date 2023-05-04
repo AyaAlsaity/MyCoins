@@ -6,6 +6,7 @@ import 'package:mycoins/helpers/consts.dart';
 import 'package:mycoins/widgets/clickable_widgets/carrenci_colum_data.dart';
 import 'package:provider/provider.dart';
 import '../../providers/dark_theme_provider.dart';
+import '../../widgets/static_widgets/appBar_widget.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
 import '../../widgets/static_widgets/slider.dart';
 import '../sub_screens/search_screen.dart';
@@ -26,30 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
-        title: const Text(
-          "My Coins",
-          style: TextStyle(
-              color: mainColor, fontSize: 24, fontWeight: FontWeight.w600),
-        ),
-        actions: [
-          SizedBox(
-              height: 30,
-              width: 30,
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const CoinSearchScreen()));
-                  },
-                  child: const Icon(Icons.search)))
-        ],
-      ),
+      appBar:AppBarWidget(context),
       drawer: const CustomDrawer(),
       body: RefreshIndicator(
         color: mainColor,

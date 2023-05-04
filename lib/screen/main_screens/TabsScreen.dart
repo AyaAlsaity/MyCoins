@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycoins/screen/main_screens/home.dart';
-import 'package:mycoins/screen/sub_screens/notifications_screen.dart';
+import 'package:mycoins/screen/main_screens/notifications_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
@@ -46,7 +47,7 @@ class _TabsScreenState extends State<TabsScreen> {
         selectedItemColor: mainColor,
         items: [
           BottomNavigationBarItem(
-              label: currentIndex == 0 ? 'Notification' : "",
+              label: currentIndex == 0 ? AppLocalizations.of(context)!.notification : "",
               icon: Image.asset(
                 'assets/icons/notificationIcon.png',
                 width: currentIndex == 0 ? size.width / 12 : size.width / 15,
@@ -55,18 +56,8 @@ class _TabsScreenState extends State<TabsScreen> {
                 color:
                     currentIndex == 0 ? mainColor : mainColor.withOpacity(0.6),
               )),
-          // BottomNavigationBarItem(
-          //     label: currentIndex == 1 ? 'Search' : "",
-          //     icon: Image.asset(
-          //       'assets/icons/searchIcon.png',
-          //       width: currentIndex == 1 ? size.width / 13 : size.width / 15,
-          //       height: currentIndex == 1 ? size.width / 13 : size.width / 15,
-          //       fit: BoxFit.contain,
-          //       color:
-          //           currentIndex == 1 ? mainColor : mainColor.withOpacity(0.6),
-          //     )),
           BottomNavigationBarItem(
-              label: currentIndex == 1 ? 'Conversion ' : "",
+              label: currentIndex == 1 ? AppLocalizations.of(context)!.conversion : "",
               icon: Column(
                 children: [
                   Image.asset(
@@ -83,7 +74,7 @@ class _TabsScreenState extends State<TabsScreen> {
                 ],
               )),
           BottomNavigationBarItem(
-              label: currentIndex == 2 ? 'Market ' : "",
+              label: currentIndex == 2 ? AppLocalizations.of(context)!.market : "",
               icon: Image.asset(
                 'assets/icons/monitoring.png',
                 width: currentIndex == 2 ? size.width / 12 : size.width / 15,

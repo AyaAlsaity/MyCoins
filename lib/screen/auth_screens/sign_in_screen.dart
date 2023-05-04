@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.contain,
                   ),
                   Container(
-                    height: 465,
+                    height: 500,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -145,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: sizedBoxNotSameComponents + 5,
                           ),
                           GestureDetector(
+                            
                             onTap: () async {
                               if (loginForm.currentState!.validate()) {
                                 auth

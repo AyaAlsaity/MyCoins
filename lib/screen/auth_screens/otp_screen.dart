@@ -5,9 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:mycoins/screen/auth_screens/reset_password.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../helpers/consts.dart';
-import '../../widgets/clickable_widgets/main_button_widget.dart';
+
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({
@@ -155,16 +154,16 @@ class _OtpScreenState extends State<OtpScreen> {
                 SizedBox(
                   height: size.height * 0.03,
                 ),
-                MainButton(
-                    text: AppLocalizations.of(context)!.veotp,
-                    withBorder: false,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) =>
-                                  const ResetPasswordScreen()));
-                    }),
+                // MainButton(
+                //     text: AppLocalizations.of(context)!.veotp,
+                //     withBorder: false,
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           CupertinoPageRoute(
+                //               builder: (context) =>
+                //                   const ResetPasswordScreen()));
+                //     }),
                 const SizedBox(
                   height: 10,
                 ),

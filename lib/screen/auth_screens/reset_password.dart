@@ -6,7 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../../widgets/clickable_widgets/main_button_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -124,15 +123,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               SizedBox(
                 height: size.height * 0.04,
               ),
-              MainButton(
-                  text: AppLocalizations.of(context)!.contin,
-                  withBorder: false,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const ResetSuccessful()));
-                  }),
+              // MainButton(
+              //     text: AppLocalizations.of(context)!.contin,
+              //     withBorder: false,
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           CupertinoPageRoute(
+              //               builder: (context) => const ResetSuccessful()));
+              //     }),
             ],
           ),
         ),

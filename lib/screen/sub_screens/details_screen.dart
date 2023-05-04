@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +26,10 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+
+  FirebaseFirestore firestore=FirebaseFirestore.instance;
   bool isOk1 = false;
+  int indexFavorite=0;
   bool isLoading = true;
   bool isFirstTime = true;
   List<FlSpot> flSpotList = [];
@@ -131,9 +135,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
       number: -56.07955,
     ),
   ];
+   
 
   @override
   Widget build(BuildContext context) {
+     CollectionReference favorites=firestore.collection('favorites');  
      final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
@@ -178,10 +184,44 @@ class _DetailsScreenState extends State<DetailsScreen> {
         
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async{
               setState(() {
                 isOk1 = !isOk1;
+                
               });
+               
+              
+              if(isOk1==true){
+                indexFavorite++;
+              await favorites.doc("coin$indexFavorite").set({
+                'ath_change_percentage':"-59.43744,",
+                'ath':"69045",
+                'max_supply':"21000000",
+                'total_supply':"19362006",
+                'circulating_supply':"-2.18024",
+                'market_cap_change_percentage_24h':"-12093227985.869446",
+                'market_cap_change_24h':"-2.04346",
+                'price_change_percentage_24h':"${widget.coin.priceChangePercentage24h}",
+                'price_change_24h':"27722",
+                'low_24h':"28669",
+                'high_24h':"28669",
+                'total_volume':"16496081189",
+                'fully_diluted_valuation':"588481479757",
+                'market_cap_rank':"1",
+                'market_cap':"588481479757",
+                'current_price':"${widget.coin.currentPrice}",
+                'image':"${widget.coin.image}",
+                'name':"${widget.coin.name}",
+                'symbol':"${widget.coin.symbol}",
+              }
+              
+              );
+
+
+              }else{
+                await favorites.doc("coin$indexFavorite").delete();
+              }
+             
             },
             icon: Icon(
               isOk1 ? Icons.star : Icons.star_border_outlined,
@@ -190,6 +230,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
         ],
       ),
+     
       floatingActionButton: FloatingActionButton(onPressed: () { Navigator.push(
                                         context,
                                         CupertinoPageRoute(
@@ -204,6 +245,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ? darkBackroundContinarColor
             : secondeyTextColor,
         onRefresh: () async {
+         
           //
         },
             child:SingleChildScrollView(
@@ -278,6 +320,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: LineChart(
                       LineChartData(
+                        
                         minX: minX,
                         minY: minY,
                         maxX: maxX,
@@ -292,6 +335,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         lineBarsData: [
                           LineChartBarData(
+                            color:mainColor,
                             spots: flSpotList,
                             dotData: FlDotData(show: false),
                           ),

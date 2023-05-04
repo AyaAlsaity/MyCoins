@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../screen/sub_screens/details_screen.dart';
@@ -17,6 +17,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
   @override
   Widget build(BuildContext context) {
     // final CoinsearchModel coin;
+
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final double width = MediaQuery.of(context).size.width;
     return DataTable(
@@ -46,11 +47,11 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
           DataColumn(
               label: Row(
             children: [
-              Container(
+              Container(                
                 width: width * 0.2,
                 alignment: Alignment.center,
                 child: Text(
-                  "Coin",
+                  AppLocalizations.of(context)!.coin,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color:
@@ -68,7 +69,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 width: width * .2,
                 alignment: Alignment.center,
                 child: Text(
-                  "Price",
+                  AppLocalizations.of(context)!.price,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color:
@@ -86,7 +87,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 width: width * .2,
                 alignment: Alignment.center,
                 child: Text(
-                  "24H",
+                  AppLocalizations.of(context)!.hour,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color:
@@ -105,7 +106,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 width: width * .4,
                 alignment: Alignment.center,
                 child: Text(
-                  "Market Cap",
+                  AppLocalizations.of(context)!.market,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color:
@@ -142,8 +143,6 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
               child: Container(
                 alignment: Alignment.center,
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
                       height: 10,
@@ -209,8 +208,6 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
             )),
             DataCell(SizedBox(
               width: 110,
-              // padding: const EdgeInsets.only(right: 20),
-              // alignment: Alignment.centerRight,
               child: Text(
                 '\$200,000',
                 textAlign: TextAlign.right,

@@ -55,6 +55,7 @@
     "veotp":"Verify OTP",
 
     "resttitl":"Reset your password",
+    "resttitl1":"Reset password",
     "restsub":"Here's a tip: Use a combination of Numbers, Uppercase, lowercase and Special characters",
 
     "rstsuss":"Reset successful",
@@ -67,10 +68,25 @@
     "lakmo":"Light Mode",
     "loout":"Log out",
 
+    "coin":"Coin",
+    "price":"Price",
+    "hour":"24H",
+    "market":"Market Cap",
+    "conversion":"Conversion",
+    "notification":"Notification",
+
+    "search":"Search coins",
+
+    "error1":"No Coin Found !",
+    "error2":"Check your network !",
+
     "support":"Technical Support",
     
     "settings":"settings",
     "helpsupport":"Help & Support",
+    "account":"Account",
+    "edityc":"Edit Your Contact",
+    "activte":"Account Activte",
 
     "lanen":"English",
     

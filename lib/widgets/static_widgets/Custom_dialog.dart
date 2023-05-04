@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../clickable_widgets/main_button_widget.dart';
+
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog(
@@ -67,12 +66,12 @@ class CustomDialog extends StatelessWidget {
                       const SizedBox(
                         height: sizedBoxNotSameComponents,
                       ),
-                      MainButton(
-                          text: btnText,
-                          // "login ",
-                          onPressed: () {
-                            onpress;
-                          })
+                      // MainButton(
+                      //     text: btnText,
+                      //     // "login ",
+                      //     onPressed: () {
+                      //       onpress;
+                      //     })
                     ]),
               ),
             ),

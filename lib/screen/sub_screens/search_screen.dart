@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -7,6 +7,7 @@ import 'package:mycoins/providers/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../models/coins_search_model.dart';
+import '../../widgets/static_widgets/error_widget.dart';
 import 'details_screen.dart';
 
 class CoinSearchScreen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(),
@@ -66,7 +68,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                     listCoin = snapshot.data!;
                     isFirstTimeDataAccess = false;
                   }
-
+        
                   return Column(
                     children: [
                       TextField(
@@ -105,7 +107,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                             borderSide: const BorderSide(color: mainColor),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          hintText: 'Search coins',
+                          hintText: AppLocalizations.of(context)!.search,
                           hintStyle: TextStyle(
                             color: themeListener.isDark
                                 ? darktitleColor
@@ -116,10 +118,15 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                       const SizedBox(height: 24),
                       Expanded(
                         child: listCoin.isEmpty
-                            ? const Center(
-                                child: Text('No Coin Found'),
-                              )
-                            : ListView.separated(
+                            ? SingleChildScrollView(
+                              child:ErrorWwidget(
+                                error: AppLocalizations.of(context)!.error1, 
+                                image: 'assets/images/error2.png',
+
+                              ),
+                              
+                            ): ListView.separated(
+                    
                                 itemCount: listCoin.length,
                                 itemBuilder: (context, index) {
                                   return _buildCoin(listCoin[index]);
@@ -136,7 +143,12 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                     ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  return const Center(child: Text('Error Occurred'));
+                  return  
+                 ErrorWwidget(
+                                error: AppLocalizations.of(context)!.error2, 
+                                image: 'assets/images/error2.png',
+
+                              );
                 }
               },
             ),

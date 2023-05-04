@@ -23,9 +23,9 @@ class _SettingState extends State<SettingScreen> {
           padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
           child: ListView(
             children: [
-              const Text(
-                "Settings",
-                style: TextStyle(
+               Text(
+                AppLocalizations.of(context)!.settings,
+                style:const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w500,
                     color: mainColor),
@@ -42,7 +42,7 @@ class _SettingState extends State<SettingScreen> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Text("Account",
+                  Text(AppLocalizations.of(context)!.account,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -62,8 +62,8 @@ class _SettingState extends State<SettingScreen> {
                   minWidth: 2.0 * 56.0,
                   maxWidth: 5.0 * 56.0,
                 ),
-                child: const SettingsRowButton(
-                  title: "Reset Password",
+                child: SettingsRowButton(
+                  title: AppLocalizations.of(context)!.resttitl1,
                 ),
                 itemBuilder: (_) => [
                   const PopupMenuItem(
@@ -74,14 +74,14 @@ class _SettingState extends State<SettingScreen> {
                 ],
                 onSelected: (value) => Navigator.of(context).pushNamed(value),
               ),
-              const SettingsRowButton(
-                title: "Edit Your Contact",
+              SettingsRowButton(
+                title:AppLocalizations.of(context)!.edityc,
               ),
-              const SettingsRowButton(
-                title: "Language",
+              SettingsRowButton(
+                title: AppLocalizations.of(context)!.lag,
               ),
-              const SettingsRowButton(
-                title: "Dark Mood",
+              SettingsRowButton(
+                title:AppLocalizations.of(context)!.dakmo,
               ),
               const SizedBox(
                 height: 40,
@@ -93,7 +93,7 @@ class _SettingState extends State<SettingScreen> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Text("Notifications",
+                  Text(AppLocalizations.of(context)!.notification,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -108,8 +108,9 @@ class _SettingState extends State<SettingScreen> {
               const SizedBox(
                 height: 10,
               ),
-              buildNotificationsOptionRow("New For You", true),
-              buildNotificationsOptionRow("Account Activte ", false),
+              // buildNotificationsOptionRow("New For You", true),
+              buildNotificationsOptionRow(AppLocalizations.of(context)!.activte, true),
+
               const SizedBox(
                 height: 50,
               ),

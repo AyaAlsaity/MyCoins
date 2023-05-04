@@ -9,6 +9,7 @@ import 'package:mycoins/screen/sub_screens/search_screen.dart';
 import 'package:provider/provider.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/notification_tiles.dart';
+import '../../widgets/static_widgets/appBar_widget.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
 
 
@@ -44,30 +45,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
-        title: const Text(
-          "My Coins",
-          style: TextStyle(
-              color: mainColor, fontSize: 24, fontWeight: FontWeight.w600),
-        ),
-        actions: [
-          SizedBox(
-              height: 30,
-              width: 30,
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const CoinSearchScreen()));
-                  },
-                  child: const Icon(Icons.search)))
-        ],
-      ),
+      appBar: AppBarWidget(context),
+      
       drawer: const CustomDrawer(),
 
       body: RefreshIndicator(
