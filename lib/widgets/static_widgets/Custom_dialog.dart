@@ -11,7 +11,8 @@ class CustomDialog extends StatelessWidget {
       required this.subtitle,
       required this.btnText,
       required this.onpress,
-      required this.image});
+      required this.image
+      });
   final String title;
   final String subtitle;
   final String btnText;

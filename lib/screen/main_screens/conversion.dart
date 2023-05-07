@@ -1,18 +1,47 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:intl/intl.dart';
+// import 'package:mycoins/models/coins_search_model.dart';
+
+// import 'package:provider/provider.dart';
+// import '../../helpers/consts.dart';
+// import '../../providers/dark_theme_provider.dart';
+// import '../../widgets/static_widgets/appBar_widget.dart';
+// import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
+// import '../sub_screens/details_screen.dart';
+// import '../sub_screens/search_screen.dart';
+
+// class ConversionScreen extends StatefulWidget {
+//   const ConversionScreen({super.key});
+
+//   @override
+//   State<ConversionScreen> createState() => _ConversionScreenState();
+// }
+
+// class _ConversionScreenState extends State<ConversionScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//         Size size = MediaQuery.of(context).size;
+//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+//     return Scaffold(
+//       appBar: AppBarWidget(context),
+//       drawer: const CustomDrawer(),
+//       body:  const Text("Conversion Screen"),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:mycoins/models/coins_search_model.dart';
+import 'package:mycoins/services/api.dart';
 
-import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
-import '../../providers/dark_theme_provider.dart';
 import '../../widgets/static_widgets/appBar_widget.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
-import '../sub_screens/details_screen.dart';
-import '../sub_screens/search_screen.dart';
+
+const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class ConversionScreen extends StatefulWidget {
   const ConversionScreen({super.key});
@@ -22,224 +51,356 @@ class ConversionScreen extends StatefulWidget {
 }
 
 class _ConversionScreenState extends State<ConversionScreen> {
+  ApiClient client = ApiClient();
+
+  // Future<List<String>> getcurrencyList() async {
+  //   return await client.getcurrencies();
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    (() async {
+      List<String> list = await client.getcurrencies();
+      setState(() {
+        currencies = list;
+      });
+    })();
+  }
+
+  Color mainColor = const Color(0xFF212936);
+
+  Color mainColor2 = const Color(0xFFF5C249);
+  Color secondColor = const Color(0xFF2849E5);
+
+  List<String> currencies = [];
+  String? froom;
+  String? to;
+
+  double rate = 0.0;
+  String result = "";
+
   @override
   Widget build(BuildContext context) {
-        Size size = MediaQuery.of(context).size;
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-      appBar: AppBarWidget(context),
-      drawer: const CustomDrawer(),
-      body:  const Text("Conversion Screen"),
+        backgroundColor: darkBackroundScreenColor,
+        appBar: AppBarWidget(context),
+        drawer: const CustomDrawer(),
+        body: const Center(
+          child: Text(
+            "ConversionScreen",
+            style: TextStyle(color: Colors.white),
+          ),
+        )
+        // SafeArea(
+        //     child: Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       const SizedBox(
+        //         width: 200.0,
+        //         child: Text(
+        //           "Currency Converter",
+        //           style: TextStyle(
+        //               color: Colors.white,
+        //               fontSize: 36,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //       ),
+        //       Expanded(
+        //           child: Center(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           crossAxisAlignment: CrossAxisAlignment.center,
+        //           children: [
+        //             TextField(
+        //                 onSubmitted: (value) async {
+        //                   rate = await client.getRate(froom!, to!);
+        //                   setState(() {
+        //                     // result = (rate * double.parse(value).toStringAsFixed(3)) ;
+        //                   });
+        //                 },
+        //                 textAlign: TextAlign.center,
+        //                 keyboardType: TextInputType.number,
+        //                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        //                 cursorColor: mainColor,
+        //                 decoration: InputDecoration(
+        //                   contentPadding: const EdgeInsets.symmetric(
+        //                       vertical: 13.0, horizontal: 16),
+        //                   fillColor: const Color.fromARGB(255, 228, 225, 225),
+        //                   filled: true,
+        //                   hintText: "Input value to Convert",
+        //                   border: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(16),
+        //                       borderSide:
+        //                           BorderSide(color: mainColor2.withOpacity(0.2))),
+        //                   focusColor: mainColor2.withOpacity(0.2),
+        //                   focusedBorder: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(16),
+        //                       borderSide: const BorderSide()),
+        //                   enabledBorder: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(16),
+        //                       borderSide:
+        //                           BorderSide(color: mainColor2.withOpacity(0.2))),
+        //                 )
+
+        //                 // InputDecoration(
+        //                 //   focusedBorder: OutlineInputBorder(
+        //                 //       borderSide: BorderSide(color: mainColor2)),
+        //                 //   filled: true,
+        //                 //   fillColor: Colors.white,
+        //                 //   label: const Text(
+        //                 //     "Input value to Convert",
+        //                 //     textAlign: TextAlign.start,
+        //                 //     style: TextStyle(color: Colors.grey),
+        //                 //   ),
+        //                 // ),
+        //                 ),
+        //             const SizedBox(
+        //               height: 20.0,
+        //             ),
+        //             Row(
+        //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //               children: [
+        //                 customDropDown(currencies, froom!, (val) {
+        //                   setState(() {
+        //                     froom = val;
+        //                   });
+        //                 }),
+        //                 FloatingActionButton(
+        //                   onPressed: () {
+        //                     String? temb = froom;
+        //                     setState(() {
+        //                       froom = to;
+        //                       to = temb;
+        //                     });
+        //                   },
+        //                   elevation: 0.0,
+        //                   backgroundColor: secondColor,
+        //                   child: const Icon(Icons.swap_horiz),
+        //                 )
+        //                 // // DropdownMenuExample(),
+        //                 // CustomDropdownButton(
+        //                 //   item: currencies, value: from,
+        //                 //   // onChange: (from) {}
+        //                 // )
+        //               ],
+        //             ),
+        //             const SizedBox(
+        //               height: 50.0,
+        //             ),
+        //             Container(
+        //               width: double.infinity,
+        //               padding: const EdgeInsets.all(16.0),
+        //               decoration: BoxDecoration(
+        //                   color: Colors.white,
+        //                   borderRadius: BorderRadius.circular(8.0)),
+        //               child: Column(
+        //                 children: [
+        //                   const Text(
+        //                     "Result",
+        //                     style: TextStyle(
+        //                         color: Colors.black,
+        //                         fontSize: 24.0,
+        //                         fontWeight: FontWeight.bold),
+        //                   ),
+        //                   Text(
+        //                     result,
+        //                     style: TextStyle(
+        //                         color: secondColor,
+        //                         fontSize: 36.0,
+        //                         fontWeight: FontWeight.bold),
+        //                   ),
+        //                 ],
+        //               ),
+        //             )
+        //           ],
+        //         ),
+        //       ))
+        //     ],
+        //   ),
+        // )),
+        );
+  }
+//   Widget customDropDown(List<String> item, String value, void onChange(val)) {
+//   return Container(
+//     child: DropdownButton<String>(
+//         items: item.map<DropdownMenuItem<String>>?( (String val){
+//           return DropdownMenuItem(value: val,child: Text(val),);
+//         });
+//         value: value,
+//         onChanged: (val) {
+//           onChange(val);
+//         }),
+//   );
+// }
+}
+
+class CustomDropdownButton extends StatefulWidget {
+  const CustomDropdownButton({
+    super.key,
+    required this.item,
+    required this.value,
+  });
+  final List<String> item;
+  final String value;
+
+  @override
+  State<CustomDropdownButton> createState() => _CustomDropdownButtonState();
+}
+
+class _CustomDropdownButtonState extends State<CustomDropdownButton> {
+  String dropdownValue = list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 18.0),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+          });
+          //   widget.onChange();
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
     );
   }
 }
 
-// class CoinSearchScreen extends StatefulWidget {
-//   const CoinSearchScreen({Key? key}) : super(key: key);
+class DropdownMenuExample extends StatefulWidget {
+  const DropdownMenuExample({super.key});
 
-//   @override
-//   State<CoinSearchScreen> createState() => _CoinSearchScreenState();
-// }
+  @override
+  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
+}
 
-// class _CoinSearchScreenState extends State<CoinSearchScreen> {
-//   String urlListMarket =
-//       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=100&page=1&sparkline=false';
-//   List<CoinsearchModel> listCoin = [];
-//   late Future<List<CoinsearchModel>> listCoinFuture;
-//   bool isFirstTimeDataAccess = true;
+class _DropdownMenuExampleState extends State<DropdownMenuExample> {
+  final TextEditingController colorController = TextEditingController();
+  final TextEditingController iconController = TextEditingController();
+  ColorLabel? selectedColor;
+  IconLabel? selectedIcon;
 
-//   Future<List<CoinsearchModel>> getListCoins() async {
-//     final response = await http.get(Uri.parse(urlListMarket));
-//     if (response.statusCode == 200) {
-//       List result = json.decode(response.body);
-//       final data =
-//           result.map((json) => CoinsearchModel.fromJson(json)).toList();
-//       return data;
-//     } else {
-//       return <CoinsearchModel>[];
-//     }
-//   }
+  @override
+  Widget build(BuildContext context) {
+    final List<DropdownMenuEntry<ColorLabel>> colorEntries =
+        <DropdownMenuEntry<ColorLabel>>[];
+    for (final ColorLabel color in ColorLabel.values) {
+      colorEntries.add(DropdownMenuEntry<ColorLabel>(
+          value: color, label: color.label, enabled: color.label != 'Grey'));
+    }
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     listCoinFuture = getListCoins();
-//   }
+    final List<DropdownMenuEntry<IconLabel>> iconEntries =
+        <DropdownMenuEntry<IconLabel>>[];
+    for (final IconLabel icon in IconLabel.values) {
+      iconEntries
+          .add(DropdownMenuEntry<IconLabel>(value: icon, label: icon.label));
+    }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-//     return Scaffold(
-//       appBar: AppBar(
-//           //   centerTitle: true,
-//           //   systemOverlayStyle: const SystemUiOverlayStyle(
-//           //     statusBarColor: darkBackroundScreenColor,
-//           //   ),
-//           //   title: const Text(
-//           //     "My Coins",
-//           //     style: TextStyle(
-//           //         color: mainColor, fontSize: 24, fontWeight: FontWeight.w600),
-//           //   ),
-//           ),
-//       // drawer: const CustomDrawer(),
-//       body: Padding(
-//         padding: const EdgeInsets.all(12),
-//         child: SizedBox(
-//           width: double.infinity,
-//           child: FutureBuilder(
-//             future: listCoinFuture,
-//             builder: (context, snapshot) {
-//               if (snapshot.hasData) {
-//                 if (isFirstTimeDataAccess) {
-//                   listCoin = snapshot.data!;
-//                   isFirstTimeDataAccess = false;
-//                 }
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
+      home: Scaffold(
+        body: SafeArea(
+            child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  DropdownMenu<ColorLabel>(
+                    initialSelection: ColorLabel.green,
+                    controller: colorController,
+                    label: const Text('Color'),
+                    dropdownMenuEntries: colorEntries,
+                    onSelected: (ColorLabel? color) {
+                      setState(() {
+                        selectedColor = color;
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  DropdownMenu<IconLabel>(
+                    controller: iconController,
+                    enableFilter: true,
+                    leadingIcon: const Icon(Icons.search),
+                    label: const Text('Icon'),
+                    dropdownMenuEntries: iconEntries,
+                    inputDecorationTheme:
+                        const InputDecorationTheme(filled: true),
+                    onSelected: (IconLabel? icon) {
+                      setState(() {
+                        selectedIcon = icon;
+                      });
+                    },
+                  )
+                ],
+              ),
+            ),
+            if (selectedColor != null && selectedIcon != null)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                      'You selected a ${selectedColor?.label} ${selectedIcon?.label}'),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Icon(
+                        selectedIcon?.icon,
+                        color: selectedColor?.color,
+                      ))
+                ],
+              )
+            else
+              const Text('Please select a color and an icon.')
+          ],
+        )),
+      ),
+    );
+  }
+}
 
-//                 return Column(
-//                   children: [
-//                     TextField(
-//                       onChanged: (query) {
-//                         List<CoinsearchModel> searchResult =
-//                             snapshot.data!.where((coin) {
-//                           String name = coin.name!.toLowerCase();
-//                           bool isFound = name.contains(query);
-//                           return isFound;
-//                         }).toList();
-//                         setState(() {
-//                           listCoin = searchResult;
-//                         });
-//                       },
-//                       decoration: InputDecoration(
-//                           prefixIcon: const Icon(
-//                             Icons.search,
-//                             color: mainColor,
-//                           ),
-//                           enabledBorder: OutlineInputBorder(
-//                               borderRadius: BorderRadius.circular(12),
-//                               borderSide: BorderSide(
-//                                 color: themeListener.isDark
-//                                     ? darktitleColor
-//                                     : mainTextColor,
-//                               )),
-//                           focusedBorder: OutlineInputBorder(
-//                               borderRadius: BorderRadius.circular(12),
-//                               borderSide: const BorderSide(color: mainColor)),
-//                           border: OutlineInputBorder(
-//                             borderSide: const BorderSide(color: mainColor),
-//                             borderRadius: BorderRadius.circular(12),
-//                           ),
-//                           hintText: 'Search coins',
-//                           hintStyle: TextStyle(
-//                             color: themeListener.isDark
-//                                 ? darktitleColor
-//                                 : mainTextColor,
-//                           )),
-//                     ),
-//                     const SizedBox(height: 24),
-//                     Expanded(
-//                       child: listCoin.isEmpty
-//                           ? const Center(
-//                               child: Text('No Coin Found'),
-//                             )
-//                           : ListView.separated(
-//                               itemCount: listCoin.length,
-//                               itemBuilder: (context, index) {
-//                                 return _buildCoin(listCoin[index]);
-//                               },
-//                               separatorBuilder: (context, index) =>
-//                                   const Divider(
-//                                 color: greyColor,
-//                               ),
-//                             ),
-//                     ),
-//                   ],
-//                 );
-//               } else if (snapshot.connectionState == ConnectionState.waiting) {
-//                 return const Center(child: CircularProgressIndicator());
-//               } else {
-//                 return const Center(child: Text('Error Occurred'));
-//               }
-//             },
-//           ),
-//         ),
-//       ),
-//     );
-//   }
+enum ColorLabel {
+  blue('Blue', Colors.blue),
+  pink('Pink', Colors.pink),
+  green('Green', Colors.green),
+  yellow('Yellow', Colors.yellow),
+  grey('Grey', Colors.grey);
 
-//   Padding _buildCoin(CoinsearchModel coin) {
-//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8),
-//       child: ListTile(
-//         onTap: () {
-//           Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => const DetailsScreen()));
-//         },
-//         leading: Image.network(
-//           coin.image ?? '',
-//           width: 50,
-//           height: 50,
-//         ),
-//         title: Text(
-//           coin.name ?? '',
-//           style: TextStyle(
-//             color: themeListener.isDark ? darktitleColor : mainTextColor,
-//           ),
-//         ),
-//         trailing: Column(
-//           crossAxisAlignment: CrossAxisAlignment.end,
-//           children: [
-//             Text(
-//               CurrencyHelper.idr(coin.currentPrice!),
-//               style: TextStyle(
-//                 fontWeight: FontWeight.bold,
-//                 color: themeListener.isDark ? darktitleColor : mainTextColor,
-//               ),
-//             ),
-//             const SizedBox(height: 5),
-//             Text(
-//               '${coin.priceChangePercentage24h} %',
-//               style: const TextStyle(color: successColor),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
+  const ColorLabel(this.label, this.color);
+  final String label;
+  final Color color;
+}
 
-//   Drawer _buildDrawer() {
-//     return Drawer(
-//       child: ListView(
-//         children: [
-//           DrawerHeader(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: const [
-//                 CircleAvatar(
-//                   radius: 25,
-//                   backgroundImage: NetworkImage(
-//                       'https://avatars.githubusercontent.com/u/33564447?v=4'),
-//                 ),
-//                 SizedBox(height: 12),
-//                 Text('Fikky Ardianto'),
-//                 Text('fikky@gmail.com'),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+enum IconLabel {
+  smile('Smile', Icons.sentiment_satisfied_outlined),
+  cloud(
+    'Cloud',
+    Icons.cloud_outlined,
+  ),
+  brush('Brush', Icons.brush_outlined),
+  heart('Heart', Icons.favorite);
 
-// class CurrencyHelper {
-//   static String idr(double number) {
-//     NumberFormat currencyFormatter = NumberFormat.currency(
-//       locale: 'id',
-//       symbol: 'Rp. ',
-//       decimalDigits: 0,
-//     );
-//     return currencyFormatter.format(number);
-//   }
-// }
+  const IconLabel(this.label, this.icon);
+  final String label;
+  final IconData icon;
+}

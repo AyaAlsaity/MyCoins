@@ -1,167 +1,207 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/consts.dart';
+import '../../providers/coins_provider.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../../screen/sub_screens/details_screen.dart';
 
-class CarrenciColumData extends StatefulWidget {
-  const CarrenciColumData({super.key});
+class CarrenciColumData extends StatelessWidget {
+  const CarrenciColumData({
+    super.key,
+  });
 
-  @override
-  State<CarrenciColumData> createState() => _CarrenciColumDataState();
-}
-
-class _CarrenciColumDataState extends State<CarrenciColumData> {
   @override
   Widget build(BuildContext context) {
     // final CoinsearchModel coin;
 
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final double width = MediaQuery.of(context).size.width;
-    return DataTable(
-        dividerThickness: 2,
-        dataRowHeight: 60,
-        columnSpacing: 2,
-        horizontalMargin: 0,
-        columns: [
-          DataColumn(
-              label: Row(
-            children: [
-              SizedBox(
-                  width: width * .1,
-                  //  width: 8,
+    return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
+      return DataTable(
+          dividerThickness: 2,
+          dataRowHeight: 60,
+          columnSpacing: 2,
+          horizontalMargin: 0,
+          columns: [
+            DataColumn(
+                label: Row(
+              children: [
+                SizedBox(
+                    width: width * .1,
+                    //  width: 8,
+                    child: Text(
+                      "#",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: themeListener.isDark
+                            ? darktitleColor
+                            : mainTextColor,
+                        fontSize: 16,
+                      ),
+                    )),
+              ],
+            )),
+            DataColumn(
+                label: Row(
+              children: [
+                Container(
+                  width: width * 0.2,
+                  alignment: Alignment.center,
                   child: Text(
-                    "#",
-                    textAlign: TextAlign.center,
+                    AppLocalizations.of(context)!.coin,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color:
                           themeListener.isDark ? darktitleColor : mainTextColor,
                       fontSize: 16,
                     ),
-                  )),
-            ],
-          )),
-          DataColumn(
-              label: Row(
-            children: [
-              Container(                
-                width: width * 0.2,
-                alignment: Alignment.center,
-                child: Text(
-                  AppLocalizations.of(context)!.coin,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color:
-                        themeListener.isDark ? darktitleColor : mainTextColor,
-                    fontSize: 16,
                   ),
                 ),
-              ),
-            ],
-          )),
-          DataColumn(
-              label: Row(
-            children: [
-              Container(
-                width: width * .2,
-                alignment: Alignment.center,
-                child: Text(
-                  AppLocalizations.of(context)!.price,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color:
-                        themeListener.isDark ? darktitleColor : mainTextColor,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ],
-          )),
-          DataColumn(
-              label: Row(
-            children: [
-              Container(
-                width: width * .2,
-                alignment: Alignment.center,
-                child: Text(
-                  AppLocalizations.of(context)!.hour,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color:
-                        themeListener.isDark ? darktitleColor : mainTextColor,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ],
-          )),
-          DataColumn(
-              label: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(right: 20),
-                width: width * .4,
-                alignment: Alignment.center,
-                child: Text(
-                  AppLocalizations.of(context)!.market,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color:
-                        themeListener.isDark ? darktitleColor : mainTextColor,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ],
-          )),
-        ],
-        rows: List<DataRow>.generate(10, (i) {
-          return DataRow(cells: <DataCell>[
-            DataCell(Container(
-              alignment: Alignment.center,
-              child: Text(
-                '${i + 1}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: themeListener.isDark ? darktitleColor : mainTextColor,
-                  fontSize: 11,
-                ),
-              ),
+              ],
             )),
-            DataCell(GestureDetector(
-              onTap: () {
-                // Navigator.push(
-                //     context,
-                //     CupertinoPageRoute(
-                //         builder: (context) =>  DetailsScreen(
-                //              coin: null,
-                //             )));
-              },
-              child: Container(
+            DataColumn(
+                label: Row(
+              children: [
+                Container(
+                  width: width * .2,
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppLocalizations.of(context)!.price,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            )),
+            DataColumn(
+                label: Row(
+              children: [
+                Container(
+                  width: width * .2,
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppLocalizations.of(context)!.hour,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            )),
+            DataColumn(
+                label: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(right: 20),
+                  width: width * .4,
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppLocalizations.of(context)!.market,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            )),
+          ],
+          rows: List<DataRow>.generate(coinsConsumer.coinsList.length, (i) {
+            return DataRow(cells: <DataCell>[
+              DataCell(Container(
                 alignment: Alignment.center,
-                child: Column(
+                child: Text(
+                  '${i + 1}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color:
+                        themeListener.isDark ? darktitleColor : mainTextColor,
+                    fontSize: 11,
+                  ),
+                ),
+              )),
+              DataCell(GestureDetector(
+                onTap: () {
+                  // Navigator.push(
+                  //     context,
+                  //     CupertinoPageRoute(
+                  //         builder: (context) =>  DetailsScreen(
+                  //              coin: null,
+                  //             )));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Image.network(
+                            coinsConsumer.coinsList[i].image.toString()
+                            // 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579
+                            ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        // "gyu",
+                        coinsConsumer.coinsList[i].symbol.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: themeListener.isDark
+                              ? darktitleColor
+                              : mainTextColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+              DataCell(Container(
+                width: 110,
+                alignment: Alignment.center,
+                child: Text(
+                  "\$ ${coinsConsumer.coinsList[i].currentPrice.toString()}",
+                  // '\$24,000.00',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color:
+                        themeListener.isDark ? darktitleColor : mainTextColor,
+                    fontSize: 16,
+                  ),
+                ),
+              )),
+              DataCell(Container(
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Image.network(
-                          'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
+                    const Icon(Icons.arrow_drop_down,
+                        size: 20, color: Colors.red),
                     Text(
-                      'BTC',
-                      textAlign: TextAlign.center,
+                      coinsConsumer.coinsList[i].priceChangePercentage24H
+                          .toString(),
+                      // '2.4%',
+                      textAlign: TextAlign.right,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: themeListener.isDark
@@ -172,57 +212,26 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                     ),
                   ],
                 ),
-              ),
-            )),
-            DataCell(Container(
-              width: 110,
-              alignment: Alignment.center,
-              child: Text(
-                '\$24,000.00',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: themeListener.isDark ? darktitleColor : mainTextColor,
-                  fontSize: 16,
-                ),
-              ),
-            )),
-            DataCell(Container(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Icon(Icons.arrow_drop_down,
-                      size: 20, color: Colors.red),
-                  Text(
-                    '2.4%',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color:
-                          themeListener.isDark ? darktitleColor : mainTextColor,
-                      fontSize: 16,
-                    ),
+              )),
+              DataCell(SizedBox(
+                width: 110,
+                child: Text(
+                  coinsConsumer.coinsList[i].marketCap.toString(),
+                  // '\$200,000',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color:
+                        themeListener.isDark ? darktitleColor : mainTextColor,
+                    fontSize: 16,
                   ),
-                ],
-              ),
-            )),
-            DataCell(SizedBox(
-              width: 110,
-              child: Text(
-                '\$200,000',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: themeListener.isDark ? darktitleColor : mainTextColor,
-                  fontSize: 16,
                 ),
-              ),
-            )),
-          ]);
-        }));
+              )),
+            ]);
+          }));
+    });
   }
 }
-
 
 // class SmallCarrenciCard extends StatefulWidget {
 //   const SmallCarrenciCard(
@@ -241,6 +250,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
 // }
 
 // class _SmallCarrenciCardState extends State<SmallCarrenciCard> {
+
 //   @override
 //   Widget build(BuildContext context) {
 //     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
@@ -320,6 +330,76 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
 //           height: sizedBoxSameComponents,
 //         )
 //       ],
+//     );
+//   }
+// }
+
+// class MyImageTextWidget extends StatelessWidget {
+//   MyImageTextWidget({super.key, required this.coinsModel});
+//   CoinsModel coinsModel;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+//     return Container(
+//       alignment: Alignment.center,
+//       child: Column(
+//         children: [
+//           const SizedBox(
+//             height: 10,
+//           ),
+//           Container(
+//             width: 20,
+//             height: 20,
+//             decoration: BoxDecoration(
+//                 color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+//             child: Image.network(coinsModel.image
+//                 // 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'
+//                 ),
+//           ),
+//           const SizedBox(
+//             height: 4,
+//           ),
+//           Text(
+//             coinsModel.symbol,
+//             textAlign: TextAlign.center,
+//             style: TextStyle(
+//               fontWeight: FontWeight.w500,
+//               color: themeListener.isDark ? darktitleColor : mainTextColor,
+//               fontSize: 16,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class MyIconTextWidget extends StatelessWidget {
+//   MyIconTextWidget({super.key, required this.coinsModel});
+//   CoinsModel coinsModel;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+//     return Container(
+//       alignment: Alignment.center,
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.end,
+//         children: [
+//           const Icon(Icons.arrow_drop_down, size: 20, color: Colors.red),
+//           Text(
+//             coinsModel.priceChangePercentage24H.toString(),
+//             // '2.4%',
+//             textAlign: TextAlign.right,
+//             style: TextStyle(
+//               fontWeight: FontWeight.w500,
+//               color: themeListener.isDark ? darktitleColor : mainTextColor,
+//               fontSize: 16,
+//             ),
+//           ),
+//         ],
+//       ),
 //     );
 //   }
 // }

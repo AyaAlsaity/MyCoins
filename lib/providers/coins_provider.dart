@@ -16,22 +16,19 @@ class CoinsProvider with ChangeNotifier {
   getCoins() async {
     isLoading = true;
 
-    var response =
-        await _api.get('coins/markets?vs_currency=usd&sparkline=true', {});
+    var response = await _api
+        .get('/api/v3/coins/markets?vs_currency=usd&sparkline=true', {});
 
     if (response.statusCode == 200) {
       var rawData = json.decode(response.body);
-      setCoins(rawData);
+      List result = json.decode(response.body);
+      final data = result.map((json) => CoinsModel.fromJson(json)).toList();
+      setCoins(data);
     }
   }
 
-  setCoins(jsonData) {
-    coinsList.clear();
-    isLoading = false;
-
-    for (var i in jsonData) {
-      coinsList.add(CoinsModel.fromJson(i));
-    }
+  setCoins(List<CoinsModel> data) {
+    coinsList = data;
 
     notifyListeners();
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/consts.dart';
+import '../../main.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -23,9 +24,9 @@ class _SettingState extends State<SettingScreen> {
           padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
           child: ListView(
             children: [
-               Text(
+              Text(
                 AppLocalizations.of(context)!.settings,
-                style:const TextStyle(
+                style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w500,
                     color: mainColor),
@@ -57,31 +58,22 @@ class _SettingState extends State<SettingScreen> {
               const SizedBox(
                 height: 10,
               ),
-              PopupMenuButton(
-                constraints: const BoxConstraints(
-                  minWidth: 2.0 * 56.0,
-                  maxWidth: 5.0 * 56.0,
-                ),
+              SettingsRowButton(
+                title: AppLocalizations.of(context)!.resttitl1,
+              ),
+              SettingsRowButton(
+                title: AppLocalizations.of(context)!.edityc,
+              ),
+              GestureDetector(
+                onTap: () {
+                  showLenguageSelectionDialog(context, "");
+                },
                 child: SettingsRowButton(
-                  title: AppLocalizations.of(context)!.resttitl1,
+                  title: AppLocalizations.of(context)!.lag,
                 ),
-                itemBuilder: (_) => [
-                  const PopupMenuItem(
-                    value: 'item1',
-                    child: Text('Item1'),
-                  ),
-                  const PopupMenuItem(value: 'item2', child: Text('Item2')),
-                ],
-                onSelected: (value) => Navigator.of(context).pushNamed(value),
               ),
               SettingsRowButton(
-                title:AppLocalizations.of(context)!.edityc,
-              ),
-              SettingsRowButton(
-                title: AppLocalizations.of(context)!.lag,
-              ),
-              SettingsRowButton(
-                title:AppLocalizations.of(context)!.dakmo,
+                title: AppLocalizations.of(context)!.dakmo,
               ),
               const SizedBox(
                 height: 40,
@@ -109,7 +101,8 @@ class _SettingState extends State<SettingScreen> {
                 height: 10,
               ),
               // buildNotificationsOptionRow("New For You", true),
-              buildNotificationsOptionRow(AppLocalizations.of(context)!.activte, true),
+              buildNotificationsOptionRow(
+                  AppLocalizations.of(context)!.activte, true),
 
               const SizedBox(
                 height: 50,
@@ -214,4 +207,57 @@ class SettingsRowButton extends StatelessWidget {
       ),
     );
   }
+}
+
+void showLenguageSelectionDialog(BuildContext context, String currentLenguage) {
+  showDialog(
+    context: context,
+    builder: (_) => AlertDialog(
+      title: Text(AppLocalizations.of(context)!.lag),
+      content: SizedBox(
+        height: 100,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Radio<String>(
+                  value: currentLenguage,
+                  groupValue: AppLocalizations.of(context)!.lanen,
+                  onChanged: (value) async {
+                    AppLocalizations.of(context)!.localeName == 'en'
+                        ? MyApp.setLocale(context, const Locale('ar'))
+                        : MyApp.setLocale(context, const Locale('en'));
+
+                    Navigator.pop(context);
+                  },
+                ),
+                Text(
+                  AppLocalizations.of(context)!.lanen,
+                  style: const TextStyle(fontSize: 18),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Radio<String>(
+                  value: currentLenguage,
+                  groupValue: AppLocalizations.of(context)!.lanar,
+                  onChanged: (value) async {
+                    AppLocalizations.of(context)!.localeName == 'en'
+                        ? MyApp.setLocale(context, const Locale('ar'))
+                        : MyApp.setLocale(context, const Locale('en'));
+                    Navigator.pop(context);
+                  },
+                ),
+                Text(
+                  AppLocalizations.of(context)!.lanar,
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

@@ -42,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-
+      
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () => showCustomFlushbar(
         //       AppLocalizations.of(context)!.pass7,
@@ -50,6 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         //       Icons.error,
         //       context),
         // ),
+
         appBar: AppBar(
           elevation: 0,
           systemOverlayStyle: const SystemUiOverlayStyle(

@@ -1,21 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mycoins/models/coins_search_model.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
-import '../../models/coins_model.dart';
 import '../../models/details_map.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../../widgets/static_widgets/chartWidget.dart';
 import '../../widgets/static_widgets/continarDarkmode.dart';
 import '../../widgets/static_widgets/money_converter_widget.dart';
 
 import 'dart:convert';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:http/http.dart' as http;
-import 'search_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({Key? key, required this.coin}) : super(key: key);
@@ -26,10 +24,10 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-
-  FirebaseFirestore firestore=FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool isOk1 = false;
-  int indexFavorite=0;
+  int indexFavorite = 0;
   bool isLoading = true;
   bool isFirstTime = true;
   List<FlSpot> flSpotList = [];
@@ -77,7 +75,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     getChartData('1');
   }
 
-    List<DetailsMap> listDetails = [
+  List<DetailsMap> listDetails = [
     DetailsMap(
       name: 'Market cap',
       number: 586578312211,
@@ -135,12 +133,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
       number: -56.07955,
     ),
   ];
-   
 
   @override
   Widget build(BuildContext context) {
-     CollectionReference favorites=firestore.collection('favorites');  
-     final themeFunctions =
+    CollectionReference favorites = firestore.collection('favorites');
+    final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -156,7 +153,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-               widget.coin.image.toString(),
+                widget.coin.image.toString(),
                 width: 25,
                 height: 25,
               ),
@@ -172,56 +169,75 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             ),
             Text(
-
               widget.coin.name.toString(),
               style: TextStyle(
                   color: themeFunctions.isDark ? darktitleColor : mainTextColor,
                   fontWeight: FontWeight.bold),
             ),
-            
           ],
         ),
-        
+
         actions: [
           IconButton(
-            onPressed: () async{
+            onPressed: () async {
               setState(() {
                 isOk1 = !isOk1;
-                
               });
-               
-              
-              if(isOk1==true){
+
+              if (isOk1 == true) {
                 indexFavorite++;
-              await favorites.doc("coin$indexFavorite").set({
-                'ath_change_percentage':"-59.43744,",
-                'ath':"69045",
-                'max_supply':"21000000",
-                'total_supply':"19362006",
-                'circulating_supply':"-2.18024",
-                'market_cap_change_percentage_24h':"-12093227985.869446",
-                'market_cap_change_24h':"-2.04346",
-                'price_change_percentage_24h':"${widget.coin.priceChangePercentage24h}",
-                'price_change_24h':"27722",
-                'low_24h':"28669",
-                'high_24h':"28669",
-                'total_volume':"16496081189",
-                'fully_diluted_valuation':"588481479757",
-                'market_cap_rank':"1",
-                'market_cap':"588481479757",
-                'current_price':"${widget.coin.currentPrice}",
-                'image':"${widget.coin.image}",
-                'name':"${widget.coin.name}",
-                'symbol':"${widget.coin.symbol}",
-              }
-              
-              );
+                // await favorites.doc("coin$indexFavorite").set({
+                //   'ath_change_percentage':"-59.43744,",
+                //   'ath':"69045",
+                //   'max_supply':"21000000",
+                //   'total_supply':"19362006",
+                //   'circulating_supply':"-2.18024",
+                //   'market_cap_change_percentage_24h':"-12093227985.869446",
+                //   'market_cap_change_24h':"-2.04346",
+                //   'price_change_percentage_24h':"${widget.coin.priceChangePercentage24h}",
+                //   'price_change_24h':"27722",
+                //   'low_24h':"28669",
+                //   'high_24h':"28669",
+                //   'total_volume':"16496081189",
+                //   'fully_diluted_valuation':"588481479757",
+                //   'market_cap_rank':"1",
+                //   'market_cap':"588481479757",
+                //   'current_price':"${widget.coin.currentPrice}",
+                //   'image':"${widget.coin.image}",
+                //   'name':"${widget.coin.name}",
+                //   'symbol':"${widget.coin.symbol}",
+                // }
 
+                // );
 
-              }else{
+                firestore.collection('favorites').add({
+                  'ath_change_percentage': "-59.43744,",
+                  'ath': "69045",
+                  'max_supply': "21000000",
+                  'total_supply': "19362006",
+                  'circulating_supply': "-2.18024",
+                  'market_cap_change_percentage_24h': "-12093227985.869446",
+                  'market_cap_change_24h': "-2.04346",
+                  'price_change_percentage_24h':
+                      "${widget.coin.priceChangePercentage24h}",
+                  'price_change_24h': "27722",
+                  'low_24h': "28669",
+                  'high_24h': "28669",
+                  'total_volume': "16496081189",
+                  'fully_diluted_valuation': "588481479757",
+                  'market_cap_rank': "1",
+                  'market_cap': "588481479757",
+                  'current_price': "${widget.coin.currentPrice}",
+                  'image': "${widget.coin.image}",
+                  'name': "${widget.coin.name}",
+                  'symbol': "${widget.coin.symbol}",
+                  "user_id": auth.currentUser!.uid.toString()
+                });
+
+                firestore.collection('favorites').where('user_id' , isEqualTo: auth.currentUser!.uid.toString() ).get();
+              } else {
                 await favorites.doc("coin$indexFavorite").delete();
               }
-             
             },
             icon: Icon(
               isOk1 ? Icons.star : Icons.star_border_outlined,
@@ -230,14 +246,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
         ],
       ),
-     
-      floatingActionButton: FloatingActionButton(onPressed: () { Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const moneyConverter())); },
-                                                child: const Icon(Icons.local_convenience_store_rounded),
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => const moneyConverter()));
+        },
+        child: const Icon(Icons.local_convenience_store_rounded),
       ),
       body: RefreshIndicator(
         color: mainColor,
@@ -245,19 +259,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ? darkBackroundContinarColor
             : secondeyTextColor,
         onRefresh: () async {
-         
           //
         },
-            child:SingleChildScrollView(
-              child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                         Row(
-                  
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
                       Text(
                         '\$ ${widget.coin.currentPrice.toString()}',
@@ -271,8 +283,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       const SizedBox(
                         width: 15,
                       ),
-                       Text(
-                         '${widget.coin.priceChangePercentage24h} %',
+                      Text(
+                        '${widget.coin.priceChangePercentage24h} %',
                         style: const TextStyle(color: warningColor),
                       ),
                     ],
@@ -285,8 +297,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     children: [
                       ContinarDarkMode(
                         //Static
-                        image:
-                            widget.coin.image.toString(),
+                        image: widget.coin.image.toString(),
                         price: '1.00',
                         symbol: 'btc',
                       ),
@@ -301,64 +312,65 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   const SizedBox(
                     height: sizedBoxNotSameComponents + 10,
                   ),
-                
-                       
-                         isLoading == false
-          ?Container(
-              width: size.width,
-                            height: size.width/1.5,
-                                  decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(paddingAll),
-                              color: themeFunctions.isDark
-                                  ? darkBackroundContinarColor
-                                  : secondeyTextColor,
-                            ),
-                              child: Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: LineChart(
-                      LineChartData(
-                        
-                        minX: minX,
-                        minY: minY,
-                        maxX: maxX,
-                        maxY: maxY,
-                        titlesData: FlTitlesData(show: false),
-                        borderData: FlBorderData(show: false),
-                        gridData: FlGridData(
-                          getDrawingHorizontalLine: (value) =>
-                              FlLine(strokeWidth: 0),
-                          getDrawingVerticalLine: (value) =>
-                              FlLine(strokeWidth: 0),
-                        ),
-                        lineBarsData: [
-                          LineChartBarData(
-                            color:mainColor,
-                            spots: flSpotList,
-                            dotData: FlDotData(show: false),
+                  isLoading == false
+                      ? Container(
+                          width: size.width,
+                          height: size.width / 1.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(paddingAll),
+                            color: themeFunctions.isDark
+                                ? darkBackroundContinarColor
+                                : secondeyTextColor,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                  const SizedBox(
-                    height: sizedBoxNotSameComponents,
-                  ),
-                  Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            InkWell(
-                              onTap: () => getChartData('1'),
-                              child: Container(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: LineChart(
+                                    LineChartData(
+                                      minX: minX,
+                                      minY: minY,
+                                      maxX: maxX,
+                                      maxY: maxY,
+                                      titlesData: FlTitlesData(show: false),
+                                      borderData: FlBorderData(show: false),
+                                      gridData: FlGridData(
+                                        getDrawingHorizontalLine: (value) =>
+                                            FlLine(strokeWidth: 0),
+                                        getDrawingVerticalLine: (value) =>
+                                            FlLine(strokeWidth: 0),
+                                      ),
+                                      lineBarsData: [
+                                        LineChartBarData(
+                                          color: mainColor,
+                                          spots: flSpotList,
+                                          dotData: FlDotData(show: false),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: sizedBoxNotSameComponents,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: () => getChartData('1'),
+                                    child: Container(
                                       decoration: BoxDecoration(
-                                          color: mainColor.withOpacity(0.8), borderRadius: BorderRadius.circular(10)),
+                                          color: mainColor.withOpacity(0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 25, vertical: 8),
                                         child: Text(
-                                         '1 D',
+                                          '1 D',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -366,16 +378,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ),
                                     ),
-                            ),
-                            InkWell(
-                              onTap: () => getChartData('15'),
-                              child: Container(
+                                  ),
+                                  InkWell(
+                                    onTap: () => getChartData('15'),
+                                    child: Container(
                                       decoration: BoxDecoration(
-                                          color: mainColor.withOpacity(0.8), borderRadius: BorderRadius.circular(10)),
+                                          color: mainColor.withOpacity(0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 25, vertical: 8),
                                         child: Text(
-                                         '15 D',
+                                          '15 D',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -383,16 +398,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ),
                                     ),
-                            ),
-                            InkWell(
-                              onTap: () => getChartData('30'),
-                              child: Container(
+                                  ),
+                                  InkWell(
+                                    onTap: () => getChartData('30'),
+                                    child: Container(
                                       decoration: BoxDecoration(
-                                          color: mainColor.withOpacity(0.8), borderRadius: BorderRadius.circular(10)),
+                                          color: mainColor.withOpacity(0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 25, vertical: 8),
                                         child: Text(
-                                         '30 D',
+                                          '30 D',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -400,93 +418,87 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ),
                                     ),
-                            ),
-                           
-                            
-                            
-                          ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: sizedBoxNotSameComponents,
+                              ),
+                            ],
+                          ),
                         )
-                  , const SizedBox(
-                    height: sizedBoxNotSameComponents,
+                      : const Center(child: CircularProgressIndicator()),
+                  const SizedBox(
+                    height: sizedBoxNotSameComponents + 10,
                   ),
-
-
-              ],
-            ),
-          ) :const Center(child: CircularProgressIndicator()),
-            const SizedBox(
-                    height: sizedBoxNotSameComponents+10,
-                  ),
-                                    Container(
-                                      width: size.width,
-                                      height: size.height * 1.13,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(paddingAll),
+                  Container(
+                    width: size.width,
+                    height: size.height * 1.13,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(paddingAll),
+                      color: themeFunctions.isDark
+                          ? darkBackroundContinarColor
+                          : secondeyTextColor,
+                    ),
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: listDetails.length,
+                      itemBuilder: ((context, index) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: paddingAll),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      listDetails[index].name,
+                                      style: TextStyle(
+                                        fontSize: 12,
                                         color: themeFunctions.isDark
-                                            ? darkBackroundContinarColor
-                                            : secondeyTextColor,
+                                            ? darkMainTextColor
+                                            : Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                      child: ListView.builder(
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: listDetails.length,
-                                        itemBuilder: ((context, index) => Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: paddingAll),
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        listDetails[index].name,
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: themeFunctions.isDark
-                                                              ? darkMainTextColor
-                                                              : Colors.grey.shade700,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        listDetails[index].number.toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: themeFunctions.isDark
-                                                              ? darktitleColor
-                                                              : mainTextColor,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Divider(
-                                                    height: 1,
-                                                    color: themeFunctions.isDark
-                                                        ? darksecondeyTextColor
-                                                        : Colors.grey.shade400,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                            ),
-                                            ),
-                                            ),
-                      ],
+                                    ),
+                                    Text(
+                                      listDetails[index].number.toString(),
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: themeFunctions.isDark
+                                            ? darktitleColor
+                                            : mainTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: themeFunctions.isDark
+                                      ? darksecondeyTextColor
+                                      : Colors.grey.shade400,
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                              ],
+                            ),
+                          )),
                     ),
                   ),
-                ),
+                ],
+              ),
             ),
           ),
-         
+        ),
+      ),
     );
   }
 }

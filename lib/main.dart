@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //font
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mycoins/providers/coins_provider.dart';
 import 'package:mycoins/screen/auth_screens/splah_screen.dart';
 // provider
 import 'package:provider/provider.dart';
@@ -32,7 +33,7 @@ Future<void> main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-  
+
   static void setLocale(BuildContext context, Locale locale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state!.setLocale(locale);
@@ -83,8 +84,8 @@ class _MyAppState extends State<MyApp> {
 
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider<AuthProvider>(
-        //     create: (BuildContext context) => AuthProvider()),
+        ChangeNotifierProvider<CoinsProvider>(
+            create: (BuildContext context) => CoinsProvider()),
         ChangeNotifierProvider<DarkThemeProvider>(
           create: (_) {
             return DarkThemeProvider();
@@ -149,9 +150,8 @@ class _MyAppState extends State<MyApp> {
             ),
             progressIndicatorTheme: const ProgressIndicatorThemeData(
               color: mainColor,
-           
-           ),
-          
+            ),
+
             // inputDecorationTheme: InputDecorationTheme(
             //   fillColor: themeListener.isDark
             //       ? darkBackroundScreenColor
@@ -205,8 +205,7 @@ class _MyAppState extends State<MyApp> {
             //     color: warningColor,
             //   ),
             // ),
-           
-           
+
             bottomNavigationBarTheme: BottomNavigationBarThemeData(
               selectedItemColor: mainColor,
               unselectedItemColor: themeListener.isDark

@@ -45,4 +45,4 @@ TextStyle datacolumnText = const TextStyle(
 
 // ----------------------------------- API CONSTS ----------------------------------------
 
-String baseUrl = 'https://api.coingecko.com/api/v3/';
+String baseUrl = 'https://api.coingecko.com';

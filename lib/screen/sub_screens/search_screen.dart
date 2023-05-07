@@ -19,7 +19,7 @@ class CoinSearchScreen extends StatefulWidget {
 
 class _CoinSearchScreenState extends State<CoinSearchScreen> {
   String urlListMarket =
-      '${baseUrl}coins/markets?vs_currency=idr&order=market_cap_desc&per_page=100&page=1&sparkline=false';
+      '$baseUrl/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=100&page=1&sparkline=false';
   List<CoinsearchModel> listCoin = [];
   late Future<List<CoinsearchModel>> listCoinFuture;
   bool isFirstTimeDataAccess = true;
@@ -68,7 +68,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                     listCoin = snapshot.data!;
                     isFirstTimeDataAccess = false;
                   }
-        
+
                   return Column(
                     children: [
                       TextField(
@@ -119,14 +119,12 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                       Expanded(
                         child: listCoin.isEmpty
                             ? SingleChildScrollView(
-                              child:ErrorWwidget(
-                                error: AppLocalizations.of(context)!.error1, 
-                                image: 'assets/images/error2.png',
-
-                              ),
-                              
-                            ): ListView.separated(
-                    
+                                child: ErrorWwidget(
+                                  error: AppLocalizations.of(context)!.error1,
+                                  image: 'assets/images/error2.png',
+                                ),
+                              )
+                            : ListView.separated(
                                 itemCount: listCoin.length,
                                 itemBuilder: (context, index) {
                                   return _buildCoin(listCoin[index]);
@@ -143,12 +141,10 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                     ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  return  
-                 ErrorWwidget(
-                                error: AppLocalizations.of(context)!.error2, 
-                                image: 'assets/images/error2.png',
-
-                              );
+                  return ErrorWwidget(
+                    error: AppLocalizations.of(context)!.error2,
+                    image: 'assets/images/error2.png',
+                  );
                 }
               },
             ),
@@ -164,8 +160,12 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DetailsScreen(coin: coin,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailsScreen(
+                        coin: coin,
+                      )));
         },
         leading: Image.network(
           coin.image ?? '',

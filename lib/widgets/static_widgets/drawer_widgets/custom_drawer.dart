@@ -21,9 +21,9 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-    QuerySnapshot? listUsers;
- FirebaseFirestore firestore=FirebaseFirestore.instance;
-   DocumentSnapshot? listuser;
+  QuerySnapshot? listUsers;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  DocumentSnapshot? listuser;
 
   //  Future<DocumentSnapshot<Object?>?> getUsers() async {
   //    listUsers=await firestore.collection('users').get();
@@ -35,7 +35,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   // @override
   // void initState() {
-   
+
   //   super.initState();
   //    listuser=getUsers() as DocumentSnapshot<Object?>?;
   // }
@@ -43,7 +43,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    
+
     FirebaseAuth auth = FirebaseAuth.instance;
     return SizedBox(
       width: 330,
@@ -56,8 +56,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
             padding: const EdgeInsets.fromLTRB(24, 70, 24, 0),
             child: Column(
               children: [
-                 const Infocard(
-                  emailText:'areej @ gmail.com',
+                const Infocard(
+                  emailText: 'areej @ gmail.com',
                   nameText: 'Areej',
 
                   //  emailText:listuser==null? 'areej @ gmail.com':listuser!.get('email').toString(),
@@ -74,16 +74,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 const SizedBox(
                   height: 20,
                 ),
-                // DrawerItem(
-                //     title: AppLocalizations.of(context)!.proinfo,
-                //     icon: Icons.person,
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           CupertinoPageRoute(
-                //               builder: (context) => const ProfileScreen()));
-                //     }),
-
                 DrawerItem(
                     title: AppLocalizations.of(context)!.favr,
                     icon: Icons.star,
@@ -92,7 +82,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           context,
                           CupertinoPageRoute(
                               builder: (context) => const FavoriteScreen()));
-                          
                     }),
                 const SizedBox(
                   height: 10,
@@ -172,68 +161,3 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-
-// import 'drawer_item.dart';
-// import 'info_card.dart';
-
-// class CustomDrawer extends StatefulWidget {
-//   const CustomDrawer({super.key});
-
-//   @override
-//   State<CustomDrawer> createState() => _CustomDrawerState();
-// }
-
-// class _CustomDrawerState extends State<CustomDrawer> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 288,
-//       height: double.infinity,
-//       color: const Color(0xFF17203A),
-//       child: SafeArea(
-//           child: Column(
-//         children: [
-//           // custom widget
-//           const Infocard(
-//               name: "Areej elbarassi", email: "areej.elbarassi@gmail.com"),
-//           const Padding(
-//             padding: EdgeInsets.only(left: 24),
-//             child: Divider(color: Colors.white24, height: 1, thickness: 1),
-//           ),
-//           const SizedBox(
-//             height: 30,
-//           ),
-//           DrawerItem(
-//               icon: Icons.person_rounded, title: "Profile", onPressed: () {}),
-
-//           DrawerItem(icon: Icons.star, title: "Favorite", onPressed: () {}),
-//         ],
-//       )),
-//     );
-//   }
-// }

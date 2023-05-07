@@ -17,20 +17,6 @@ class _HomeCardState extends State<HomeSliderCard> {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Column(
       children: [
-        // ClipRRect(
-        //   borderRadius: const BorderRadius.only(
-        //     topLeft: Radius.circular(24),
-        //     topRight: Radius.circular(24),
-        //   ),
-        //   child: SizedBox(
-        //     width: double.infinity,
-        //     height: 200,
-        //     child: Image.asset(
-        //       'assets/images/stockmarket.jpg',
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
         Container(
           width: double.infinity,
           // height: 70,
@@ -72,6 +58,15 @@ class _HomeCardState extends State<HomeSliderCard> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
+                    // Container(
+                    //   width: 20,
+                    //   height: 20,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    //   child: Image.network(
+                    //       'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'),
+                    // ),
                     Column(
                       // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
