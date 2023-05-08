@@ -34,18 +34,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: darkBackroundScreenColor,
-          ),
         ),
         body: SafeArea(
           child: Form(
             key: loginForm,
-            // onChanged: () {
-            //   setState(() {
-            //     buttonEnabled = loginForm.currentState!.validate();
-            //   });
-            // },
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -107,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             ispassword: false,
                           ),
+                         
                           TextFieldWidget(
                             label: AppLocalizations.of(context)!.pass1,
                             hintText: AppLocalizations.of(context)!.pass2,
@@ -165,10 +158,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               isbackround: true,
                               title: AppLocalizations.of(context)!.butt0,
                               widthh: double.infinity,
-                              heightt: size.width / 7.5,
+                              heightt: size.width / 6.5,
                               paddingg: 13,
                             ),
                           ),
+                         
                           const SizedBox(
                             height: sizedBoxNotSameComponents + 10,
                           ),

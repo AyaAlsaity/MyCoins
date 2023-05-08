@@ -40,7 +40,7 @@ class ContinarDarkMode extends StatelessWidget {
                 Text(
                   symbol.toUpperCase(),
                   style:
-                       TextStyle(fontSize: 14, color: themeFunctions.isDark
+                       TextStyle(fontSize: 12, color: themeFunctions.isDark
                           ? darkMainTextColor
                           : Colors.grey.shade700, ),
                 ),
@@ -79,11 +79,11 @@ class ContinarDarkMode extends StatelessWidget {
             ),
 
             const SizedBox(
-              width: sizedBoxNotSameComponents + 5,
+              width: sizedBoxSameComponents+3,
             ),
             Text(
               price,
-              style:  TextStyle(fontSize: 14, color: themeFunctions.isDark
+              style:  TextStyle(fontSize: 12, color: themeFunctions.isDark
                           ? darkMainTextColor
                           : themeFunctions.isDark
                           ? darkMainTextColor

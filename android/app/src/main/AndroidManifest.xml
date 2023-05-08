@@ -1,5 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mycoins">
+<queries>
+  <!-- If your app checks for https support -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="https" />
+  </intent>
+  <!-- If your app checks for http support -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="http" />
+  </intent>
+</queries>
    <application
         android:label="mycoins"
         android:name="${applicationName}"

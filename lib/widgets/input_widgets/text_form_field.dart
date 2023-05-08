@@ -15,6 +15,7 @@ class TextFieldWidget extends StatefulWidget {
       this.readOnlyy = false,
       this.perfix,
       required this.ispassword,
+      this.maxLine=1,
       required this.keyboardType});
   final TextEditingController controller;
   final String? label;
@@ -22,7 +23,7 @@ class TextFieldWidget extends StatefulWidget {
   final FormFieldValidator<String?> validator;
   final bool ispassword;
   final TextInputType keyboardType;
-
+  final int maxLine;
   final bool obSecureText;
   final bool readOnlyy;
   final Widget? perfix;
@@ -47,9 +48,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 Text(
                   widget.label ?? "",
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color:themeFunctions.isDark ? secondeyTextColor : darktitleColor),
+                      color:themeFunctions.isDark ? secondeyTextColor : darkBackroundScreenColor),
                 ),
               ],
             ),
@@ -57,6 +58,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             height: 5,
           ),
           TextFormField(
+            maxLines :widget.maxLine,
               controller: widget.controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: widget.validator,

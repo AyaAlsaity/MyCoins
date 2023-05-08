@@ -24,9 +24,9 @@ class _ResetSuccessfulState extends State<ResetSuccessful> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: darkBackroundScreenColor,
+        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(80.0),

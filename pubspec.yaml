@@ -63,7 +63,6 @@ dependencies:
   # geolocator:
   cloud_firestore:
   fl_chart:
-  # firebase_storage:
 
 dev_dependencies:
   flutter_test:

@@ -4,12 +4,13 @@ import 'package:flutter/services.dart';
 import '../../helpers/consts.dart';
 import '../../screen/sub_screens/search_screen.dart';
 
-PreferredSizeWidget AppBarWidget(BuildContext context){
+
+PreferredSizeWidget AppBarWidget(BuildContext context,){
   return  AppBar(
         centerTitle: true,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: darkBackroundScreenColor,
+        // ),
         title: const Text(
           "My Coins",
           style: TextStyle(
@@ -26,7 +27,7 @@ PreferredSizeWidget AppBarWidget(BuildContext context){
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => const CoinSearchScreen()));
+                              builder: (context) =>  CoinSearchScreen()));
                     },
                     child: const Icon(Icons.search))),
           )

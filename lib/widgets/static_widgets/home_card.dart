@@ -77,7 +77,7 @@ class _HomeCardState extends State<HomeSliderCard> {
                             color: themeListener.isDark
                                 ? darktitleColor
                                 : mainTextColor,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -88,7 +88,7 @@ class _HomeCardState extends State<HomeSliderCard> {
                             color: themeListener.isDark
                                 ? darktitleColor
                                 : mainTextColor,
-                            fontSize: 16,
+                            fontSize: 12,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -101,7 +101,7 @@ class _HomeCardState extends State<HomeSliderCard> {
                       '+2,304%',
                       style: TextStyle(
                         color: green,
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

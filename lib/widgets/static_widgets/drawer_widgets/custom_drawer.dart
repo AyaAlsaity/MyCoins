@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../helpers/consts.dart';
 import '../../../main.dart';
 import '../../../providers/dark_theme_provider.dart';
+import '../../../screen/sub_screens/connect_screen.dart';
 import '../../../screen/sub_screens/favorite_screen.dart';
 import '../../../screen/sub_screens/settings_screen.dart';
 import 'drawer_item.dart';
@@ -24,21 +25,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
   QuerySnapshot? listUsers;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   DocumentSnapshot? listuser;
-
-  //  Future<DocumentSnapshot<Object?>?> getUsers() async {
-  //    listUsers=await firestore.collection('users').get();
-  //    for (var coin in listUsers!.docs) {
-  //      listuser=coin;
-  //     }
-  //     return listuser;
-  // }
-
-  // @override
-  // void initState() {
-
-  //   super.initState();
-  //    listuser=getUsers() as DocumentSnapshot<Object?>?;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +122,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => const SettingScreen()));
+                              builder: (context) => const ConnectScreen()));
                     }),
                 const SizedBox(
                   height: 10,

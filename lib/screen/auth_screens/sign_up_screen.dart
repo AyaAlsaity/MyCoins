@@ -53,9 +53,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         appBar: AppBar(
           elevation: 0,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: darkBackroundScreenColor,
-          ),
+          // systemOverlayStyle: const SystemUiOverlayStyle(
+          //   statusBarColor: darkBackroundScreenColor,
+          // ),
         ),
         body: SafeArea(
           child: Form(
@@ -216,7 +216,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               // widthh: 560,
                               // heightt: 50,
                               widthh: double.infinity,
-                              heightt: size.width / 7.5,
+                              heightt: size.width / 6.5,
                               paddingg: 13,
                             ),
                           ),

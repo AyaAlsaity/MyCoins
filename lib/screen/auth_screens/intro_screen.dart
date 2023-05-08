@@ -36,32 +36,10 @@ class _IntroScreenState extends State<IntroScreen> {
         description: AppLocalizations.of(context)!.intro3desc,
       )
     ];
-    // List<Widget> pages = [
-    //   SingleIntroScreen(
-    //     image: 'assets/images/intro1.png',
-    //     title: AppLocalizations.of(context)!.intro1title,
-    //     description: "",
-    //     // AppLocalizations.of(context)!.intro1,
-    //   ),
-    //   SingleIntroScreen(
-    //     image: 'assets/images/intro2.png',
-    //     title: AppLocalizations.of(context)!.intro2title,
-    //     description: "",
-    //     // AppLocalizations.of(context)!.intro2,
-    //   ),
-    //   SingleIntroScreen(
-    //     image: 'assets/images/intro3.png',
-    //     title: AppLocalizations.of(context)!.intro3title,
-    //     description: AppLocalizations.of(context)!.intro3desc,
-    //   ),
-    // ];
+    
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
-
         centerTitle: false,
         title: Text(
           "$currentIndex/3",
@@ -69,23 +47,7 @@ class _IntroScreenState extends State<IntroScreen> {
             color: themeListener.isDark ? darktitleColor : mainTextColor,
           ),
         ),
-        // actions: [
-        //   Center(
-        //     child: Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 12),
-        //       child: ClickableText(
-        //           text: AppLocalizations.of(context)!.skip,
-        //           color: mainTextColor,
-        //           fontSize: 16,
-        //           onPressed: () {
-        //             Navigator.pushReplacement(
-        //                 context,
-        //                 CupertinoPageRoute(
-        //                     builder: (context) => const LoginScreen()));
-        //           }),
-        //     ),
-        //   )
-        // ],
+       
       ),
       body: IntroductionScreen(
         rawPages: listOfPages,
@@ -93,7 +55,7 @@ class _IntroScreenState extends State<IntroScreen> {
           decoration: BoxDecoration(
               color: mainColor, borderRadius: BorderRadius.circular(10)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             child: Text(
               AppLocalizations.of(context)!.butt0,
               style: const TextStyle(
@@ -136,67 +98,6 @@ class _IntroScreenState extends State<IntroScreen> {
               MaterialPageRoute(builder: (context) => const LoginScreen()));
         },
       ),
-
-      //  IntroductionScreen(
-      //   showDoneButton: false,
-
-      //   dotsDecorator: DotsDecorator(
-      //       size: const Size.square(9.0),
-      //       activeSize: const Size(18.0, 9.0),
-      //       activeShape: RoundedRectangleBorder(
-      //           borderRadius: BorderRadius.circular(5.0)),
-      //       activeColor: mainColor,
-      //       // themeListener.isDark ? lightWihteColor : mainColor,
-      //       color: mainColor.withOpacity(0.6)
-      //       //  themeListener.isDark
-      //       //     ? lightWihteColor.withOpacity(0.5)
-      //       //     : mainColor.withOpacity(0.5),
-      //       ),
-      //   globalBackgroundColor: themeFunctions.isDark
-      //       ? darkBackroundScreenColor
-      //       : lightBackroundScreenColor,
-      //   // themeListener.isDark ? darkGreyColor : lightWihteColor,
-      //   rawPages: listOfPages,
-
-      //   onChange: (index) {
-      //     setState(() {
-      //       currentIndex = index + 1;
-      //     });
-      //   },
-      //   curve: Curves.easeIn,
-      // ),
-      // bottomNavigationBar: SizedBox(
-      //   height: size.height * 0.20,
-      //   child: Center(
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: [
-      //         MainButton(
-      //           // btnColor: currentIndex != 3 ? Colors.transparent : mainColor,
-      //           // txtColor:
-      //           //     currentIndex != 3 ? Colors.transparent : darkGreyColor,
-      //           radius: 16,
-      //           text: currentIndex == 3
-      //               ? AppLocalizations.of(context)!.butt0
-      //               : AppLocalizations.of(context)!.next,
-      //           // ? AppLocalizations.of(context)!.signin
-      //           // : AppLocalizations.of(context)!.scrolltonext,
-      //           widthFromScreen: 0.5,
-      //           onPressed: () {
-      //             if (currentIndex == 3) {
-      //               Navigator.push(
-      //                   context,
-      //                   CupertinoPageRoute(
-      //                       builder: (context) => const LoginScreen()));
-      //             }
-      //             setState(() {});
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

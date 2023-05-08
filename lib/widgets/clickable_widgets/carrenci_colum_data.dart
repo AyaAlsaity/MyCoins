@@ -1,25 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/coins_provider.dart';
 import '../../providers/dark_theme_provider.dart';
+import '../../screen/sub_screens/details_screen.dart';
 
-class CarrenciColumData extends StatelessWidget {
+class CarrenciColumData extends StatefulWidget {
   const CarrenciColumData({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // final CoinsearchModel coin;
+  State<CarrenciColumData> createState() => _CarrenciColumDataState();
+}
 
+class _CarrenciColumDataState extends State<CarrenciColumData> {
+  @override
+  Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final double width = MediaQuery.of(context).size.width;
     return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
       return DataTable(
-          dividerThickness: 2,
-          dataRowHeight: 60,
+          dividerThickness: 1.5,
+          dataRowHeight:60,
           columnSpacing: 2,
           horizontalMargin: 0,
           columns: [
@@ -28,7 +33,6 @@ class CarrenciColumData extends StatelessWidget {
               children: [
                 SizedBox(
                     width: width * .1,
-                    //  width: 8,
                     child: Text(
                       "#",
                       textAlign: TextAlign.center,
@@ -37,7 +41,7 @@ class CarrenciColumData extends StatelessWidget {
                         color: themeListener.isDark
                             ? darktitleColor
                             : mainTextColor,
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                     )),
               ],
@@ -54,7 +58,7 @@ class CarrenciColumData extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color:
                           themeListener.isDark ? darktitleColor : mainTextColor,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -64,7 +68,7 @@ class CarrenciColumData extends StatelessWidget {
                 label: Row(
               children: [
                 Container(
-                  width: width * .2,
+                  width: width * .29,
                   alignment: Alignment.center,
                   child: Text(
                     AppLocalizations.of(context)!.price,
@@ -72,7 +76,7 @@ class CarrenciColumData extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color:
                           themeListener.isDark ? darktitleColor : mainTextColor,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -82,7 +86,7 @@ class CarrenciColumData extends StatelessWidget {
                 label: Row(
               children: [
                 Container(
-                  width: width * .2,
+                  width: width * .25,
                   alignment: Alignment.center,
                   child: Text(
                     AppLocalizations.of(context)!.hour,
@@ -90,7 +94,7 @@ class CarrenciColumData extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color:
                           themeListener.isDark ? darktitleColor : mainTextColor,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -101,7 +105,7 @@ class CarrenciColumData extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.only(right: 20),
-                  width: width * .4,
+                  width: width * .45,
                   alignment: Alignment.center,
                   child: Text(
                     AppLocalizations.of(context)!.market,
@@ -109,13 +113,16 @@ class CarrenciColumData extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color:
                           themeListener.isDark ? darktitleColor : mainTextColor,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
               ],
             )),
           ],
+
+
+          
           rows: List<DataRow>.generate(coinsConsumer.coinsList.length, (i) {
             return DataRow(cells: <DataCell>[
               DataCell(Container(
@@ -132,12 +139,13 @@ class CarrenciColumData extends StatelessWidget {
               )),
               DataCell(GestureDetector(
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     CupertinoPageRoute(
-                  //         builder: (context) =>  DetailsScreen(
-                  //              coin: null,
-                  //             )));
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => DetailsScreen(
+                                coinHome: coinsConsumer.coinsList[i],
+                                index: i,
+                              )));
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -154,14 +162,14 @@ class CarrenciColumData extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.network(
                             coinsConsumer.coinsList[i].image.toString()
-                            // 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579
+                           
                             ),
                       ),
                       const SizedBox(
-                        height: 4,
+                        height: 2,
                       ),
                       Text(
-                        // "gyu",
+                       
                         coinsConsumer.coinsList[i].symbol.toString(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -169,7 +177,7 @@ class CarrenciColumData extends StatelessWidget {
                           color: themeListener.isDark
                               ? darktitleColor
                               : mainTextColor,
-                          fontSize: 16,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -181,49 +189,47 @@ class CarrenciColumData extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   "\$ ${coinsConsumer.coinsList[i].currentPrice.toString()}",
-                  // '\$24,000.00',
+                  
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color:
                         themeListener.isDark ? darktitleColor : mainTextColor,
-                    fontSize: 16,
+                    fontSize: 12,
                   ),
                 ),
               )),
               DataCell(Container(
                 alignment: Alignment.center,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const Icon(Icons.arrow_drop_down,
                         size: 20, color: Colors.red),
                     Text(
-                      coinsConsumer.coinsList[i].priceChangePercentage24H
-                          .toString(),
-                      // '2.4%',
-                      textAlign: TextAlign.right,
+                      coinsConsumer.coinsList[i].priceChangePercentage24H.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: themeListener.isDark
                             ? darktitleColor
                             : mainTextColor,
-                        fontSize: 16,
+                        fontSize: 12,
                       ),
                     ),
                   ],
                 ),
               )),
-              DataCell(SizedBox(
-                width: 110,
-                child: Text(
-                  coinsConsumer.coinsList[i].marketCap.toString(),
-                  // '\$200,000',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color:
-                        themeListener.isDark ? darktitleColor : mainTextColor,
-                    fontSize: 16,
+              
+              DataCell(Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SizedBox(
+                  width: 140,
+                  child: Text(
+                    coinsConsumer.coinsList[i].marketCap.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               )),

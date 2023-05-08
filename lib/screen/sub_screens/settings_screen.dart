@@ -16,9 +16,6 @@ class _SettingState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: darkBackroundScreenColor,
-          ),
         ),
         body: Container(
           padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
@@ -64,17 +61,7 @@ class _SettingState extends State<SettingScreen> {
               SettingsRowButton(
                 title: AppLocalizations.of(context)!.edityc,
               ),
-              GestureDetector(
-                onTap: () {
-                  showLenguageSelectionDialog(context, "");
-                },
-                child: SettingsRowButton(
-                  title: AppLocalizations.of(context)!.lag,
-                ),
-              ),
-              SettingsRowButton(
-                title: AppLocalizations.of(context)!.dakmo,
-              ),
+             
               const SizedBox(
                 height: 40,
               ),

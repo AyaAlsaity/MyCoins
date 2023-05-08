@@ -33,9 +33,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: darkBackroundScreenColor,
+        // ),
         // elevation: 0,
         // backgroundColor: Colors.white,
         // iconTheme: const IconThemeData(color: mainColor),
@@ -63,7 +63,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Center(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
               child: Text(
                 AppLocalizations.of(context)!.fogotsubtiti,
                 textAlign: TextAlign.center,
@@ -72,7 +73,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ? darktitleColor
                         : mainTextColor,
                     fontWeight: FontWeight.w400,
-                    fontSize: 16),
+                    fontSize: 14),
               ),
             ),
             SizedBox(
@@ -143,7 +144,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           isbackround: true,
                           title: AppLocalizations.of(context)!.contin,
                           widthh: double.infinity,
-                          heightt: size.width / 7.5,
+                          heightt: size.width / 6.5,
                           paddingg: 13),
                     ),
               

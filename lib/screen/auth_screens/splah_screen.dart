@@ -31,9 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
        appBar: AppBar(
       elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: darkBackroundScreenColor,
+        // ),
       ),
       body: Center(
         child: Image.asset(

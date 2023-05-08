@@ -27,9 +27,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: darkBackroundScreenColor,
+        // ),
       ),
       body: SingleChildScrollView(
         child: Padding(

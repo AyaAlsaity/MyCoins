@@ -28,8 +28,8 @@ class _NotificationTilesState extends State<NotificationTiles> {
       focusColor:
           themeListener.isDark ? darkBackroundContinarColor : secondeyTextColor,
       leading: SizedBox(
-        height: 50.0,
-        width: 50.0,
+        height: 30.0,
+        width: 30.0,
         child: CircleAvatar(
           backgroundColor: themeListener.isDark ? greyColor : greyTextColor,
           child: const Icon(
@@ -41,10 +41,12 @@ class _NotificationTilesState extends State<NotificationTiles> {
       title: Text(widget.title,
           style: TextStyle(
             color: themeListener.isDark ? secondeyTextColor : Colors.black87,
+            fontSize: 14,
           )),
       subtitle: Text(widget.subtitle,
           style: TextStyle(
             color: themeListener.isDark ? secondeyTextColor : Colors.black87,
+            fontSize: 12,
           )),
       onTap: widget.ontap,
       enabled: widget.enable,

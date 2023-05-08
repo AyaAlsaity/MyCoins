@@ -238,169 +238,169 @@ class _ConversionScreenState extends State<ConversionScreen> {
 // }
 }
 
-class CustomDropdownButton extends StatefulWidget {
-  const CustomDropdownButton({
-    super.key,
-    required this.item,
-    required this.value,
-  });
-  final List<String> item;
-  final String value;
+// class CustomDropdownButton extends StatefulWidget {
+//   const CustomDropdownButton({
+//     super.key,
+//     required this.item,
+//     required this.value,
+//   });
+//   final List<String> item;
+//   final String value;
 
-  @override
-  State<CustomDropdownButton> createState() => _CustomDropdownButtonState();
-}
+//   @override
+//   State<CustomDropdownButton> createState() => _CustomDropdownButtonState();
+// }
 
-class _CustomDropdownButtonState extends State<CustomDropdownButton> {
-  String dropdownValue = list.first;
+// class _CustomDropdownButtonState extends State<CustomDropdownButton> {
+//   String dropdownValue = list.first;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 18.0),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: const Icon(Icons.arrow_downward),
-        elevation: 16,
-        style: const TextStyle(color: Colors.deepPurple),
-        underline: Container(
-          height: 2,
-          color: Colors.deepPurpleAccent,
-        ),
-        onChanged: (String? value) {
-          // This is called when the user selects an item.
-          setState(() {
-            dropdownValue = value!;
-          });
-          //   widget.onChange();
-        },
-        items: list.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 18.0),
+//       decoration: BoxDecoration(
+//           color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+//       child: DropdownButton<String>(
+//         value: dropdownValue,
+//         icon: const Icon(Icons.arrow_downward),
+//         elevation: 16,
+//         style: const TextStyle(color: Colors.deepPurple),
+//         underline: Container(
+//           height: 2,
+//           color: Colors.deepPurpleAccent,
+//         ),
+//         onChanged: (String? value) {
+//           // This is called when the user selects an item.
+//           setState(() {
+//             dropdownValue = value!;
+//           });
+//           //   widget.onChange();
+//         },
+//         items: list.map<DropdownMenuItem<String>>((String value) {
+//           return DropdownMenuItem<String>(
+//             value: value,
+//             child: Text(value),
+//           );
+//         }).toList(),
+//       ),
+//     );
+//   }
+// }
 
-class DropdownMenuExample extends StatefulWidget {
-  const DropdownMenuExample({super.key});
+// class DropdownMenuExample extends StatefulWidget {
+//   const DropdownMenuExample({super.key});
 
-  @override
-  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
-}
+//   @override
+//   State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
+// }
 
-class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-  final TextEditingController colorController = TextEditingController();
-  final TextEditingController iconController = TextEditingController();
-  ColorLabel? selectedColor;
-  IconLabel? selectedIcon;
+// class _DropdownMenuExampleState extends State<DropdownMenuExample> {
+//   final TextEditingController colorController = TextEditingController();
+//   final TextEditingController iconController = TextEditingController();
+//   ColorLabel? selectedColor;
+//   IconLabel? selectedIcon;
 
-  @override
-  Widget build(BuildContext context) {
-    final List<DropdownMenuEntry<ColorLabel>> colorEntries =
-        <DropdownMenuEntry<ColorLabel>>[];
-    for (final ColorLabel color in ColorLabel.values) {
-      colorEntries.add(DropdownMenuEntry<ColorLabel>(
-          value: color, label: color.label, enabled: color.label != 'Grey'));
-    }
+//   @override
+//   Widget build(BuildContext context) {
+//     final List<DropdownMenuEntry<ColorLabel>> colorEntries =
+//         <DropdownMenuEntry<ColorLabel>>[];
+//     for (final ColorLabel color in ColorLabel.values) {
+//       colorEntries.add(DropdownMenuEntry<ColorLabel>(
+//           value: color, label: color.label, enabled: color.label != 'Grey'));
+//     }
 
-    final List<DropdownMenuEntry<IconLabel>> iconEntries =
-        <DropdownMenuEntry<IconLabel>>[];
-    for (final IconLabel icon in IconLabel.values) {
-      iconEntries
-          .add(DropdownMenuEntry<IconLabel>(value: icon, label: icon.label));
-    }
+//     final List<DropdownMenuEntry<IconLabel>> iconEntries =
+//         <DropdownMenuEntry<IconLabel>>[];
+//     for (final IconLabel icon in IconLabel.values) {
+//       iconEntries
+//           .add(DropdownMenuEntry<IconLabel>(value: icon, label: icon.label));
+//     }
 
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
-      home: Scaffold(
-        body: SafeArea(
-            child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  DropdownMenu<ColorLabel>(
-                    initialSelection: ColorLabel.green,
-                    controller: colorController,
-                    label: const Text('Color'),
-                    dropdownMenuEntries: colorEntries,
-                    onSelected: (ColorLabel? color) {
-                      setState(() {
-                        selectedColor = color;
-                      });
-                    },
-                  ),
-                  const SizedBox(width: 20),
-                  DropdownMenu<IconLabel>(
-                    controller: iconController,
-                    enableFilter: true,
-                    leadingIcon: const Icon(Icons.search),
-                    label: const Text('Icon'),
-                    dropdownMenuEntries: iconEntries,
-                    inputDecorationTheme:
-                        const InputDecorationTheme(filled: true),
-                    onSelected: (IconLabel? icon) {
-                      setState(() {
-                        selectedIcon = icon;
-                      });
-                    },
-                  )
-                ],
-              ),
-            ),
-            if (selectedColor != null && selectedIcon != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                      'You selected a ${selectedColor?.label} ${selectedIcon?.label}'),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Icon(
-                        selectedIcon?.icon,
-                        color: selectedColor?.color,
-                      ))
-                ],
-              )
-            else
-              const Text('Please select a color and an icon.')
-          ],
-        )),
-      ),
-    );
-  }
-}
+//     return MaterialApp(
+//       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
+//       home: Scaffold(
+//         body: SafeArea(
+//             child: Column(
+//           children: <Widget>[
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 20),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: <Widget>[
+//                   DropdownMenu<ColorLabel>(
+//                     initialSelection: ColorLabel.green,
+//                     controller: colorController,
+//                     label: const Text('Color'),
+//                     dropdownMenuEntries: colorEntries,
+//                     onSelected: (ColorLabel? color) {
+//                       setState(() {
+//                         selectedColor = color;
+//                       });
+//                     },
+//                   ),
+//                   const SizedBox(width: 20),
+//                   DropdownMenu<IconLabel>(
+//                     controller: iconController,
+//                     enableFilter: true,
+//                     leadingIcon: const Icon(Icons.search),
+//                     label: const Text('Icon'),
+//                     dropdownMenuEntries: iconEntries,
+//                     inputDecorationTheme:
+//                         const InputDecorationTheme(filled: true),
+//                     onSelected: (IconLabel? icon) {
+//                       setState(() {
+//                         selectedIcon = icon;
+//                       });
+//                     },
+//                   )
+//                 ],
+//               ),
+//             ),
+//             if (selectedColor != null && selectedIcon != null)
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: <Widget>[
+//                   Text(
+//                       'You selected a ${selectedColor?.label} ${selectedIcon?.label}'),
+//                   Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 5),
+//                       child: Icon(
+//                         selectedIcon?.icon,
+//                         color: selectedColor?.color,
+//                       ))
+//                 ],
+//               )
+//             else
+//               const Text('Please select a color and an icon.')
+//           ],
+//         )),
+//       ),
+//     );
+//   }
+// }
 
-enum ColorLabel {
-  blue('Blue', Colors.blue),
-  pink('Pink', Colors.pink),
-  green('Green', Colors.green),
-  yellow('Yellow', Colors.yellow),
-  grey('Grey', Colors.grey);
+// enum ColorLabel {
+//   blue('Blue', Colors.blue),
+//   pink('Pink', Colors.pink),
+//   green('Green', Colors.green),
+//   yellow('Yellow', Colors.yellow),
+//   grey('Grey', Colors.grey);
 
-  const ColorLabel(this.label, this.color);
-  final String label;
-  final Color color;
-}
+//   const ColorLabel(this.label, this.color);
+//   final String label;
+//   final Color color;
+// }
 
-enum IconLabel {
-  smile('Smile', Icons.sentiment_satisfied_outlined),
-  cloud(
-    'Cloud',
-    Icons.cloud_outlined,
-  ),
-  brush('Brush', Icons.brush_outlined),
-  heart('Heart', Icons.favorite);
+// enum IconLabel {
+//   smile('Smile', Icons.sentiment_satisfied_outlined),
+//   cloud(
+//     'Cloud',
+//     Icons.cloud_outlined,
+//   ),
+//   brush('Brush', Icons.brush_outlined),
+//   heart('Heart', Icons.favorite);
 
-  const IconLabel(this.label, this.icon);
-  final String label;
-  final IconData icon;
-}
+//   const IconLabel(this.label, this.icon);
+//   final String label;
+//   final IconData icon;
+// }

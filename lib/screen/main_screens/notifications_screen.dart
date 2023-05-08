@@ -1,20 +1,21 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mycoins/helpers/consts.dart';
-import 'package:mycoins/screen/sub_screens/search_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:mycoins/helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/notification_tiles.dart';
 import '../../widgets/static_widgets/appBar_widget.dart';
 import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
 
-
 class NotificationsScreen extends StatefulWidget {
-  const NotificationsScreen({super.key});
+  const NotificationsScreen({
+    Key? key,
+
+  }) : super(key: key);
+
 
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();
@@ -66,8 +67,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 title: notificationTitle,
                 subtitle:  notificationBody,
                 enable: true,
-                ontap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const NotificationDetails())),
+                ontap: () {},
                 key: null,
               );
             },
@@ -185,69 +185,66 @@ class FCM {
 
 
 
-class NotificationDetails extends StatefulWidget {
-  const NotificationDetails({super.key});
+// class NotificationDetails extends StatefulWidget {
+//   const NotificationDetails({super.key});
 
-  @override
-  State<NotificationDetails> createState() => _NotificationDetailsState();
-}
+//   @override
+//   State<NotificationDetails> createState() => _NotificationDetailsState();
+// }
 
-class _NotificationDetailsState extends State<NotificationDetails> {
-  @override
-  Widget build(BuildContext context) {
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+// class _NotificationDetailsState extends State<NotificationDetails> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
-    return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
-      ),
-      body: FittedBox(
-        child: Container(
-          // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.all(16.0),
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            //    color: themeListener.isDark ? greyTextColor : greyColor,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Column(
-            children: [
-              Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: themeListener.isDark
-                        ? secondeyTextColor
-                        : Colors.black87,
-                  )),
-              const SizedBox(height: 16.0),
-              Image.asset("assets/images/logo2.png"),
-              const SizedBox(height: 16.0),
-              Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                  style: TextStyle(
-                    color: themeListener.isDark
-                        ? secondeyTextColor
-                        : Colors.black87,
-                  )),
-              const SizedBox(height: 16.0),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text('1/May/2021 10:01 PM',
-                    style: TextStyle(
-                      color: themeListener.isDark
-                          ? secondeyTextColor
-                          : Colors.black87,
-                    )),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//     return Scaffold(
+//       appBar: AppBar(
+//       ),
+//       body: FittedBox(
+//         child: Container(
+//           // height: MediaQuery.of(context).size.height,
+//           width: MediaQuery.of(context).size.width,
+//           margin: const EdgeInsets.all(16.0),
+//           padding: const EdgeInsets.all(16.0),
+//           decoration: BoxDecoration(
+//             //    color: themeListener.isDark ? greyTextColor : greyColor,
+//             shape: BoxShape.rectangle,
+//             borderRadius: BorderRadius.circular(8.0),
+//           ),
+//           child: Column(
+//             children: [
+//               Text(
+//                   'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+//                   style: TextStyle(
+//                     fontSize: 20.0,
+//                     color: themeListener.isDark
+//                         ? secondeyTextColor
+//                         : Colors.black87,
+//                   )),
+//               const SizedBox(height: 16.0),
+//               Image.asset("assets/images/logo2.png"),
+//               const SizedBox(height: 16.0),
+//               Text(
+//                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+//                   style: TextStyle(
+//                     color: themeListener.isDark
+//                         ? secondeyTextColor
+//                         : Colors.black87,
+//                   )),
+//               const SizedBox(height: 16.0),
+//               Align(
+//                 alignment: Alignment.centerRight,
+//                 child: Text('1/May/2021 10:01 PM',
+//                     style: TextStyle(
+//                       color: themeListener.isDark
+//                           ? secondeyTextColor
+//                           : Colors.black87,
+//                     )),
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

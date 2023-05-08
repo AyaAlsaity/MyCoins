@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/details_map.dart';
 import '../providers/dark_theme_provider.dart';
 import 'consts.dart';
 
@@ -87,4 +88,9 @@ Future<void> errorDialog(
               ]),
         );
       });
+
+
+
+
+
 }

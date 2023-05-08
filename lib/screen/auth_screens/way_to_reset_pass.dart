@@ -17,9 +17,9 @@ class _WayToresetPasswordState extends State<WayToresetPassword> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
-        ),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: darkBackroundScreenColor,
+        // ),
       ),
       body: Center(
         child: Column(

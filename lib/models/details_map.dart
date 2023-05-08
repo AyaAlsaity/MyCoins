@@ -1,6 +1,6 @@
 class DetailsMap {
   String name;
-  double number;
+  String number;
   DetailsMap({
     required this.name,
     required this.number,

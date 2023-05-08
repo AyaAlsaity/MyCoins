@@ -93,8 +93,10 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: Consumer<DarkThemeProvider>(builder: (context, themeListener, _) {
-        SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          statusBarColor: darkBackroundScreenColor,
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: themeListener.isDark
+              ? darkBackroundScreenColor
+              : lightBackroundScreenColor,
         ));
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -131,7 +133,8 @@ class _MyAppState extends State<MyApp> {
               iconTheme: const IconThemeData(color: mainColor),
             ),
             textTheme:
-                GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme),
+                GoogleFonts.ibmPlexSansArabicTextTheme(),
+                // Theme.of(context).textTheme
             colorScheme: ColorScheme.fromSwatch().copyWith(
               secondary: themeListener.isDark
                   ? darkBackroundScreenColor

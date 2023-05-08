@@ -94,6 +94,14 @@
 
     "wjslyrea":" We just sent an link to your registered email address ",
 
+    "send1":"Send feedback to the MyCoins team",
+    "send2":"Subject",
+    "send3":"Message",
+    "send4":"Name",
+    "send5":"Send",
+    "send6":"Message sent successfully",
+    "send7":"Required field !",
+
     "alcuuren":"all currencies"
 
   

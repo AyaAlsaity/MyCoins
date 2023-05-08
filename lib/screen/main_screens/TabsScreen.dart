@@ -23,12 +23,9 @@ class _TabsScreenState extends State<TabsScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: AnimatedSwitcher(
-        // animationDuration
         duration: kThemeAnimationDuration,
         child: currentIndex == 0
             ? const NotificationsScreen()
-            // : currentIndex == 1
-            //     ? const CoinSearchScreen()
             : currentIndex == 1
                 ? const ConversionScreen()
                 : const HomeScreen(),
