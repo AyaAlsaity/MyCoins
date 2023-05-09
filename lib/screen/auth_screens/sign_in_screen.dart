@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mycoins/helpers/consts.dart';
 import 'package:provider/provider.dart';
 import '../../main.dart';
@@ -10,6 +9,7 @@ import '../../widgets/clickable_widgets/button.dart';
 import '../../widgets/clickable_widgets/clickacble_text_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../widgets/static_widgets/status_dialog_content.dart';
 import 'forgot_pass_screen.dart';
 import 'sign_up_screen.dart';
 
@@ -99,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             ispassword: false,
                           ),
-                         
                           TextFieldWidget(
                             label: AppLocalizations.of(context)!.pass1,
                             hintText: AppLocalizations.of(context)!.pass2,
@@ -138,20 +137,81 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: sizedBoxNotSameComponents + 5,
                           ),
                           GestureDetector(
-                            
                             onTap: () async {
                               if (loginForm.currentState!.validate()) {
-                                auth
-                                    .signInWithEmailAndPassword(
-                                        email: emailController.text,
-                                        password: passwordController.text)
-                                    .then((value) async {
+                                try {
+                                  final credential = await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: emailController.text,
+                                          password: passwordController.text);
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'user-not-found') {
+                                    print('No user found for that email.');
+                                    showCustomFlushbar(
+                                        "${e.message.toString()}",
+                                        warningColor,
+                                        Icons.warning,
+                                        context);
+                                  } else if (e.code == 'wrong-password') {
+                                    print(
+                                        'Wrong password provided for that user.');
+                                    showCustomFlushbar(
+                                        "${e.message.toString()}",
+                                        warningColor,
+                                        Icons.warning,
+                                        context);
+                                  }
+                                }
+
+                                if (auth.currentUser != null) {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) => const MyApp()),
                                       (route) => false);
-                                });
+                                }
+
+                                // try {
+                                //   auth
+                                //       .signInWithEmailAndPassword(
+                                //           email: emailController.text,
+                                //           password: passwordController.text)
+                                //       .then((value) async {
+                                //   Navigator.pushAndRemoveUntil(
+                                //       context,
+                                //       CupertinoPageRoute(
+                                //           builder: (context) =>
+                                //               const MyApp()),
+                                //       (route) => false);
+                                // });
+                                // } on FirebaseException catch (error) {
+                                //   showCustomFlushbar(error.message.toString(),
+                                //       warningColor, Icons.warning, context);
+                                //   if (error.code == 'user-not-found') {
+                                //     showCustomFlushbar(
+                                //         AppLocalizations.of(context)!
+                                //             .usernofound,
+                                //         warningColor,
+                                //         Icons.warning,
+                                //         context);
+                                //     // print('No user found for that email.');
+                                //   } else if (error.code == 'wrong-password') {
+                                //     showCustomFlushbar(
+                                //         AppLocalizations.of(context)!
+                                //             .passwordwrong,
+                                //         warningColor,
+                                //         Icons.warning,
+                                //         context);
+                                //     // print(
+                                //     //     'Wrong password provided for that user.');
+                                //   } else {
+                                // showCustomFlushbar(
+                                //     "${error.message.toString()}",
+                                //     warningColor,
+                                //     Icons.warning,
+                                //     context);
+                                //   }
+                                // }
                               }
                             },
                             child: ButtonScreen(
@@ -162,7 +222,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               paddingg: 13,
                             ),
                           ),
-                         
                           const SizedBox(
                             height: sizedBoxNotSameComponents + 10,
                           ),

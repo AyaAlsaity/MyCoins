@@ -1,3 +1,272 @@
+import 'package:flutter/material.dart';
+import 'package:mycoins/models/coins_model.dart';
+import 'package:provider/provider.dart';
+import '../../helpers/consts.dart';
+import '../../models/currency_model.dart';
+import '../../providers/coins_provider.dart';
+import '../../providers/dark_theme_provider.dart';
+import '../../widgets/input_widgets/text_form_field.dart';
+import '../../widgets/static_widgets/appBar_widget.dart';
+import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+class ConversionScreen extends StatefulWidget {
+  const ConversionScreen({super.key});
+
+  @override
+  State<ConversionScreen> createState() => _ConversionScreenState();
+}
+
+class _ConversionScreenState extends State<ConversionScreen> {
+  // late double rate;
+  String result = "0";
+  TextEditingController rateController = TextEditingController();
+
+  conversionProcess(String rat, double from, double to) {
+    String op = (double.parse(rat.toString().trim()) * from * to).toString();
+    setState(() {
+      result = op;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+    return Consumer<CoinsProvider>(builder: (context, coinsConsumer, child) {
+      return Scaffold(
+          appBar: AppBarWidget(
+            context,
+          ),
+          drawer: const CustomDrawer(),
+          body: SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Text(" Coins Conversion",
+                        style: TextStyle(
+                            color: themeListener.isDark
+                                ? secondeyTextColor
+                                : Colors.black87,
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold)),
+                    Expanded(
+                        child: Center(
+                            child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextFieldWidget(
+                            maxLine: 2,
+                            controller: rateController,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return AppLocalizations.of(context)!.email3;
+                              }
+                              // if (!value.contains('@') ||
+                              //     !value.contains('.com')) {
+                              //   return AppLocalizations.of(context)!.email4;
+                              // }
+                              return null;
+                            },
+                            hintText: "Input a value to convert",
+                            ispassword: false,
+                            keyboardType: TextInputType.number),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    decoration: BoxDecoration(
+                                      color: themeListener.isDark
+                                          ? Colors.white30
+                                          : lightBackroundScreenColor,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButton<CoinsModel?>(
+                                            iconEnabledColor: mainColor,
+                                            dropdownColor: themeListener.isDark
+                                                ? Colors.white54
+                                                : greyTextColor,
+                                            style: TextStyle(
+                                                color: themeListener.isDark
+                                                    ? secondeyTextColor
+                                                    : Colors.black87),
+                                            items: coinsConsumer.coinsList
+                                                .map((e) => DropdownMenuItem(
+                                                      value: e,
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 30,
+                                                            height: 30,
+                                                            child:
+                                                                Image.network(e
+                                                                    .image
+                                                                    .toString()),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                              "${e.symbol.toString().toUpperCase()}"),
+                                                        ],
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                            onChanged: (value) {
+                                              Provider.of<CoinsProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setSelectedCoinTwo(value);
+
+                                              // setState(() {
+                                              //   value = selectedcurrenc2;
+                                              // });
+                                              // print(
+                                              //     "SELECTED IS : ${selectedcurrenc2!.name}");
+                                            },
+                                            value:
+                                                coinsConsumer.selectedcurrenc2,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  FloatingActionButton(
+                                    onPressed: () {
+                                      conversionProcess(
+                                          rateController.text,
+                                          coinsConsumer.selectedcurrenc1!.price,
+                                          coinsConsumer
+                                              .selectedcurrenc2!.currentPrice);
+                                    },
+                                    elevation: 0.0,
+                                    backgroundColor: themeListener.isDark
+                                        ? Colors.white30
+                                        : lightBackroundScreenColor,
+                                    child: Icon(
+                                      Icons.currency_exchange,
+                                      size: 30,
+                                      color: mainColor,
+                                    ),
+                                  ),
+
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    decoration: BoxDecoration(
+                                      color: themeListener.isDark
+                                          ? Colors.white30
+                                          : lightBackroundScreenColor,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButton<CurrencyModel?>(
+                                            iconEnabledColor: mainColor,
+                                            dropdownColor: themeListener.isDark
+                                                ? Colors.white54
+                                                : greyTextColor,
+                                            style: TextStyle(
+                                                color: themeListener.isDark
+                                                    ? secondeyTextColor
+                                                    : Colors.black87),
+                                            items: coinsConsumer.currencies1
+                                                .map((e) => DropdownMenuItem(
+                                                      value: e,
+                                                      child: Text(
+                                                        "${e.name}",
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                            onChanged: (value) {
+                                              Provider.of<CoinsProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setSelectedCurrencyOne(
+                                                      value);
+                                              // setState(() {
+                                              //   value = selectedcurrenc1;
+                                              // });
+                                              // print(
+                                              //     "SELECTED IS : ${selectedcurrenc1!.name}");
+                                            },
+                                            value:
+                                                coinsConsumer.selectedcurrenc1,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  // customDropDown(currencies1, selectedcurrenc1,
+                                  //     (val) {
+                                  //   setState(() {
+                                  //     selectedcurrenc1 = val;
+                                  //   });
+                                  // }),
+                                ])),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Container(
+                            height: 80,
+                            width: 400,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            decoration: BoxDecoration(
+                              color: themeListener.isDark
+                                  ? Colors.white30
+                                  : lightBackroundScreenColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Result : ${result}",
+                                  style: TextStyle(
+                                      color: themeListener.isDark
+                                          ? secondeyTextColor
+                                          : Colors.black87,
+                                      fontSize: 16),
+                                ),
+                              ],
+                            )),
+                      ],
+                    )))
+                  ]),
+            ),
+          ));
+    });
+  }
+}
 // import 'dart:convert';
 
 // import 'package:flutter/cupertino.dart';
@@ -34,64 +303,64 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-import 'package:mycoins/services/api.dart';
+// import 'package:flutter/material.dart';
+// import 'package:mycoins/services/api.dart';
 
-import '../../helpers/consts.dart';
-import '../../widgets/static_widgets/appBar_widget.dart';
-import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
+// import '../../helpers/consts.dart';
+// import '../../widgets/static_widgets/appBar_widget.dart';
+// import '../../widgets/static_widgets/drawer_widgets/custom_drawer.dart';
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+// const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
-class ConversionScreen extends StatefulWidget {
-  const ConversionScreen({super.key});
+// class ConversionScreen extends StatefulWidget {
+//   const ConversionScreen({super.key});
 
-  @override
-  State<ConversionScreen> createState() => _ConversionScreenState();
-}
+//   @override
+//   State<ConversionScreen> createState() => _ConversionScreenState();
+// }
 
-class _ConversionScreenState extends State<ConversionScreen> {
-  ApiClient client = ApiClient();
+// class _ConversionScreenState extends State<ConversionScreen> {
+//   ApiClient client = ApiClient();
 
-  // Future<List<String>> getcurrencyList() async {
-  //   return await client.getcurrencies();
-  // }
+//   // Future<List<String>> getcurrencyList() async {
+//   //   return await client.getcurrencies();
+//   // }
 
-  @override
-  void initState() {
-    super.initState();
-    (() async {
-      List<String> list = await client.getcurrencies();
-      setState(() {
-        currencies = list;
-      });
-    })();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     (() async {
+//       List<String> list = await client.getcurrencies();
+//       setState(() {
+//         currencies = list;
+//       });
+//     })();
+//   }
 
-  Color mainColor = const Color(0xFF212936);
+//   Color mainColor = const Color(0xFF212936);
 
-  Color mainColor2 = const Color(0xFFF5C249);
-  Color secondColor = const Color(0xFF2849E5);
+//   Color mainColor2 = const Color(0xFFF5C249);
+//   Color secondColor = const Color(0xFF2849E5);
 
-  List<String> currencies = [];
-  String? froom;
-  String? to;
+//   List<String> currencies = [];
+//   String? froom;
+//   String? to;
 
-  double rate = 0.0;
-  String result = "";
+//   double rate = 0.0;
+//   String result = "";
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: darkBackroundScreenColor,
-        appBar: AppBarWidget(context),
-        drawer: const CustomDrawer(),
-        body: const Center(
-          child: Text(
-            "ConversionScreen",
-            style: TextStyle(color: Colors.white),
-          ),
-        )
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         backgroundColor: darkBackroundScreenColor,
+//         appBar: AppBarWidget(context),
+//         drawer: const CustomDrawer(),
+//         body: const Center(
+//           child: Text(
+//             "ConversionScreen",
+//             style: TextStyle(color: Colors.white),
+//           ),
+//         )
         // SafeArea(
         //     child: Padding(
         //   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -222,9 +491,9 @@ class _ConversionScreenState extends State<ConversionScreen> {
         //     ],
         //   ),
         // )),
-        );
-  }
-//   Widget customDropDown(List<String> item, String value, void onChange(val)) {
+//         );
+//   }
+// //   Widget customDropDown(List<String> item, String value, void onChange(val)) {
 //   return Container(
 //     child: DropdownButton<String>(
 //         items: item.map<DropdownMenuItem<String>>?( (String val){
@@ -236,7 +505,7 @@ class _ConversionScreenState extends State<ConversionScreen> {
 //         }),
 //   );
 // }
-}
+// }
 
 // class CustomDropdownButton extends StatefulWidget {
 //   const CustomDropdownButton({

@@ -9,13 +9,14 @@ class TextFieldWidget extends StatefulWidget {
       {super.key,
       required this.controller,
       this.label,
+      this.textAlign = TextAlign.start,
       required this.validator,
       required this.hintText,
       this.obSecureText = false,
       this.readOnlyy = false,
       this.perfix,
       required this.ispassword,
-      this.maxLine=1,
+      this.maxLine = 1,
       required this.keyboardType});
   final TextEditingController controller;
   final String? label;
@@ -27,6 +28,7 @@ class TextFieldWidget extends StatefulWidget {
   final bool obSecureText;
   final bool readOnlyy;
   final Widget? perfix;
+  final TextAlign? textAlign;
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
@@ -50,7 +52,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color:themeFunctions.isDark ? secondeyTextColor : darkBackroundScreenColor),
+                      color: themeFunctions.isDark
+                          ? secondeyTextColor
+                          : darkBackroundScreenColor),
                 ),
               ],
             ),
@@ -58,7 +62,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             height: 5,
           ),
           TextFormField(
-            maxLines :widget.maxLine,
+              maxLines: widget.maxLine,
               controller: widget.controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: widget.validator,
@@ -77,13 +81,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                           });
                         },
                         icon: Icon(
-                           
                             ispasswordshow
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: mainColor
-                            
-                            ),
+                            color: mainColor),
                       )
                     : widget.perfix,
                 fillColor: themeFunctions.isDark

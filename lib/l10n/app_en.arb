@@ -102,6 +102,13 @@
     "send6":"Message sent successfully",
     "send7":"Required field !",
 
+    "usernofound":"No user found for that email.",
+    "passwordwrong":"You have entered the wrong password.",
+
+    "weakpass":"Password is too weak.",
+    "existsemail":"The account already exists for that email.",
+
+
     "alcuuren":"all currencies"
 
   

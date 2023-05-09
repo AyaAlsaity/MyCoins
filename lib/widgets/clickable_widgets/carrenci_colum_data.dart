@@ -24,7 +24,7 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
     return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
       return DataTable(
           dividerThickness: 1.5,
-          dataRowHeight:60,
+          dataRowHeight: 60,
           columnSpacing: 2,
           horizontalMargin: 0,
           columns: [
@@ -120,9 +120,6 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
               ],
             )),
           ],
-
-
-          
           rows: List<DataRow>.generate(coinsConsumer.coinsList.length, (i) {
             return DataRow(cells: <DataCell>[
               DataCell(Container(
@@ -161,15 +158,12 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(20)),
                         child: Image.network(
-                            coinsConsumer.coinsList[i].image.toString()
-                           
-                            ),
+                            coinsConsumer.coinsList[i].image.toString()),
                       ),
                       const SizedBox(
                         height: 2,
                       ),
                       Text(
-                       
                         coinsConsumer.coinsList[i].symbol.toString(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -189,7 +183,6 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                 alignment: Alignment.center,
                 child: Text(
                   "\$ ${coinsConsumer.coinsList[i].currentPrice.toString()}",
-                  
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color:
@@ -205,7 +198,8 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                     const Icon(Icons.arrow_drop_down,
                         size: 20, color: Colors.red),
                     Text(
-                      coinsConsumer.coinsList[i].priceChangePercentage24H.toString(),
+                      coinsConsumer.coinsList[i].priceChangePercentage24H
+                          .toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: themeListener.isDark
@@ -217,7 +211,6 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                   ],
                 ),
               )),
-              
               DataCell(Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: SizedBox(

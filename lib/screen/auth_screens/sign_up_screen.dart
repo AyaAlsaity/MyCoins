@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../main.dart';
 import 'package:flutter/material.dart';
 import '../../providers/dark_theme_provider.dart';
-import '../../widgets/clickable_widgets/button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../widgets/clickable_widgets/button.dart';
 import '../../widgets/clickable_widgets/clickacble_text_widget.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 import '../../widgets/static_widgets/status_dialog_content.dart';
@@ -22,27 +21,27 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   FirebaseAuth auth = FirebaseAuth.instance;
- 
-   FirebaseFirestore firestore=FirebaseFirestore.instance;
-   int indexFavorite=0;
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  int indexFavorite = 0;
 
   final GlobalKey<FormState> registerForm = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController listNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmationController = TextEditingController();
+  final TextEditingController passwordConfirmationController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users=firestore.collection('users'); 
+    CollectionReference users = firestore.collection('users');
     Size size = MediaQuery.of(context).size;
     final themeFunctions =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
-      
+
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () => showCustomFlushbar(
         //       AppLocalizations.of(context)!.pass7,
@@ -93,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color:themeFunctions.isDark
+                                color: themeFunctions.isDark
                                     ? secondeyTextColor
                                     : Colors.black87,
                               ),
@@ -185,28 +184,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (registerForm.currentState!.validate()) {
                                 if (passwordController.text ==
                                     passwordConfirmationController.text) {
-                                      await users.doc("user$indexFavorite").set({
-                                        'name':"${firstNameController.text} ${listNameController.text}",
-                                        'email':"${emailController.text}",
-                                      });
-                                  await auth
-                                      .createUserWithEmailAndPassword(
-                                          email: emailController.text,
-                                          password: passwordController.text)
-                                      .then((value) async {
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const MyApp()),
-                                        (route) => false);
+                                  await users.doc("user$indexFavorite").set({
+                                    'name':
+                                        "${firstNameController.text} ${listNameController.text}",
+                                    'email': "${emailController.text}",
                                   });
-                                } else {
-                                  showCustomFlushbar(
-                                      AppLocalizations.of(context)!.pass7,
-                                      warningColor,
-                                      Icons.error,
-                                      context);
+                                  try {
+                                    auth
+                                        .createUserWithEmailAndPassword(
+                                            email: emailController.text,
+                                            password: passwordController.text)
+                                        .then((value) async {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const MyApp()),
+                                          (route) => false);
+                                    });
+                                  } on FirebaseAuthException catch (e) {
+                                    if (e.code == 'weak-password') {
+                                      showCustomFlushbar(
+                                          AppLocalizations.of(context)!
+                                              .weakpass,
+                                          warningColor,
+                                          Icons.warning,
+                                          context);
+                                      // print( "The password provided is too weak.");
+                                    } else if (e.code ==
+                                        'email-already-in-use') {
+                                      showCustomFlushbar(
+                                          AppLocalizations.of(context)!
+                                              .existsemail,
+                                          warningColor,
+                                          Icons.warning,
+                                          context);
+
+                                      // print( The account already exists for that email.);
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                  }
                                 }
                               }
                             },
