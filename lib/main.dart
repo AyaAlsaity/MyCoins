@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 //font
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mycoins/providers/coins_provider.dart';
+import 'package:mycoins/providers/get_from_fire_storge_provider.dart';
 import 'package:mycoins/screen/auth_screens/splah_screen.dart';
 // provider
 import 'package:provider/provider.dart';
@@ -85,7 +86,11 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<CoinsProvider>(
-            create: (BuildContext context) => CoinsProvider()),
+          create: (BuildContext context) => CoinsProvider(),
+        ),
+        ChangeNotifierProvider<FireStorgeProvoder>(
+          create: (BuildContext context) => FireStorgeProvoder(),
+        ),
         ChangeNotifierProvider<DarkThemeProvider>(
           create: (_) {
             return DarkThemeProvider();
@@ -93,11 +98,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: Consumer<DarkThemeProvider>(builder: (context, themeListener, _) {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarColor: themeListener.isDark
-              ? darkBackroundScreenColor
-              : lightBackroundScreenColor,
-        ));
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
@@ -118,27 +118,25 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             scaffoldBackgroundColor: themeListener.isDark
                 ? darkBackroundScreenColor
-                : lightBackroundScreenColor,
+                : secondeyTextColor,
             appBarTheme: AppBarTheme(
               titleTextStyle: GoogleFonts.tajawal(),
               elevation: 0.2,
               backgroundColor: themeListener.isDark
                   ? darkBackroundScreenColor
-                  : lightBackroundScreenColor,
+                  : secondeyTextColor,
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: themeListener.isDark
                     ? darkBackroundScreenColor
-                    : lightBackroundScreenColor,
+                    : secondeyTextColor,
               ),
               iconTheme: const IconThemeData(color: mainColor),
             ),
-            textTheme:
-                GoogleFonts.ibmPlexSansArabicTextTheme(),
-                // Theme.of(context).textTheme
+            textTheme: GoogleFonts.ibmPlexSansArabicTextTheme(),
             colorScheme: ColorScheme.fromSwatch().copyWith(
               secondary: themeListener.isDark
                   ? darkBackroundScreenColor
-                  : lightBackroundScreenColor,
+                  : secondeyTextColor,
             ),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -147,76 +145,21 @@ class _MyAppState extends State<MyApp> {
               thickness: MaterialStateProperty.all<double>(10),
               trackVisibility: MaterialStateProperty.all<bool>(true),
             ).copyWith(
-              thumbColor: MaterialStateProperty.all(lightBackroundScreenColor),
-              trackColor: MaterialStateProperty.all(
-                  lightBackroundScreenColor.withOpacity(0.2)),
+              thumbColor: MaterialStateProperty.all(secondeyTextColor),
+              trackColor:
+                  MaterialStateProperty.all(secondeyTextColor.withOpacity(0.2)),
             ),
             progressIndicatorTheme: const ProgressIndicatorThemeData(
               color: mainColor,
             ),
-
-            // inputDecorationTheme: InputDecorationTheme(
-            //   fillColor: themeListener.isDark
-            //       ? darkBackroundScreenColor
-            //       : lightBackroundScreenColor,
-            //   filled: true,
-            //   isDense: false,
-            //   border: OutlineInputBorder(
-            //       borderSide: const BorderSide(
-            //         color: Colors.transparent,
-            //         width: 0,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   focusedErrorBorder: OutlineInputBorder(
-            //       borderSide: const BorderSide(
-            //         color: warningColor,
-            //         width: 1,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   errorBorder: OutlineInputBorder(
-            //       borderSide: const BorderSide(
-            //         color: warningColor,
-            //         width: 1,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   enabledBorder: OutlineInputBorder(
-            //       borderSide: BorderSide(
-            //         color: mainColor.withOpacity(0.2),
-            //         width: 1,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   focusedBorder: OutlineInputBorder(
-            //       borderSide: BorderSide(
-            //         color: mainColor.withOpacity(0.5),
-            //         width: 1,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   disabledBorder: OutlineInputBorder(
-            //       borderSide: BorderSide(
-            //         color: mainColor.withOpacity(0.2),
-            //         width: 1,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10)),
-            //   contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-            //   hintStyle: const TextStyle(
-            //     fontWeight: FontWeight.w400,
-            //     fontSize: 14,
-            //     color: greyTextColor,
-            //   ),
-            //   errorStyle: const TextStyle(
-            //     fontSize: 9,
-            //     color: warningColor,
-            //   ),
-            // ),
-
             bottomNavigationBarTheme: BottomNavigationBarThemeData(
               selectedItemColor: mainColor,
               unselectedItemColor: themeListener.isDark
-                  ? lightBackroundScreenColor
+                  ? secondeyTextColor
                   : darkBackroundScreenColor,
               backgroundColor: themeListener.isDark
                   ? darkBackroundScreenColor
-                  : lightBackroundScreenColor,
+                  : secondeyTextColor,
               selectedLabelStyle: const TextStyle(
                   color: mainColor, fontSize: 10, fontWeight: FontWeight.w600),
               unselectedLabelStyle: const TextStyle(

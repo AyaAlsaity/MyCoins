@@ -15,26 +15,26 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int currentIndex = 2;
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: AnimatedSwitcher(
         duration: kThemeAnimationDuration,
         child: currentIndex == 0
-            ? const NotificationsScreen()
+            ? const HomeScreen()
             : currentIndex == 1
                 ? const ConversionScreen()
-                : const HomeScreen(),
+                : const NotificationsScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: themeFunctions.isDark
+        backgroundColor: themeListener.isDark
             ? darkBackroundBottomNavigationBarColor
-            : lightBackroundBottomNavigationBarColor,
-        elevation: 0.5,
+            : secondeyTextColor,
+        elevation: 1,
         currentIndex: currentIndex,
         onTap: (index) {
           setState(() {
@@ -44,9 +44,9 @@ class _TabsScreenState extends State<TabsScreen> {
         selectedItemColor: mainColor,
         items: [
           BottomNavigationBarItem(
-              label: currentIndex == 0 ? AppLocalizations.of(context)!.notification : "",
+              label: currentIndex == 0 ? AppLocalizations.of(context)!.market : "",
               icon: Image.asset(
-                'assets/icons/notificationIcon.png',
+                'assets/icons/monitoring.png',
                 width: currentIndex == 0 ? size.width / 12 : size.width / 15,
                 height: currentIndex == 0 ? size.width / 12 : size.width / 15,
                 fit: BoxFit.contain,
@@ -71,9 +71,9 @@ class _TabsScreenState extends State<TabsScreen> {
                 ],
               )),
           BottomNavigationBarItem(
-              label: currentIndex == 2 ? AppLocalizations.of(context)!.market : "",
+              label: currentIndex == 2 ? AppLocalizations.of(context)!.notification : "",
               icon: Image.asset(
-                'assets/icons/monitoring.png',
+                'assets/icons/notificationIcon.png',
                 width: currentIndex == 2 ? size.width / 12 : size.width / 15,
                 height: currentIndex == 2 ? size.width / 12 : size.width / 15,
                 color:

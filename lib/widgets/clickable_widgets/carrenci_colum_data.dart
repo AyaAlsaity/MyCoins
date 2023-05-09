@@ -157,8 +157,11 @@ class _CarrenciColumDataState extends State<CarrenciColumData> {
                         decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(20)),
-                        child: Image.network(
-                            coinsConsumer.coinsList[i].image.toString()),
+                        child:ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                              coinsConsumer.coinsList[i].image.toString()),
+                        ),
                       ),
                       const SizedBox(
                         height: 2,

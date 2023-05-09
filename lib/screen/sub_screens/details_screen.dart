@@ -1,19 +1,16 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 import '../../helpers/consts.dart';
 import '../../models/coins_model.dart';
-import '../../providers/coins_provider.dart';
+import '../../models/details_map_model.dart';
 import '../../providers/dark_theme_provider.dart';
+import '../../providers/get_from_fire_storge_provider.dart';
 import '../../widgets/static_widgets/continarDarkmode.dart';
-import '../../widgets/static_widgets/money_converter_widget.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({
@@ -32,7 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  bool isOk1 = false;
+  bool isOk = false;
   int indexFavorite = 0;
   bool isLoading = true;
   bool isFirstTime = true;
@@ -41,7 +38,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   double minY = 0;
   double maxX = 0;
   double maxY = 0;
-  List favoriteList = [];
+  // List favoriteList = [];
 
   void getChartData(String days) async {
     if (isFirstTime) {
@@ -78,203 +75,123 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void initState() {
-    super.initState();
+    Provider.of<FireStorgeProvoder>(context, listen: false)
+        .getFavorites(widget.coinHome.id.toString());
+
     getChartData('1');
-    getFavorites();
-  }
-
-  getFavorites() async {
-    var data = await firestore
-        .collection('favorites')
-        .where('user_id', isEqualTo: auth.currentUser!.uid)
-        .get();
-    for (var i = 0; i <= data.docs.length; i++) {
-      if (data.docs[i].data()['coin_id'] == widget.coinHome.id) {
-        setState(() {
-          isOk1 = true;
-        });
-      }
-    }
-  }
-
-  addToFaveId(
-    String coinId,
-  ) {
-    firestore.collection('favorites').add({
-      'user_id': auth.currentUser!.uid,
-      "coin_id": coinId,
-      "index": widget.index,
+    setState(() {
+      isOk = Provider.of<FireStorgeProvoder>(context, listen: false).isOk;
     });
-
-    getFavorites();
+    super.initState();
   }
 
-  removeFaveId(
-    String coinId,
-  ) async {
-    var deletable = await firestore
-        .collection('favorites')
-        .where("user_id", isEqualTo: auth.currentUser!.uid)
-        .where("coin_id", isEqualTo: coinId)
-        .get();
-    firestore
-        .collection('favorites')
-        .doc(deletable.docs.first.id.toString())
-        .delete()
-        .then((value) {
-      setState(() {
-        isOk1 = false;
-      });
-    });
-  }
-// /////////////
-//   addToFaveData() {
-//     firestore.collection('favorites').add({
-//       'ath_change_percentage': "-59.43744,",
-//       'ath': "69045",
-//       'max_supply': "21000000",
-//       'total_supply': "19362006",
-//       'circulating_supply': "-2.18024",
-//       'market_cap_change_percentage_24h': "-12093227985.869446",
-//       'market_cap_change_24h': "-2.04346",
-//       'price_change_percentage_24h': "${widget.coin.priceChangePercentage24h}",
-//       'price_change_24h': "27722",
-//       'low_24h': "28669",
-//       'high_24h': "28669",
-//       'total_volume': "16496081189",
-//       'fully_diluted_valuation': "588481479757",
-//       'market_cap_rank': "1",
-//       'market_cap': "588481479757",
-//       'current_price': "${widget.coin.currentPrice}",
-//       'image': "${widget.coin.image}",
-//       'name': "${widget.coin.name}",
-//       'symbol': "${widget.coin.symbol}",
-//       "user_id": auth.currentUser!.uid.toString()
-//     });
-//   }
-// ////////////
+  // getFavorites() async {
+  //   var data = await firestore
+  //       .collection('favorites')
+  //       .where('user_id', isEqualTo: auth.currentUser!.uid)
+  //       .get();
+  //   for (var i = 0; i <= data.docs.length; i++) {
+  //     if (data.docs[i].data()['coin_id'] == widget.coinHome.id) {
+  // setState(() {
+  //   isOk1 = true;
+  // });
+  //     }
+  //   }
+  // }
 
-// List<DetailsMap> listDetails=[
-//     DetailsMap(
-//       name: 'Market cap',
-//       number:widget.conHome.marketCap,
-//     ),
-//     DetailsMap(
-//       name: 'Market cap rank',
-//       number:widget.conHome.marketCapRank,
-//     ),
-//     DetailsMap(
-//       name: 'Fully diluted valuation',
-//       number:widget.conHome.fullyDilutedValuation,
-//     ),
-//     DetailsMap(
-//       name: 'Total volume',
-//       number:widget.conHome.totalVolume,
-//     ),
-//     DetailsMap(
-//       name: 'Low 24h',
-//       number:widget.conHome.low24H,
-//     ),
-//     DetailsMap(
-//       name: 'Price change 24h',
-//       number:widget.conHome.priceChange24H,
-//     ),
-//     DetailsMap(
-//       name: 'Price change 24h',
-//       number:widget.conHome.priceChangePercentage24H,
-//     ),
-//     DetailsMap(
-//       name: 'Market cap change 24h',
-//       number:widget.conHome.marketCapChange24H,
-//     ),
-//     DetailsMap(
-//       name: 'Circulating supply',
-//       number:widget.conHome.circulatingSupply,
-//     ),
-//     DetailsMap(
-//       name: 'Total supply',
-//       number:widget.conHome.totalSupply,
-//     ),
-//     DetailsMap(
-//       name: 'Max supply',
-//       number:widget.conHome.maxSupply,
-//     ),
-//     DetailsMap(
-//       name: 'Ath',
-//       number:widget.conHome.ath,
-//     ),
-//     DetailsMap(
-//       name: 'Ath change percentage',
-//       number:widget.conHome.athChangePercentage,
-//     ),
-//   ];
+  // addToFaveId(
+  //   String coinId,
+  // ) {
+  //   firestore.collection('favorites').add({
+  //     'user_id': auth.currentUser!.uid,
+  //     "coin_id": coinId,
+  //     "index": widget.index,
+  //   });
 
-//   // List<DetailsMap> listDetails = [
-//   //   DetailsMap(
-//   //     name: 'Market cap',
-//   //     number: 586578312211,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Market cap rank',
-//   //     number: 1,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Fully diluted valuation',
-//   //     number: 636680751892,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Total volume',
-//   //     number: 10921213123,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Low 24h',
-//   //     number: 30266,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Price change 24h',
-//   //     number: -201.61235264851712,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Price change 24h',
-//   //     number: -0.66046,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Market cap change 24h',
-//   //     number: -4616510575.362671,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Market cap change 24h',
-//   //     number: -0.78088,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Circulating supply',
-//   //     number: 19347443.0,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Total supply',
-//   //     number: 21000000.0,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Max supply',
-//   //     number: 21000000.0,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Ath',
-//   //     number: 69045,
-//   //   ),
-//   //   DetailsMap(
-//   //     name: 'Ath change percentage',
-//   //     number: -56.07955,
-//   //   ),
-//   // ];
+  //   getFavorites();
+  // }
+
+  // removeFaveId(
+  //   String coinId,
+  // ) async {
+  //   var deletable = await firestore
+  //       .collection('favorites')
+  //       .where("user_id", isEqualTo: auth.currentUser!.uid)
+  //       .where("coin_id", isEqualTo: coinId)
+  //       .get();
+  //   firestore
+  //       .collection('favorites')
+  //       .doc(deletable.docs.first.id.toString())
+  //       .delete()
+  //       .then((value) {
+  //     setState(() {
+  //       isOk1 = false;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    List<DetailsMapModel> listDetails = [
+      DetailsMapModel(
+        name: 'Market cap',
+        number: widget.coinHome.marketCap,
+      ),
+      DetailsMapModel(
+        name: 'Market cap rank',
+        number: widget.coinHome.marketCapRank,
+      ),
+      DetailsMapModel(
+        name: 'Fully diluted valuation',
+        number: widget.coinHome.fullyDilutedValuation,
+      ),
+      DetailsMapModel(
+        name: 'Total volume',
+        number: widget.coinHome.totalVolume,
+      ),
+      DetailsMapModel(
+        name: 'Low 24h',
+        number: widget.coinHome.low24H,
+      ),
+      DetailsMapModel(
+        name: 'Price change 24h',
+        number: widget.coinHome.priceChange24H,
+      ),
+      DetailsMapModel(
+        name: 'Price change 24h',
+        number: widget.coinHome.priceChangePercentage24H,
+      ),
+      DetailsMapModel(
+        name: 'Market cap change 24h',
+        number: widget.coinHome.marketCapChange24H,
+      ),
+      DetailsMapModel(
+        name: 'Circulating supply',
+        number: widget.coinHome.circulatingSupply,
+      ),
+      DetailsMapModel(
+        name: 'Total supply',
+        number: widget.coinHome.totalSupply,
+      ),
+      DetailsMapModel(
+        name: 'Max supply',
+        number: widget.coinHome.maxSupply,
+      ),
+      DetailsMapModel(
+        name: 'Ath',
+        number: widget.coinHome.ath,
+      ),
+      DetailsMapModel(
+        name: 'Ath change percentage',
+        number: widget.coinHome.athChangePercentage,
+      ),
+    ];
+
     CollectionReference favorites = firestore.collection('favorites');
-    final themeFunctions =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
-    return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
+    return Consumer<FireStorgeProvoder>(
+        builder: (context, coinsFireStorgeConsumer, _) {
       return Scaffold(
         appBar: AppBar(
           title: Row(
@@ -294,14 +211,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 widget.coinHome.symbol.toString().toUpperCase(),
                 style: TextStyle(
                   fontSize: 14,
-                  color: themeFunctions.isDark ? darktitleColor : mainTextColor,
+                  color: themeListener.isDark ? darktitleColor : mainTextColor,
                 ),
               ),
               Text(
                 widget.coinHome.name.toString(),
                 style: TextStyle(
                     color:
-                        themeFunctions.isDark ? darktitleColor : mainTextColor,
+                        themeListener.isDark ? darktitleColor : mainTextColor,
                     fontWeight: FontWeight.bold),
               ),
             ],
@@ -309,35 +226,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
           actions: [
             IconButton(
               onPressed: () async {
-                // if (isOk1 == true) {
-                isOk1
-                    ? removeFaveId(widget.coinHome.id.toString())
-                    : addToFaveId(widget.coinHome.id.toString());
-
-                // firestore.collection('favorites').where('user_id' , isEqualTo: auth.currentUser!.uid.toString() ).get();
-                // } else {
-                //   // firestore.collection('favorites').where('user_id' , isEqualTo: auth.currentUser!.uid.toString());
-                // }
+                coinsFireStorgeConsumer
+                    .getFavorites(widget.coinHome.id.toString());
+                coinsFireStorgeConsumer.isOk
+                    ? {
+                        coinsFireStorgeConsumer
+                            .removeFaveId(widget.coinHome.id.toString()),
+                        // initState(),
+                        // setState(() {}),
+                      }
+                    : {
+                        coinsFireStorgeConsumer.addToFaveId(
+                            widget.coinHome.id.toString(), widget.index),
+                        // initState(),
+                        // setState(() {}),
+                      };
               },
               icon: Icon(
-                isOk1 ? Icons.star : Icons.star_border_outlined,
+                isOk ? Icons.star : Icons.star_border_outlined,
                 color: mainColor,
               ),
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => const moneyConverter()));
-          },
-          child: const Icon(Icons.local_convenience_store_rounded),
-        ),
         body: RefreshIndicator(
           color: mainColor,
-          backgroundColor: themeFunctions.isDark
+          backgroundColor: themeListener.isDark
               ? darkBackroundContinarColor
               : secondeyTextColor,
           onRefresh: () async {
@@ -356,7 +270,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           '\$ ${widget.coinHome.currentPrice.toString()}',
                           style: TextStyle(
                             fontSize: 20,
-                            color: themeFunctions.isDark
+                            color: themeListener.isDark
                                 ? darktitleColor
                                 : mainTextColor,
                           ),
@@ -401,9 +315,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       height: size.width / 1.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(paddingAll),
-                        color: themeFunctions.isDark
+                        color: themeListener.isDark
                             ? darkBackroundContinarColor
-                            : secondeyTextColor,
+                            : lightBackroundBottomNavigationBarColor
+                                .withOpacity(0.5),
                       ),
                       child: isLoading == false
                           ? Column(
@@ -520,65 +435,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       height: size.height * 1.17,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(paddingAll),
-                        color: themeFunctions.isDark
+                        color: themeListener.isDark
                             ? darkBackroundContinarColor
-                            : secondeyTextColor,
+                            : lightBackroundBottomNavigationBarColor
+                                .withOpacity(0.5),
                       ),
-                      child: Column(
-                        children: [
-                          Desdetails(
-                            name: 'Market cap',
-                            number: widget.coinHome.marketCap,
-                          ),
-                          Desdetails(
-                            name: 'Market cap rank',
-                            number: widget.coinHome.marketCapRank,
-                          ),
-                          Desdetails(
-                            name: 'Fully diluted valuation',
-                            number: widget.coinHome.fullyDilutedValuation,
-                          ),
-                          Desdetails(
-                            name: 'Total volume',
-                            number: widget.coinHome.totalVolume,
-                          ),
-                          Desdetails(
-                            name: 'Low 24h',
-                            number: widget.coinHome.low24H,
-                          ),
-                          Desdetails(
-                            name: 'Price change 24h',
-                            number: widget.coinHome.priceChange24H,
-                          ),
-                          Desdetails(
-                            name: 'Price change Percentage 24h',
-                            number: widget.coinHome.priceChangePercentage24H,
-                          ),
-                          Desdetails(
-                            name: 'Market cap change 24h',
-                            number: widget.coinHome.marketCapChange24H,
-                          ),
-                          Desdetails(
-                            name: 'Circulating supply',
-                            number: widget.coinHome.circulatingSupply,
-                          ),
-                          Desdetails(
-                            name: 'Total supply',
-                            number: widget.coinHome.totalSupply,
-                          ),
-                          Desdetails(
-                            name: 'Max supply',
-                            number: widget.coinHome.maxSupply,
-                          ),
-                          Desdetails(
-                            name: 'Ath',
-                            number: widget.coinHome.ath,
-                          ),
-                          Desdetails(
-                            name: 'Ath change percentage',
-                            number: widget.coinHome.athChangePercentage,
-                          ),
-                        ],
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: ((context, index) => Desdetails(
+                              name: listDetails[index].name,
+                              number: listDetails[index].number,
+                            )),
+                        itemCount: listDetails.length,
                       ),
                     ),
                   ],
@@ -610,8 +478,7 @@ class Desdetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: paddingAll),
       child: Column(
@@ -626,7 +493,7 @@ class Desdetails extends StatelessWidget {
                 name,
                 style: TextStyle(
                   fontSize: 12,
-                  color: themeFunctions.isDark
+                  color: themeListener.isDark
                       ? darkMainTextColor
                       : Colors.grey.shade700,
                   fontWeight: FontWeight.w500,
@@ -636,7 +503,7 @@ class Desdetails extends StatelessWidget {
                 number,
                 style: TextStyle(
                   fontSize: 10,
-                  color: themeFunctions.isDark ? darktitleColor : mainTextColor,
+                  color: themeListener.isDark ? darktitleColor : mainTextColor,
                 ),
               ),
             ],
@@ -646,7 +513,7 @@ class Desdetails extends StatelessWidget {
           ),
           Divider(
             height: 1,
-            color: themeFunctions.isDark
+            color: themeListener.isDark
                 ? darksecondeyTextColor
                 : Colors.grey.shade400,
           ),

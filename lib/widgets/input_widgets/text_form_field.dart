@@ -37,7 +37,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool ispasswordshow = true;
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -52,7 +52,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: themeFunctions.isDark
+                      color: themeListener.isDark
                           ? secondeyTextColor
                           : darkBackroundScreenColor),
                 ),
@@ -87,23 +87,23 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                             color: mainColor),
                       )
                     : widget.perfix,
-                fillColor: themeFunctions.isDark
+                fillColor: themeListener.isDark
                     ? Colors.white30
                     : lightBackroundScreenColor,
                 filled: true,
                 hintText: widget.hintText,
                 hintStyle: TextStyle(
-                  color: themeFunctions.isDark ? Colors.white54 : greyTextColor,
+                  color: themeListener.isDark ? Colors.white54 : greyTextColor,
                   fontSize: 12,
                 ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide(
-                      color: themeFunctions.isDark
+                      color: themeListener.isDark
                           ? Colors.white30
                           : lightBackroundScreenColor,
                     )),
-                focusColor: themeFunctions.isDark
+                focusColor: themeListener.isDark
                     ? Colors.white30
                     : lightBackroundScreenColor,
                 errorBorder: OutlineInputBorder(
@@ -112,14 +112,14 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide(
-                      color: themeFunctions.isDark
+                      color: themeListener.isDark
                           ? Colors.white30
                           : lightBackroundScreenColor,
                     )),
                 // enabledBorder: OutlineInputBorder(
                 //     borderRadius: BorderRadius.circular(15),
                 //     borderSide: BorderSide(
-                //       color: themeFunctions.isDark
+                //       color: themeListener.isDark
                 //           ? Colors.white30
                 //           : lightBackroundScreenColor,
                 //     )),

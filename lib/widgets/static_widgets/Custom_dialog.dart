@@ -21,10 +21,10 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Dialog(
-      backgroundColor: themeFunctions.isDark
+      backgroundColor: themeListener.isDark
           ? darkBackroundContinarColor
           : secondeyTextColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -44,7 +44,7 @@ class CustomDialog extends StatelessWidget {
                         title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: themeFunctions.isDark
+                            color: themeListener.isDark
                                 ? darktitleColor
                                 : mainTextColor,
                             fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class CustomDialog extends StatelessWidget {
                         // " We just sent an link to your registered email address ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: themeFunctions.isDark
+                            color: themeListener.isDark
                                 ? darktitleColor
                                 : mainTextColor,
                             fontWeight: FontWeight.w500,

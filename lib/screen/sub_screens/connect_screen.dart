@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mycoins/helpers/consts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/button.dart';
 import '../../widgets/input_widgets/text_form_field.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +34,6 @@ class _ConnectScreenState extends State<ConnectScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(),
       body: Form(

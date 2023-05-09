@@ -108,6 +108,11 @@
     "weakpass":"Password is too weak.",
     "existsemail":"The account already exists for that email.",
 
+    "conver1":"Coins Conversion",
+    "conver2":"Input a value to convert",
+    "conver3":"Result",
+
+    "favot":"You don't have any favorite currencies! add now",
 
     "alcuuren":"all currencies"
 

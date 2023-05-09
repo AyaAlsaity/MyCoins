@@ -17,7 +17,7 @@ class ContinarDarkMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+     final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -26,9 +26,9 @@ class ContinarDarkMode extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(paddingAll),
         color: 
-        themeFunctions.isDark
+        themeListener.isDark
                           ? darkBackroundContinarColor
-                          : secondeyTextColor,
+                          : lightBackroundBottomNavigationBarColor.withOpacity(0.3),
       ),
       child: Padding(
         padding: const EdgeInsets.all(paddingAll),
@@ -40,7 +40,7 @@ class ContinarDarkMode extends StatelessWidget {
                 Text(
                   symbol.toUpperCase(),
                   style:
-                       TextStyle(fontSize: 12, color: themeFunctions.isDark
+                       TextStyle(fontSize: 12, color: themeListener.isDark
                           ? darkMainTextColor
                           : Colors.grey.shade700, ),
                 ),
@@ -83,9 +83,9 @@ class ContinarDarkMode extends StatelessWidget {
             ),
             Text(
               price,
-              style:  TextStyle(fontSize: 12, color: themeFunctions.isDark
+              style:  TextStyle(fontSize: 12, color: themeListener.isDark
                           ? darkMainTextColor
-                          : themeFunctions.isDark
+                          : themeListener.isDark
                           ? darkMainTextColor
                           : mainTextColor),
             ),
