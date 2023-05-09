@@ -15,7 +15,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int currentIndex = 2;
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final themeFunctions =
@@ -23,13 +23,12 @@ class _TabsScreenState extends State<TabsScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: AnimatedSwitcher(
-        duration: kThemeAnimationDuration,
-        child: currentIndex == 0
-            ? const NotificationsScreen()
-            : currentIndex == 1
-                ? const ConversionScreen()
-                : const HomeScreen(),
-      ),
+          duration: kThemeAnimationDuration,
+          child: currentIndex == 0
+              ? const HomeScreen()
+              : currentIndex == 1
+                  ? const ConversionScreen()
+                  : const NotificationsScreen()),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: themeFunctions.isDark
             ? darkBackroundBottomNavigationBarColor
@@ -44,17 +43,20 @@ class _TabsScreenState extends State<TabsScreen> {
         selectedItemColor: mainColor,
         items: [
           BottomNavigationBarItem(
-              label: currentIndex == 0 ? AppLocalizations.of(context)!.notification : "",
+              label:
+                  currentIndex == 0 ? AppLocalizations.of(context)!.market : "",
               icon: Image.asset(
-                'assets/icons/notificationIcon.png',
+                'assets/icons/monitoring.png',
                 width: currentIndex == 0 ? size.width / 12 : size.width / 15,
                 height: currentIndex == 0 ? size.width / 12 : size.width / 15,
-                fit: BoxFit.contain,
                 color:
                     currentIndex == 0 ? mainColor : mainColor.withOpacity(0.6),
+                fit: BoxFit.contain,
               )),
           BottomNavigationBarItem(
-              label: currentIndex == 1 ? AppLocalizations.of(context)!.conversion : "",
+              label: currentIndex == 1
+                  ? AppLocalizations.of(context)!.conversion
+                  : "",
               icon: Column(
                 children: [
                   Image.asset(
@@ -71,14 +73,23 @@ class _TabsScreenState extends State<TabsScreen> {
                 ],
               )),
           BottomNavigationBarItem(
-              label: currentIndex == 2 ? AppLocalizations.of(context)!.market : "",
-              icon: Image.asset(
-                'assets/icons/monitoring.png',
-                width: currentIndex == 2 ? size.width / 12 : size.width / 15,
-                height: currentIndex == 2 ? size.width / 12 : size.width / 15,
-                color:
-                    currentIndex == 2 ? mainColor : mainColor.withOpacity(0.6),
-                fit: BoxFit.contain,
+              label: currentIndex == 2
+                  ? AppLocalizations.of(context)!.notification
+                  : "",
+              icon: Column(
+                children: [
+                  Image.asset(
+                    'assets/icons/notificationIcon.png',
+                    width:
+                        currentIndex == 2 ? size.width / 12 : size.width / 15,
+                    height:
+                        currentIndex == 2 ? size.width / 12 : size.width / 15,
+                    fit: BoxFit.contain,
+                    color: currentIndex == 2
+                        ? mainColor
+                        : mainColor.withOpacity(0.6),
+                  ),
+                ],
               )),
         ],
       ),
