@@ -35,6 +35,8 @@ With features such as adding to favorites, searching for the required currency, 
 4.Enter Your Last Name<br />
 5.Press `Sign up `Button<br />
 
+## Place
+Benghazi camp
 
 ## Developers
 The application that was created by [*Aya Alsaity* ](https://github.com/AyaAlsaity) &  [*Areej Elbarassi*](https://github.com/areej9891)
