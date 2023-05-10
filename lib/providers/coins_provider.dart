@@ -14,6 +14,8 @@ class CoinsProvider with ChangeNotifier {
 
   final _api = Api();
 
+// ///////////////////////////////////// ===>>>>>> go to FireStorgeProvoder
+
   List<CurrencyModel> currencies1 = [
     CurrencyModel(
       id: 1,
@@ -34,6 +36,8 @@ class CoinsProvider with ChangeNotifier {
 
   CurrencyModel? selectedcurrenc1;
   CoinsModel? selectedcurrenc2;
+
+// //////////////////////////////////////
 
   setSelectedCurrencyOne(CurrencyModel? currency) {
     selectedcurrenc1 = currency;
@@ -63,13 +67,4 @@ class CoinsProvider with ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
-
-  // getModel(String id) async{
-  //   for(int i=0;i<coinsList.length;i++) {
-  //     if( coinsList[i].id==id){
-
-  //    }
-  //   }
-  //  notifyListeners();
-  // }
 }

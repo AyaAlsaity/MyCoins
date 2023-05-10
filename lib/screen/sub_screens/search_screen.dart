@@ -40,64 +40,6 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
       return <CoinsearchModel>[];
     }
   }
-  //  List<DetailsMap> listDetails=[];
-  // void getModel(CoinsModel coin) async{
-  //    listDetails = [
-  //   DetailsMap(
-  //     name: 'Market cap',
-  //     number: coin.marketCap,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Market cap rank',
-  //     number: coin.marketCapRank,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Fully diluted valuation',
-  //     number: coin.fullyDilutedValuation,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Total volume',
-  //     number: coin.totalVolume,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Low 24h',
-  //     number: coin.low24H,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Price change 24h',
-  //     number: coin.priceChange24H,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Price change 24h',
-  //     number: coin.priceChangePercentage24H,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Market cap change 24h',
-  //     number: coin.marketCapChange24H,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Circulating supply',
-  //     number: coin.circulatingSupply,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Total supply',
-  //     number: coin.totalSupply,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Max supply',
-  //     number: coin.maxSupply,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Ath',
-  //     number: coin.ath,
-  //   ),
-  //   DetailsMap(
-  //     name: 'Ath change percentage',
-  //     number: coin.athChangePercentage,
-  //   ),
-  // ];
-
-  // }
 
   @override
   void initState() {
@@ -107,7 +49,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
       return Scaffold(
@@ -183,9 +125,14 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                         Expanded(
                           child: listCoin.isEmpty
                               ? SingleChildScrollView(
-                                  child: ErrorWwidget(
-                                    error: AppLocalizations.of(context)!.error1,
-                                    image: 'assets/images/error1.png',
+                                  child: Text(
+                                    AppLocalizations.of(context)!.error1,
+                                    style: TextStyle(
+                                      color: themeListener.isDark
+                                          ? darktitleColor
+                                          : mainTextColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 )
                               : ListView.separated(
@@ -238,10 +185,13 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                         index: index,
                       )));
         },
-        leading: Image.network(
-          coin.image ?? '',
-          width: 30,
-          height: 30,
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            coin.image ?? '',
+            width: 30,
+            height: 30,
+          ),
         ),
         title: Text(
           coin.name ?? '',

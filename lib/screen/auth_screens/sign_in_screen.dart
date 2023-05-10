@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
         appBar: AppBar(
@@ -55,9 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      color: themeFunctions.isDark
+                      color: themeListener.isDark
                           ? darkBackroundContinarColor
-                          : secondeyTextColor,
+                          : lightBackroundBottomNavigationBarColor.withOpacity(0.5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(paddingAll + 5),
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
-                                color: themeFunctions.isDark
+                                color: themeListener.isDark
                                     ? secondeyTextColor
                                     : Colors.black87,
                               ),

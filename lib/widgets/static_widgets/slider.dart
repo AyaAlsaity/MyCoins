@@ -44,7 +44,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                               decoration: BoxDecoration(
                                 color: themeListener.isDark
                                     ? darkBackroundContinarColor
-                                    : secondeyTextColor,
+                                    : lightBackroundBottomNavigationBarColor
+                                        .withOpacity(0.3),
                                 borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(24),
                                   bottomRight: Radius.circular(24),
@@ -80,10 +81,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                                         horizontal: 12),
                                     child: Row(
                                       children: [
-                                        Image.network(
-                                          item.image.toString(),
-                                          width: 30,
-                                          height: 30,
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: Image.network(
+                                            item.image.toString(),
+                                            width: 30,
+                                            height: 30,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: 30,
@@ -117,8 +122,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(
-                                          width: 90,
+                                        SizedBox(
+                                          width: size.width / 16,
                                         ),
                                         Text(
                                           '${item.athChangePercentage}%',

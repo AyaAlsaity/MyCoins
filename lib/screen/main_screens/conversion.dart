@@ -38,231 +38,226 @@ class _ConversionScreenState extends State<ConversionScreen> {
             context,
           ),
           drawer: const CustomDrawer(),
-          body: SafeArea(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Text(" Coins Conversion",
-                        style: TextStyle(
-                            color: themeListener.isDark
-                                ? secondeyTextColor
-                                : Colors.black87,
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold)),
-                    Expanded(
-                        child: Center(
-                            child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TextFieldWidget(
-                            maxLine: 2,
-                            controller: rateController,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return AppLocalizations.of(context)!.email3;
-                              }
-                              // if (!value.contains('@') ||
-                              //     !value.contains('.com')) {
-                              //   return AppLocalizations.of(context)!.email4;
-                              // }
-                              return null;
-                            },
-                            hintText: "Input a value to convert",
-                            ispassword: false,
-                            keyboardType: TextInputType.number),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
-                                    decoration: BoxDecoration(
-                                      color: themeListener.isDark
-                                          ? Colors.white30
-                                          : lightBackroundScreenColor,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        DropdownButtonHideUnderline(
-                                          child: DropdownButton<CoinsModel?>(
-                                            iconEnabledColor: mainColor,
-                                            dropdownColor: themeListener.isDark
-                                                ? Colors.white54
-                                                : greyTextColor,
-                                            style: TextStyle(
-                                                color: themeListener.isDark
-                                                    ? secondeyTextColor
-                                                    : Colors.black87),
-                                            items: coinsConsumer.coinsList
-                                                .map((e) => DropdownMenuItem(
-                                                      value: e,
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 30,
-                                                            height: 30,
-                                                            child:
-                                                                Image.network(e
-                                                                    .image
-                                                                    .toString()),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text(
-                                                              "${e.symbol.toString().toUpperCase()}"),
-                                                        ],
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                            onChanged: (value) {
-                                              Provider.of<CoinsProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setSelectedCoinTwo(value);
-
-                                              // setState(() {
-                                              //   value = selectedcurrenc2;
-                                              // });
-                                              // print(
-                                              //     "SELECTED IS : ${selectedcurrenc2!.name}");
-                                            },
-                                            value:
-                                                coinsConsumer.selectedcurrenc2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  FloatingActionButton(
-                                    onPressed: () {
-                                      conversionProcess(
-                                          rateController.text,
-                                          coinsConsumer.selectedcurrenc1!.price,
-                                          coinsConsumer
-                                              .selectedcurrenc2!.currentPrice);
-                                    },
-                                    elevation: 0.0,
-                                    backgroundColor: themeListener.isDark
+          body: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.conver1,
+                      style: TextStyle(
+                          color: themeListener.isDark
+                              ? secondeyTextColor
+                              : Colors.black87,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  Expanded(
+                      child: Center(
+                          child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TextFieldWidget(
+                          maxLine: 2,
+                          controller: rateController,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!.email3;
+                            }
+                            return null;
+                          },
+                          hintText: AppLocalizations.of(context)!.conver2,
+                          ispassword: false,
+                          keyboardType: TextInputType.number),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  decoration: BoxDecoration(
+                                    color: themeListener.isDark
                                         ? Colors.white30
                                         : lightBackroundScreenColor,
-                                    child: Icon(
-                                      Icons.currency_exchange,
-                                      size: 30,
-                                      color: mainColor,
-                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
-                                    decoration: BoxDecoration(
-                                      color: themeListener.isDark
-                                          ? Colors.white30
-                                          : lightBackroundScreenColor,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(
-                                          width: 20,
+                                  child: Row(
+                                    children: [
+                                      DropdownButtonHideUnderline(
+                                        child: DropdownButton<CoinsModel?>(
+                                          iconEnabledColor: mainColor,
+                                          dropdownColor: themeListener.isDark
+                                              ? Colors.white54
+                                              : greyTextColor,
+                                          style: TextStyle(
+                                              color: themeListener.isDark
+                                                  ? secondeyTextColor
+                                                  : Colors.black87),
+                                          items: coinsConsumer.coinsList
+                                              .map((e) => DropdownMenuItem(
+                                                    value: e,
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 20,
+                                                          height: 20,
+                                                          child:
+                                                              Image.network(e
+                                                                  .image
+                                                                  .toString()),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                            "${e.symbol.toString().toUpperCase()}"),
+                                                      ],
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            Provider.of<CoinsProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .setSelectedCoinTwo(value);
+                    
+                                            // setState(() {
+                                            //   value = selectedcurrenc2;
+                                            // });
+                                            // print(
+                                            //     "SELECTED IS : ${selectedcurrenc2!.name}");
+                                          },
+                                          value:
+                                              coinsConsumer.selectedcurrenc2,
                                         ),
-                                        DropdownButtonHideUnderline(
-                                          child: DropdownButton<CurrencyModel?>(
-                                            iconEnabledColor: mainColor,
-                                            dropdownColor: themeListener.isDark
-                                                ? Colors.white54
-                                                : greyTextColor,
-                                            style: TextStyle(
-                                                color: themeListener.isDark
-                                                    ? secondeyTextColor
-                                                    : Colors.black87),
-                                            items: coinsConsumer.currencies1
-                                                .map((e) => DropdownMenuItem(
-                                                      value: e,
-                                                      child: Text(
-                                                        "${e.name}",
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                            onChanged: (value) {
-                                              Provider.of<CoinsProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setSelectedCurrencyOne(
-                                                      value);
-                                              // setState(() {
-                                              //   value = selectedcurrenc1;
-                                              // });
-                                              // print(
-                                              //     "SELECTED IS : ${selectedcurrenc1!.name}");
-                                            },
-                                            value:
-                                                coinsConsumer.selectedcurrenc1,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                  // customDropDown(currencies1, selectedcurrenc1,
-                                  //     (val) {
-                                  //   setState(() {
-                                  //     selectedcurrenc1 = val;
-                                  //   });
-                                  // }),
-                                ])),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        Container(
-                            height: 80,
-                            width: 400,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            decoration: BoxDecoration(
-                              color: themeListener.isDark
-                                  ? Colors.white30
-                                  : lightBackroundScreenColor,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Result : ${result}",
-                                  style: TextStyle(
-                                      color: themeListener.isDark
-                                          ? secondeyTextColor
-                                          : Colors.black87,
-                                      fontSize: 16),
                                 ),
-                              ],
-                            )),
-                      ],
-                    )))
-                  ]),
-            ),
+                    
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    conversionProcess(
+                                        rateController.text,
+                                        coinsConsumer.selectedcurrenc1!.price,
+                                        coinsConsumer
+                                            .selectedcurrenc2!.currentPrice);
+                                  },
+                                  elevation: 0.0,
+                                  // backgroundColor: themeListener.isDark
+                                  //     ? Colors.white30
+                                  //     : lightBackroundScreenColor,
+                                  child: Icon(
+                                    Icons.currency_exchange,
+                                    size: 30,
+                                    color: mainColor,
+                                  ),
+                                ),
+                    
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  decoration: BoxDecoration(
+                                    color: themeListener.isDark
+                                        ? Colors.white30
+                                        : lightBackroundScreenColor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      DropdownButtonHideUnderline(
+                                        child: DropdownButton<CurrencyModel?>(
+                                          iconEnabledColor: mainColor,
+                                          dropdownColor: themeListener.isDark
+                                              ? Colors.white54
+                                              : greyTextColor,
+                                          style: TextStyle(
+                                              color: themeListener.isDark
+                                                  ? secondeyTextColor
+                                                  : Colors.black87),
+                                          items: coinsConsumer.currencies1
+                                              .map((e) => DropdownMenuItem(
+                                                    value: e,
+                                                    child: Text(
+                                                      "${e.name}",
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            Provider.of<CoinsProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .setSelectedCurrencyOne(
+                                                    value);
+                                            // setState(() {
+                                            //   value = selectedcurrenc1;
+                                            // });
+                                            // print(
+                                            //     "SELECTED IS : ${selectedcurrenc1!.name}");
+                                          },
+                                          value:
+                                              coinsConsumer.selectedcurrenc1,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // customDropDown(currencies1, selectedcurrenc1,
+                                //     (val) {
+                                //   setState(() {
+                                //     selectedcurrenc1 = val;
+                                //   });
+                                // }),
+                              ])),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                          height: 80,
+                          width: 400,
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 15.0),
+                          decoration: BoxDecoration(
+                            color: themeListener.isDark
+                                ? Colors.white30
+                                : lightBackroundScreenColor,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "${AppLocalizations.of(context)!.conver3} : ${result}",
+                                style: TextStyle(
+                                    color: themeListener.isDark
+                                        ? secondeyTextColor
+                                        : Colors.black87,
+                                    fontSize: 16),
+                              ),
+                            ],
+                          )),
+                    ],
+                  )))
+                ]),
           ));
     });
   }

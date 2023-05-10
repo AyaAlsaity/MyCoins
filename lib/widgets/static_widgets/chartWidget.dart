@@ -25,7 +25,7 @@ class _ExpenseGraphDesignState extends State<ExpenseGraphDesign> {
         maxY: 10,
         backgroundColor: themeListener.isDark
               ? darkBackroundContinarColor
-              : secondeyTextColor,
+              : lightBackroundBottomNavigationBarColor.withOpacity(0.3),
         lineBarsData: [
           LineChartBarData(
             spots: [

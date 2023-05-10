@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mycoins/screen/auth_screens/successful_reset%20.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
@@ -22,7 +19,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+     final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -40,7 +37,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             children: [
               Container(
                 decoration:  BoxDecoration(
-                  color: themeFunctions.isDark ? darkBackroundScreenColor: lightBackroundScreenColor,
+                  color: themeListener.isDark ? darkBackroundScreenColor: lightBackroundScreenColor,
                   borderRadius:const BorderRadius.all(
                     Radius.circular(20),
                   ),

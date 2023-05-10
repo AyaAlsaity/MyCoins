@@ -1,7 +1,7 @@
-class DetailsMap {
+class DetailsMapModel {
   String name;
   String number;
-  DetailsMap({
+  DetailsMapModel({
     required this.name,
     required this.number,
   });

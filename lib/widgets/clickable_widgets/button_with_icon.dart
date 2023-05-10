@@ -34,7 +34,7 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
           color: widget.withborder
               ? themeListener.isDark
                   ? darkBackroundScreenColor
-                  : lightBackroundScreenColor
+                  : secondeyTextColor
               : mainColor,
           // themeListener.isDark ? darkBackroundContinarColor :
 

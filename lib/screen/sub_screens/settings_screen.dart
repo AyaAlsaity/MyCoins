@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../main.dart';
+import '../../providers/dark_theme_provider.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -14,6 +15,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
+     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
         appBar: AppBar(
         ),
@@ -35,7 +37,7 @@ class _SettingState extends State<SettingScreen> {
                 children: [
                   Icon(
                     Icons.person,
-                    color: mainColor.withOpacity(.5),
+                    color: mainColor,
                   ),
                   const SizedBox(
                     width: 8,
@@ -44,7 +46,8 @@ class _SettingState extends State<SettingScreen> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey[500])),
+                           color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,)),
                 ],
               ),
               const Divider(
@@ -76,7 +79,8 @@ class _SettingState extends State<SettingScreen> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey[500])),
+                           color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,)),
                 ],
               ),
               const Divider(
@@ -87,7 +91,7 @@ class _SettingState extends State<SettingScreen> {
               const SizedBox(
                 height: 10,
               ),
-              // buildNotificationsOptionRow("New For You", true),
+              
               buildNotificationsOptionRow(
                   AppLocalizations.of(context)!.activte, true),
 
@@ -99,55 +103,56 @@ class _SettingState extends State<SettingScreen> {
         ));
   }
 
-  Padding buildAccountOptionRow(BuildContext context, String title) {
-    bool isChecked = false;
-    List<String> item = ["Male ", "Female "];
-    String currentitem =
-        " ${AppLocalizations.of(context)!.lag}   (${AppLocalizations.of(context)!.localeName == 'en' ? (AppLocalizations.of(context)!.lanen) : (AppLocalizations.of(context)!.lanar)})";
+  // Padding buildAccountOptionRow(BuildContext context, String title) {
+  //   // bool isChecked = false;
+  //   // List<String> item = ["Male ", "Female "];
+  //   // String currentitem =
+  //   //     " ${AppLocalizations.of(context)!.lag}   (${AppLocalizations.of(context)!.localeName == 'en' ? (AppLocalizations.of(context)!.lanen) : (AppLocalizations.of(context)!.lanar)})";
 
-    void handleChange(String? value) {
-      setState(() {
-        currentitem = value!;
-      });
-    }
+  //   // void handleChange(String? value) {
+  //   //   setState(() {
+  //   //     currentitem = value!;
+  //   //   });
+  //   // }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: GestureDetector(
-        onTap: () {
-          PopupMenuButton(
-            child: const Text('Some Button'),
-            itemBuilder: (_) => [
-              const PopupMenuItem(
-                value: 'item1',
-                child: Text('Item1'),
-              ),
-              const PopupMenuItem(value: 'item2', child: Text('Item2')),
-            ],
-            onSelected: (value) => Navigator.of(context).pushNamed(value),
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[400]),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: mainColor,
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //     child: GestureDetector(
+  //       onTap: () {
+  //         PopupMenuButton(
+  //           child: const Text('Some Button'),
+  //           itemBuilder: (_) => [
+  //             const PopupMenuItem(
+  //               value: 'item1',
+  //               child: Text('Item1'),
+  //             ),
+  //             const PopupMenuItem(value: 'item2', child: Text('Item2')),
+  //           ],
+  //           onSelected: (value) => Navigator.of(context).pushNamed(value),
+  //         );
+  //       },
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Text(
+  //             title,
+  //             style: TextStyle(
+  //                 fontSize: 18,
+  //                 fontWeight: FontWeight.w500,
+  //                 color: Colors.grey[400]),
+  //           ),
+  //           const Icon(
+  //             Icons.arrow_forward_ios,
+  //             color: mainColor,
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Row buildNotificationsOptionRow(String title, bool isActive) {
+  Row buildNotificationsOptionRow(String title, bool isActive,) {
+     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -156,7 +161,8 @@ class _SettingState extends State<SettingScreen> {
           style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: Colors.grey[400]),
+               color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,),
         ),
         Switch(
             value: isActive, onChanged: (bool val) {}, activeColor: mainColor)
@@ -174,6 +180,7 @@ class SettingsRowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -184,7 +191,8 @@ class SettingsRowButton extends StatelessWidget {
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
-                color: Colors.grey[400]),
+                 color:
+                          themeListener.isDark ? darktitleColor : mainTextColor,),
           ),
           const Icon(
             Icons.arrow_forward_ios,
@@ -196,55 +204,55 @@ class SettingsRowButton extends StatelessWidget {
   }
 }
 
-void showLenguageSelectionDialog(BuildContext context, String currentLenguage) {
-  showDialog(
-    context: context,
-    builder: (_) => AlertDialog(
-      title: Text(AppLocalizations.of(context)!.lag),
-      content: SizedBox(
-        height: 100,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Radio<String>(
-                  value: currentLenguage,
-                  groupValue: AppLocalizations.of(context)!.lanen,
-                  onChanged: (value) async {
-                    AppLocalizations.of(context)!.localeName == 'en'
-                        ? MyApp.setLocale(context, const Locale('ar'))
-                        : MyApp.setLocale(context, const Locale('en'));
+// void showLenguageSelectionDialog(BuildContext context, String currentLenguage) {
+//   showDialog(
+//     context: context,
+//     builder: (_) => AlertDialog(
+//       title: Text(AppLocalizations.of(context)!.lag),
+//       content: SizedBox(
+//         height: 100,
+//         child: Column(
+//           children: [
+//             Row(
+//               children: [
+//                 Radio<String>(
+//                   value: currentLenguage,
+//                   groupValue: AppLocalizations.of(context)!.lanen,
+//                   onChanged: (value) async {
+//                     AppLocalizations.of(context)!.localeName == 'en'
+//                         ? MyApp.setLocale(context, const Locale('ar'))
+//                         : MyApp.setLocale(context, const Locale('en'));
 
-                    Navigator.pop(context);
-                  },
-                ),
-                Text(
-                  AppLocalizations.of(context)!.lanen,
-                  style: const TextStyle(fontSize: 18),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Radio<String>(
-                  value: currentLenguage,
-                  groupValue: AppLocalizations.of(context)!.lanar,
-                  onChanged: (value) async {
-                    AppLocalizations.of(context)!.localeName == 'en'
-                        ? MyApp.setLocale(context, const Locale('ar'))
-                        : MyApp.setLocale(context, const Locale('en'));
-                    Navigator.pop(context);
-                  },
-                ),
-                Text(
-                  AppLocalizations.of(context)!.lanar,
-                  style: const TextStyle(fontSize: 18),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
+//                     Navigator.pop(context);
+//                   },
+//                 ),
+//                 Text(
+//                   AppLocalizations.of(context)!.lanen,
+//                   style: const TextStyle(fontSize: 18),
+//                 )
+//               ],
+//             ),
+//             Row(
+//               children: [
+//                 Radio<String>(
+//                   value: currentLenguage,
+//                   groupValue: AppLocalizations.of(context)!.lanar,
+//                   onChanged: (value) async {
+//                     AppLocalizations.of(context)!.localeName == 'en'
+//                         ? MyApp.setLocale(context, const Locale('ar'))
+//                         : MyApp.setLocale(context, const Locale('en'));
+//                     Navigator.pop(context);
+//                   },
+//                 ),
+//                 Text(
+//                   AppLocalizations.of(context)!.lanar,
+//                   style: const TextStyle(fontSize: 18),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }

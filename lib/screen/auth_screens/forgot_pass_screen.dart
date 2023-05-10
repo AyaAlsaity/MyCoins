@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mycoins/screen/auth_screens/sign_in_screen.dart';
 import 'package:mycoins/widgets/clickable_widgets/button.dart';
 import 'package:mycoins/widgets/static_widgets/custom_dialog.dart';
@@ -28,7 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -53,7 +52,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 AppLocalizations.of(context)!.fogottiti,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: themeFunctions.isDark
+                    color: themeListener.isDark
                         ? darktitleColor
                         : mainTextColor,
                     fontSize: 20,
@@ -69,7 +68,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 AppLocalizations.of(context)!.fogotsubtiti,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: themeFunctions.isDark
+                    color: themeListener.isDark
                         ? darktitleColor
                         : mainTextColor,
                     fontWeight: FontWeight.w400,
@@ -87,9 +86,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
-                    color: themeFunctions.isDark
+                    color: themeListener.isDark
                         ? darkBackroundContinarColor
-                        : secondeyTextColor,
+                        : lightBackroundBottomNavigationBarColor.withOpacity(0.5),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(paddingAll + 5),

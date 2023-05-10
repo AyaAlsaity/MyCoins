@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mycoins/helpers/consts.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +16,7 @@ class ResetSuccessful extends StatefulWidget {
 class _ResetSuccessfulState extends State<ResetSuccessful> {
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+     final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -36,7 +34,7 @@ class _ResetSuccessfulState extends State<ResetSuccessful> {
           children: [
             Container(
               decoration:  BoxDecoration(
-                color: themeFunctions.isDark ? darkBackroundContinarColor: lightBackroundScreenColor,
+                color: themeListener.isDark ? darkBackroundContinarColor: lightBackroundScreenColor,
                 borderRadius:const BorderRadius.all(
                   Radius.circular(20),
                 ),

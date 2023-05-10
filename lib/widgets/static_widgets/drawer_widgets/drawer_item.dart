@@ -16,7 +16,7 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final themeFunctions =
+     final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return InkWell(
       focusColor: mainColor.withOpacity(0.1),
@@ -36,7 +36,7 @@ class DrawerItem extends StatelessWidget {
             ),
             Text(
               title,
-              style:  TextStyle(fontSize: 16, color: themeFunctions.isDark
+              style:  TextStyle(fontSize: 16, color: themeListener.isDark
                           ? darktitleColor
                           : mainTextColor),
             )

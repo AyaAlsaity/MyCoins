@@ -11,31 +11,25 @@ class Infocard extends StatelessWidget {
   final String emailText;
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     return ListTile(
       leading: CircleAvatar(
         backgroundColor:
-            themeFunctions.isDark ? darkBackroundScreenColor : Colors.white,
+            themeListener.isDark ? darkBackroundScreenColor : Colors.white,
         child: Image.asset("assets/images/woman.png"
-            // 'images/woman.png',
             ),
-
-        //  const Icon(
-        //   Icons.person,
-        //   color: mainColor,
-        // ),
       ),
       title: Text(
         nameText,
         style: TextStyle(
-            fontSize: 18,
-            color: themeFunctions.isDark ? darktitleColor : mainTextColor),
+            fontSize: 14,
+            color: themeListener.isDark ? darktitleColor : mainTextColor),
       ),
       subtitle: Text(emailText,
           style: TextStyle(
-              fontSize: 16,
-              color: themeFunctions.isDark ? darktitleColor : mainTextColor)),
+              fontSize: 12,
+              color: themeListener.isDark ? darkMainTextColor :mainTextColor.withOpacity(0.5) )),
     );
   }
 }

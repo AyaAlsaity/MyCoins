@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/coins_provider.dart';
 import '../../providers/dark_theme_provider.dart';
+import '../../providers/get_from_fire_storge_provider.dart';
 import 'details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({
@@ -23,20 +25,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   // bool isOk1 = true;
 
-  var data;
+  // var data;
 
-  getFavorites() async {
-    data = await firestore
-        .collection('favorites')
-        .where('user_id', isEqualTo: auth.currentUser!.uid)
-        .get();
-    setState(() {});
-  }
+  // getFavorites() async {
+  //   data = await firestore
+  //       .collection('favorites')
+  //       .where('user_id', isEqualTo: auth.currentUser!.uid)
+  //       .get();
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
-    getFavorites();
+    Provider.of<FireStorgeProvoder>(context, listen: false).getFavoritesScreen();
+    setState(() {});
   }
 
   @override
@@ -53,14 +56,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               ? darkBackroundContinarColor
               : secondeyTextColor,
           onRefresh: () async {
-            getFavorites();
+            Provider.of<FireStorgeProvoder>(context, listen: false).getFavoritesScreen();
           },
-          child: data == null
+          child: Provider.of<FireStorgeProvoder>(context, listen: true).data == null
               ? Center(
                   child: Text(
-                    "Not found favotrites",
+                    textAlign:TextAlign.center,
+                    AppLocalizations.of(context)!.favot,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       color:
                           themeListener.isDark ? darktitleColor : mainTextColor,
                     ),
@@ -100,14 +104,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   child: Image.network(
                                     coinsConsumer
                                         .coinsList[
-                                            data.docs[index].data()['index']]
+                                            Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']]
                                         .image,
                                     width: 40,
                                     height: 40,
                                   ),
                                 ),
                                 Text(
-                                  '${coinsConsumer.coinsList[data.docs[index].data()['index']].name} (${coinsConsumer.coinsList[data.docs[index].data()['index']].symbol})',
+                                  '${coinsConsumer.coinsList[Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']].name} (${coinsConsumer.coinsList[Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']].symbol})',
                                   style: TextStyle(
                                       color: themeListener.isDark
                                           ? darktitleColor
@@ -116,13 +120,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  '\$ ${coinsConsumer.coinsList[data.docs[index].data()['index']].currentPrice.toString()}',
+                                  '\$ ${coinsConsumer.coinsList[Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']].currentPrice.toString()}',
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: mainColor,
-                                    // themeListener.isDark
-                                    //     ? darktitleColor
-                                    //     : mainTextColor,
                                   ),
                                 ),
                               ],
@@ -132,7 +133,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       ),
                     );
                   }),
-                  itemCount: data.docs.length,
+                  itemCount: Provider.of<FireStorgeProvoder>(context, listen: true).data.docs.length,
                 ),
         ),
       );

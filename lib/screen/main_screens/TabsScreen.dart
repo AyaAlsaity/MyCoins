@@ -18,22 +18,22 @@ class _TabsScreenState extends State<TabsScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: AnimatedSwitcher(
-          duration: kThemeAnimationDuration,
-          child: currentIndex == 0
-              ? const HomeScreen()
-              : currentIndex == 1
-                  ? const ConversionScreen()
-                  : const NotificationsScreen()),
+        duration: kThemeAnimationDuration,
+        child: currentIndex == 0
+            ? const HomeScreen()
+            : currentIndex == 1
+                ? const ConversionScreen()
+                : const NotificationsScreen(),
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: themeFunctions.isDark
+        backgroundColor: themeListener.isDark
             ? darkBackroundBottomNavigationBarColor
-            : lightBackroundBottomNavigationBarColor,
-        elevation: 0.5,
+            : secondeyTextColor,
+        elevation: 1,
         currentIndex: currentIndex,
         onTap: (index) {
           setState(() {
@@ -49,9 +49,9 @@ class _TabsScreenState extends State<TabsScreen> {
                 'assets/icons/monitoring.png',
                 width: currentIndex == 0 ? size.width / 12 : size.width / 15,
                 height: currentIndex == 0 ? size.width / 12 : size.width / 15,
+                fit: BoxFit.contain,
                 color:
                     currentIndex == 0 ? mainColor : mainColor.withOpacity(0.6),
-                fit: BoxFit.contain,
               )),
           BottomNavigationBarItem(
               label: currentIndex == 1
@@ -76,23 +76,143 @@ class _TabsScreenState extends State<TabsScreen> {
               label: currentIndex == 2
                   ? AppLocalizations.of(context)!.notification
                   : "",
-              icon: Column(
-                children: [
-                  Image.asset(
-                    'assets/icons/notificationIcon.png',
-                    width:
-                        currentIndex == 2 ? size.width / 12 : size.width / 15,
-                    height:
-                        currentIndex == 2 ? size.width / 12 : size.width / 15,
-                    fit: BoxFit.contain,
-                    color: currentIndex == 2
-                        ? mainColor
-                        : mainColor.withOpacity(0.6),
-                  ),
-                ],
+              icon: Image.asset(
+                'assets/icons/notificationIcon.png',
+                width: currentIndex == 2 ? size.width / 12 : size.width / 15,
+                height: currentIndex == 2 ? size.width / 12 : size.width / 15,
+                color:
+                    currentIndex == 2 ? mainColor : mainColor.withOpacity(0.6),
+                fit: BoxFit.contain,
               )),
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+// import 'package:flutter/material.dart';
+// import 'package:mycoins/screen/main_screens/home.dart';
+// import 'package:mycoins/screen/main_screens/notifications_screen.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:provider/provider.dart';
+// import '../../helpers/consts.dart';
+// import '../../providers/dark_theme_provider.dart';
+// import 'conversion.dart';
+
+// class TabsScreen extends StatefulWidget {
+//   const TabsScreen({super.key});
+
+//   @override
+//   State<TabsScreen> createState() => _TabsScreenState();
+// }
+
+// class _TabsScreenState extends State<TabsScreen> {
+//   int currentIndex = 0;
+//   @override
+//   Widget build(BuildContext context) {
+//     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+//     Size size = MediaQuery.of(context).size;
+//     return Scaffold(
+//       body: AnimatedSwitcher(
+//           duration: kThemeAnimationDuration,
+//           child: currentIndex == 0
+//               ? const HomeScreen()
+//               : currentIndex == 1
+//                   ? const ConversionScreen()
+//                   : const NotificationsScreen()),
+
+//       //   duration: kThemeAnimationDuration,
+//       //   child: currentIndex == 0
+//       //       ? const HomeScreen()
+//       //       : currentIndex == 1
+//       //           ? const ConversionScreen()
+//       //           : const NotificationsScreen(),
+//       // ),
+
+//       bottomNavigationBar: BottomNavigationBar(
+//         backgroundColor: themeListener.isDark
+//             ? darkBackroundBottomNavigationBarColor
+//             : secondeyTextColor,
+//         elevation: 1,
+//         currentIndex: currentIndex,
+//         onTap: (index) {
+//           setState(() {
+//             currentIndex = index;
+//           });
+//         },
+//         selectedItemColor: mainColor,
+//         items: [
+//           BottomNavigationBarItem(
+//               label:
+//                   currentIndex == 0 ? AppLocalizations.of(context)!.market : "",
+// // =======
+// //               label: currentIndex == 0 ? AppLocalizations.of(context)!.market : "",
+// // >>>>>>> a535e4ca3df90f4b10c900c29c1e4aad6f876eec
+//               icon: Image.asset(
+//                 'assets/icons/monitoring.png',
+//                 width: currentIndex == 0 ? size.width / 12 : size.width / 15,
+//                 height: currentIndex == 0 ? size.width / 12 : size.width / 15,
+//                 color:
+//                     currentIndex == 0 ? mainColor : mainColor.withOpacity(0.6),
+//                 fit: BoxFit.contain,
+//               )),
+//           BottomNavigationBarItem(
+//               label: currentIndex == 1
+//                   ? AppLocalizations.of(context)!.conversion
+//                   : "",
+//               icon: Column(
+//                 children: [
+//                   Image.asset(
+//                     'assets/icons/currency_exchange.png',
+//                     width:
+//                         currentIndex == 1 ? size.width / 12 : size.width / 15,
+//                     height:
+//                         currentIndex == 1 ? size.width / 12 : size.width / 15,
+//                     fit: BoxFit.contain,
+//                     color: currentIndex == 1
+//                         ? mainColor
+//                         : mainColor.withOpacity(0.6),
+//                   ),
+//                 ],
+//               )),
+//           BottomNavigationBarItem(
+//               label: currentIndex == 2
+//                   ? AppLocalizations.of(context)!.notification
+//                   : "",
+//               icon: Column(
+//                 children: [
+//                   Image.asset(
+//                     'assets/icons/notificationIcon.png',
+//                     width:
+//                         currentIndex == 2 ? size.width / 12 : size.width / 15,
+//                     height:
+//                         currentIndex == 2 ? size.width / 12 : size.width / 15,
+//                     fit: BoxFit.contain,
+//                     color: currentIndex == 2
+//                         ? mainColor
+//                         : mainColor.withOpacity(0.6),
+//                   ),
+//                 ],
+
+//                 // label: currentIndex == 2 ? AppLocalizations.of(context)!.notification : "",
+//                 // icon: Image.asset(
+//                 //   'assets/icons/notificationIcon.png',
+//                 //   width: currentIndex == 2 ? size.width / 12 : size.width / 15,
+//                 //   height: currentIndex == 2 ? size.width / 12 : size.width / 15,
+//                 //   color:
+//                 //       currentIndex == 2 ? mainColor : mainColor.withOpacity(0.6),
+//                 //   fit: BoxFit.contain,
+//               )),
+//         ],
+//       ),
+//     );
+//   }
+// }

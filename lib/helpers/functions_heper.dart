@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../models/details_map.dart';
 import '../providers/dark_theme_provider.dart';
 import 'consts.dart';
 
@@ -22,10 +20,10 @@ Future<void> errorDialog(
   await showDialog(
       context: context,
       builder: (context) {
-        final themeFunctions =
+        final themeListener =
             Provider.of<DarkThemeProvider>(context, listen: true);
         return Dialog(
-          backgroundColor: themeFunctions.isDark
+          backgroundColor: themeListener.isDark
               ? darkBackroundContinarColor
               : secondeyTextColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -45,7 +43,7 @@ Future<void> errorDialog(
                             "title",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: themeFunctions.isDark
+                                color: themeListener.isDark
                                     ? darktitleColor
                                     : mainTextColor,
                                 fontWeight: FontWeight.bold,
@@ -59,7 +57,7 @@ Future<void> errorDialog(
                             // " We just sent an link to your registered email address ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: themeFunctions.isDark
+                                color: themeListener.isDark
                                     ? darktitleColor
                                     : mainTextColor,
                                 fontWeight: FontWeight.w500,

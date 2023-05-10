@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeFunctions =
+    final themeListener =
         Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           drawer: const CustomDrawer(),
           body: RefreshIndicator(
             color: mainColor,
-            backgroundColor: themeFunctions.isDark
+            backgroundColor: themeListener.isDark
                 ? darkBackroundContinarColor
                 : secondeyTextColor,
             onRefresh: () async {
