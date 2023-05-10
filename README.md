@@ -1,4 +1,5 @@
-<h1 align="center"> MyCoins </h1><img src="assets/images/logo2.png" alt="MyCoins" width="120">
+<h1 align="center"> MyCoins <img src="assets/images/logo2.png" alt="MyCoins" width="120"> </h1>
+<img src="assets/images/logo2.png" alt="MyCoins" width="120">
 <br>
 <p>
 MyCoins is an application dedicated to trading owners and people interested in it, helping them to know the popular currencies, currency fluctuations, and all important information for the trader.
