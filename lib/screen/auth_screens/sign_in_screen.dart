@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.contain,
                   ),
                   Container(
-                    height: 500,
+                    height: 550,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -69,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           Center(
                             child: Text(
                               AppLocalizations.of(context)!.butt0,
-                 
                               style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
@@ -136,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: sizedBoxNotSameComponents + 5,
                           ),
-                          GestureDetector( 
+                          GestureDetector(
                             onTap: () async {
                               if (loginForm.currentState!.validate()) {
                                 try {

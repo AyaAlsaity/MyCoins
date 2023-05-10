@@ -17,11 +17,7 @@ Future showCustomFlushbar(
     flushbarPosition: FlushbarPosition.TOP,
     textDirection: Directionality.of(context),
     borderRadius: BorderRadius.circular(12),
-    duration: const Duration(seconds: 2),
+    duration: const Duration(seconds: 6),
     leftBarIndicatorColor: col0or,
   ).show(context);
 }
-
-
-
-

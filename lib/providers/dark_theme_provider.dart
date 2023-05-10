@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DarkThemeProvider with ChangeNotifier {
-  bool isDark = true;
+  bool isDark = false;
 
   switchMode() {
     isDark = !isDark;

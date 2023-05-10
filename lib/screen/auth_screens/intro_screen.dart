@@ -24,19 +24,19 @@ class _IntroScreenState extends State<IntroScreen> {
       IntroCard(
           image: 'assets/images/image6.png',
           title: AppLocalizations.of(context)!.intro1title,
-          description: "description"),
+          description: ""),
       IntroCard(
-          image: 'assets/images/image5.png',
-          title: AppLocalizations.of(context)!.intro2title,
-          description: "description"),
+        image: 'assets/images/image5.png',
+        title: AppLocalizations.of(context)!.intro2title,
+        description: AppLocalizations.of(context)!.intro2desc,
+      ),
       IntroCard(
         image: 'assets/images/image4.png',
         title: AppLocalizations.of(context)!.intro3title,
         description: AppLocalizations.of(context)!.intro3desc,
       )
     ];
-    
-  
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -46,7 +46,6 @@ class _IntroScreenState extends State<IntroScreen> {
             color: themeListener.isDark ? darktitleColor : mainTextColor,
           ),
         ),
-       
       ),
       body: IntroductionScreen(
         rawPages: listOfPages,
