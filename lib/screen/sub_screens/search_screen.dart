@@ -49,7 +49,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
+
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
       return Scaffold(
@@ -141,7 +141,7 @@ class _CoinSearchScreenState extends State<CoinSearchScreen> {
                                     //////=>
                                     coinModelHome =
                                         coinsConsumer.coinsList[index];
-                                    //  getModel(coinModelHome);
+                              
                                     return _buildCoin(
                                         listCoin[index], coinModelHome, index);
                                   },

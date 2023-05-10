@@ -36,8 +36,7 @@ Future<void> errorDialog(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
                     child: Column(
-                        // crossAxisAlignment:
-                        // CrossAxisAlignment.center,
+                        
                         children: [
                           Text(
                             "title",
@@ -54,7 +53,6 @@ Future<void> errorDialog(
                           ),
                           Text(
                             errormessage,
-                            // " We just sent an link to your registered email address ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: themeListener.isDark
@@ -66,12 +64,7 @@ Future<void> errorDialog(
                           const SizedBox(
                             height: sizedBoxNotSameComponents,
                           ),
-                          // MainButton(
-                          //     text: btnText,
-                          //     // "login ",
-                          //     onPressed: () {
-                          //       onpress;
-                          //     })
+                         
                         ]),
                   ),
                 ),

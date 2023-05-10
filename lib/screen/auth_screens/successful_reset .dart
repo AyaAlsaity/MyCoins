@@ -16,26 +16,22 @@ class ResetSuccessful extends StatefulWidget {
 class _ResetSuccessfulState extends State<ResetSuccessful> {
   @override
   Widget build(BuildContext context) {
-     final themeListener =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        // systemOverlayStyle: const SystemUiOverlayStyle(
-        //   statusBarColor: darkBackroundScreenColor,
-        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(80.0),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              decoration:  BoxDecoration(
-                color: themeListener.isDark ? darkBackroundContinarColor: lightBackroundScreenColor,
-                borderRadius:const BorderRadius.all(
+              decoration: BoxDecoration(
+                color: themeListener.isDark
+                    ? darkBackroundContinarColor
+                    : lightBackroundScreenColor,
+                borderRadius: const BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
@@ -86,21 +82,6 @@ class _ResetSuccessfulState extends State<ResetSuccessful> {
                             builder: (context) => const LoginScreen()));
                   },
                 )
-                // ClickableText(
-                //     text: "Login Now",
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           CupertinoPageRoute(
-                //               builder: (context) => const LoginScreen()));
-                //     }),
-                // SizedBox(
-                //   width: size.width * 0.04,
-                // ),
-                // const Icon(
-                //   Icons.arrow_forward,
-                //   color: Color(0xFFF1D970),
-                // )
               ],
             )
           ],

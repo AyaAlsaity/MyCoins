@@ -20,9 +20,6 @@ class SingleIntroScreen extends StatelessWidget {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Container(
-      // themeListener.isDark ? darkGreyColor : lightWihteColor,
-      // color: Colors.blue.withOpacity(0.2),
-      // height: size.height * 0.62,
       child: Center(
         child: SafeArea(
           child: Column(
@@ -44,9 +41,6 @@ class SingleIntroScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: size.height * 0.05,
-              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 61),
                 child: Text(
@@ -73,9 +67,6 @@ class SingleIntroScreen extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                     color:
                         themeListener.isDark ? darktitleColor : mainTextColor,
-                    // themeListener.isDark
-                    //     ? lightGreyColor.withOpacity(0.7)
-                    //     : darkGreyColor.withOpacity(0.7)
                   ),
                 ),
               ),
@@ -135,9 +126,6 @@ class IntroCard extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.normal,
               color: themeListener.isDark ? darktitleColor : mainTextColor,
-              // themeListener.isDark
-              //     ? lightGreyColor.withOpacity(0.7)
-              //     : darkGreyColor.withOpacity(0.7)
             ),
           ),
         ),

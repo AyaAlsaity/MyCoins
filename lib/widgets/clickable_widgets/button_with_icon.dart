@@ -36,7 +36,7 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
                   ? darkBackroundScreenColor
                   : secondeyTextColor
               : mainColor,
-          // themeListener.isDark ? darkBackroundContinarColor :
+       
 
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -47,9 +47,9 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
         ),
         Icon(
           widget.icon,
-          // Icons.settings,
+       
           color:
-              // themeListener.isDark ? mainColor :
+        
               widget.withborder ? darkBackroundScreenColor : secondeyTextColor,
         ),
         const SizedBox(
@@ -57,7 +57,7 @@ class _ButtonWithIconState extends State<ButtonWithIcon> {
         ),
         Text(
           widget.text,
-          // 'Settings',
+       
           style: TextStyle(
               color:
                   widget.withborder ? darkBackroundScreenColor : darktitleColor,

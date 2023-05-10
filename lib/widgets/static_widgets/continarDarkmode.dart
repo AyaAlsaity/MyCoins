@@ -33,7 +33,6 @@ class ContinarDarkMode extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(paddingAll),
         child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
@@ -73,7 +72,6 @@ class ContinarDarkMode extends StatelessWidget {
               width: size.width/300,
               height: size.width / 5,
               decoration:const BoxDecoration(
-                // borderRadius: BorderRadius.circular(paddingAll),
                 color: darksecondeyTextColor,
               ),
             ),

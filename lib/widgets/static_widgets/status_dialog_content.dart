@@ -23,47 +23,5 @@ Future showCustomFlushbar(
 }
 
 
-//  Future<void> errorDialog({
-//     required String subtitle,
-//     required BuildContext context,
-//   }) async {
-//     await showDialog(
-//         context: context,
-//         builder: (context) {
-//           return AlertDialog(
-//             title: Row(children: const [
-//               SizedBox(
-//                 width: 8,
-//               ),
-//               Text('حدث خطاء'),
-//             ]),
-//             content: Text(subtitle),
-//             actions: [
-//               TextButton(
-//                 onPressed: () {
-//                   if (Navigator.canPop(context)) {
-//                     Navigator.pop(context);
-//                   }
-//                 },
-//                 child: TextWidget(
-//                   color: Colors.cyan,
-//                   text: 'الغاء',
-//                   textSize: 18,
-//                 ),
-//               ),
-//                 TextButton(
-//                 onPressed: () {
-//                   if (Navigator.canPop(context)) {
-//                     Navigator.pop(context);
-//                   }
-//                 },
-//                 child: TextWidget(
-//                   text: 'نعم',
-//                   textSize: 18,
-//                   color: Colors.cyan,
-//                 ),
-//               ),
-//             ],
-//           );
-// });}
+
 

@@ -79,9 +79,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         .getFavorites(widget.coinHome.id.toString());
 
     getChartData('1');
-    setState(() {
-      isOk = Provider.of<FireStorgeProvoder>(context, listen: false).isOk;
-    });
+
     super.initState();
   }
 
@@ -132,6 +130,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteListener =
+        Provider.of<FireStorgeProvoder>(context, listen: true);
     List<DetailsMapModel> listDetails = [
       DetailsMapModel(
         name: 'Market cap',
@@ -238,12 +238,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     : {
                         coinsFireStorgeConsumer.addToFaveId(
                             widget.coinHome.id.toString(), widget.index),
-                        // initState(),
                         // setState(() {}),
                       };
+                initState();
               },
               icon: Icon(
-                isOk ? Icons.star : Icons.star_border_outlined,
+                favoriteListener.isOk ? Icons.star : Icons.star_border_outlined,
                 color: mainColor,
               ),
             ),

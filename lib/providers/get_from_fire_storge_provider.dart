@@ -13,7 +13,7 @@ class FireStorgeProvoder with ChangeNotifier {
   bool isOk = false;
   String name = '';
   String email = '';
-  List<CurrencyModel> currencies= [];
+  List<CurrencyModel> currencies = [];
   var data;
   var dataUser;
   var dataCurrency;
@@ -25,13 +25,14 @@ class FireStorgeProvoder with ChangeNotifier {
         .collection('favorites')
         .where('user_id', isEqualTo: auth.currentUser!.uid)
         .get();
-    for (var i = 0; i <= dataFavorites.docs.length; i++) {
-      if (dataFavorites.docs[i].data()['coin_id'] == coinId) {
+    for (var i in dataFavorites.docs) {
+      if (i.data()['coin_id'] == coinId) {
         isOk = true;
         // addToFaveId(coinId, index);
         // removeFaveId(coinId);
       }
     }
+    notifyListeners();
   }
 
   addToFaveId(

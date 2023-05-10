@@ -35,7 +35,6 @@ class _HomeCardState extends State<HomeSliderCard> {
         children: [
           Container(
             width: double.infinity,
-            // height: 70,
             decoration: BoxDecoration(
               color: themeListener.isDark
                   ? darkBackroundContinarColor
@@ -65,28 +64,16 @@ class _HomeCardState extends State<HomeSliderCard> {
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                     ),
-                    // .all(
-                    //   Radius.circular(24),
-                    // )
+               
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Row(
                     children: [
-                      // Container(
-                      //   width: 20,
-                      //   height: 20,
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.grey,
-                      //       borderRadius: BorderRadius.circular(20)),
-                      //   child: Image.network(
-                      //       'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'),
-                      // ),
+                  
                       Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const SizedBox(height: 5),
                           Text(
                             'Text',
                             style: TextStyle(

@@ -1,5 +1,5 @@
 // To parse this JSON data, do
-//
+
 //     final coinsModel = coinsModelFromJson(jsonString);
 
 import 'dart:convert';

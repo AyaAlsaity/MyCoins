@@ -40,7 +40,6 @@ class _SliderWidgetState extends State<SliderWidget> {
                           children: [
                             Container(
                               width: double.infinity,
-                              // height: 70,
                               decoration: BoxDecoration(
                                 color: themeListener.isDark
                                     ? darkBackroundContinarColor
@@ -71,9 +70,6 @@ class _SliderWidgetState extends State<SliderWidget> {
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(24),
                                       ),
-                                      // .all(
-                                      //   Radius.circular(24),
-                                      // )
                                     ),
                                   ),
                                   Padding(
@@ -94,12 +90,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                                           width: 30,
                                         ),
                                         Column(
-                                          // crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            // const SizedBox(height: 5),
                                             Text(
-                                              // coinsConsumer
-                                              //     .coinsList[item].symbol,
                                               item.symbol,
                                               style: TextStyle(
                                                 color: themeListener.isDark

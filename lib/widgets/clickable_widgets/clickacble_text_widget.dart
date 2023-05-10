@@ -27,8 +27,6 @@ class ClickableText extends StatefulWidget {
 class _ClickableTextState extends State<ClickableText> {
   @override
   Widget build(BuildContext context) {
-    // final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-
     return Material(
       color: Colors.transparent,
       child: GestureDetector(
@@ -41,9 +39,6 @@ class _ClickableTextState extends State<ClickableText> {
               fontSize: widget.fontSize,
               fontWeight: FontWeight.w600,
               color: mainColor,
-              //themeListener.isDark && !widget.useColors
-              //     ? lightWihteColor.withOpacity(widget.enabled ? 1 : 0.3)
-              //     : widget.color.withOpacity(widget.enabled ? 1 : 0.3),
               decoration:
                   widget.withUnderline ? TextDecoration.underline : null),
         ),

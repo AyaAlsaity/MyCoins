@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../helpers/consts.dart';
 import '../../providers/dark_theme_provider.dart';
 
-
 class CustomDialog extends StatelessWidget {
   const CustomDialog(
       {super.key,
@@ -11,8 +10,7 @@ class CustomDialog extends StatelessWidget {
       required this.subtitle,
       required this.btnText,
       required this.onpress,
-      required this.image
-      });
+      required this.image});
   final String title;
   final String subtitle;
   final String btnText;
@@ -21,12 +19,10 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeListener =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Dialog(
-      backgroundColor: themeListener.isDark
-          ? darkBackroundContinarColor
-          : secondeyTextColor,
+      backgroundColor:
+          themeListener.isDark ? darkBackroundContinarColor : secondeyTextColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Stack(
           clipBehavior: Clip.none,
@@ -36,44 +32,24 @@ class CustomDialog extends StatelessWidget {
               height: 260,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
-                child: Column(
-                    // crossAxisAlignment:
-                    //     CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: themeListener.isDark
-                                ? darktitleColor
-                                : mainTextColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: sizedBoxSameComponents,
-                      ),
-                      Text(
-                        subtitle,
-                        // " We just sent an link to your registered email address ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: themeListener.isDark
-                                ? darktitleColor
-                                : mainTextColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18),
-                      ),
-                      const SizedBox(
-                        height: sizedBoxNotSameComponents,
-                      ),
-                      // MainButton(
-                      //     text: btnText,
-                      //     // "login ",
-                      //     onPressed: () {
-                      //       onpress;
-                      //     })
-                    ]),
+                child: Column(children: [
+                  const SizedBox(
+                    height: sizedBoxSameComponents,
+                  ),
+                  Text(
+                    subtitle,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: themeListener.isDark
+                            ? darktitleColor
+                            : mainTextColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18),
+                  ),
+                  const SizedBox(
+                    height: sizedBoxNotSameComponents,
+                  ),
+                ]),
               ),
             ),
             Positioned(

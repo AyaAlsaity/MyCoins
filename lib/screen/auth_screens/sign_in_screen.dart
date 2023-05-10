@@ -29,8 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final themeListener =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -57,7 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       color: themeListener.isDark
                           ? darkBackroundContinarColor
-                          : lightBackroundBottomNavigationBarColor.withOpacity(0.5),
+                          : lightBackroundBottomNavigationBarColor
+                              .withOpacity(0.5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(paddingAll + 5),
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Center(
                             child: Text(
                               AppLocalizations.of(context)!.butt0,
-                              //  ' Log In',
+                 
                               style: TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: sizedBoxNotSameComponents + 5,
                           ),
-                          GestureDetector(
+                          GestureDetector( 
                             onTap: () async {
                               if (loginForm.currentState!.validate()) {
                                 try {
@@ -170,48 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           builder: (context) => const MyApp()),
                                       (route) => false);
                                 }
-
-                                // try {
-                                //   auth
-                                //       .signInWithEmailAndPassword(
-                                //           email: emailController.text,
-                                //           password: passwordController.text)
-                                //       .then((value) async {
-                                //   Navigator.pushAndRemoveUntil(
-                                //       context,
-                                //       CupertinoPageRoute(
-                                //           builder: (context) =>
-                                //               const MyApp()),
-                                //       (route) => false);
-                                // });
-                                // } on FirebaseException catch (error) {
-                                //   showCustomFlushbar(error.message.toString(),
-                                //       warningColor, Icons.warning, context);
-                                //   if (error.code == 'user-not-found') {
-                                //     showCustomFlushbar(
-                                //         AppLocalizations.of(context)!
-                                //             .usernofound,
-                                //         warningColor,
-                                //         Icons.warning,
-                                //         context);
-                                //     // print('No user found for that email.');
-                                //   } else if (error.code == 'wrong-password') {
-                                //     showCustomFlushbar(
-                                //         AppLocalizations.of(context)!
-                                //             .passwordwrong,
-                                //         warningColor,
-                                //         Icons.warning,
-                                //         context);
-                                //     // print(
-                                //     //     'Wrong password provided for that user.');
-                                //   } else {
-                                // showCustomFlushbar(
-                                //     "${error.message.toString()}",
-                                //     warningColor,
-                                //     Icons.warning,
-                                //     context);
-                                //   }
-                                // }
                               }
                             },
                             child: ButtonScreen(

@@ -25,8 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeListener =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     return Consumer<CoinsProvider>(builder: (context, coinsConsumer, _) {
       return Scaffold(
@@ -45,9 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  coinsConsumer.isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : const SizedBox(
+                          height: 20,
+                        ),
                   const SliderWidget(),
                   const SizedBox(
                     height: 20,
@@ -55,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   !coinsConsumer.isFailed
                       ? SizedBox(
                           width: double.infinity,
-                          // height: size.height,
                           child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: AnimatedSwitcher(

@@ -37,8 +37,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool ispasswordshow = true;
   @override
   Widget build(BuildContext context) {
-    final themeListener =
-        Provider.of<DarkThemeProvider>(context, listen: true);
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -116,13 +115,6 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                           ? Colors.white30
                           : lightBackroundScreenColor,
                     )),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(15),
-                //     borderSide: BorderSide(
-                //       color: themeListener.isDark
-                //           ? Colors.white30
-                //           : lightBackroundScreenColor,
-                //     )),
               ))
         ],
       ),

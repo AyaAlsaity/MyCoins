@@ -36,7 +36,7 @@ class _IntroScreenState extends State<IntroScreen> {
       )
     ];
     
-    // Size size = MediaQuery.of(context).size;
+  
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,

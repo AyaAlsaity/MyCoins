@@ -37,6 +37,11 @@ class CoinsProvider with ChangeNotifier {
   CurrencyModel? selectedcurrenc1;
   CoinsModel? selectedcurrenc2;
 
+  initConversion() {
+    selectedcurrenc1 = currencies1.first;
+    selectedcurrenc2 = coinsList.first;
+    notifyListeners();
+  }
 // //////////////////////////////////////
 
   setSelectedCurrencyOne(CurrencyModel? currency) {

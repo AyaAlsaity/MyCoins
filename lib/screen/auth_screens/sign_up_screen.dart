@@ -181,6 +181,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             GestureDetector(
                               onTap: () async {
                                 if (registerForm.currentState!.validate()) {
+                                  try {
+                                    final credential = await FirebaseAuth
+                                        .instance
+                                        .createUserWithEmailAndPassword(
+                                            email: emailController.text,
+                                            password: passwordController.text)
+                                        .then((value) async {
+                                      await coinsFireStorgeConsumer
+                                          .addUserToFire(
+                                        '${firstNameController.text} ${listNameController.text}',
+                                        emailController.text.trim(),
+                                      );
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const MyApp()),
+                                          (route) => false);
+                                    });
+                                  } on FirebaseAuthException catch (e) {
+                                    if (e.code == 'user-not-found') {
+                                      print('No user found for that email.');
+                                      showCustomFlushbar(
+                                          "${e.message.toString()}",
+                                          warningColor,
+                                          Icons.warning,
+                                          context);
+                                    } else if (e.code == 'wrong-password') {
+                                      print(
+                                          'Wrong password provided for that user.');
+                                      showCustomFlushbar(
+                                          "${e.message.toString()}",
+                                          warningColor,
+                                          Icons.warning,
+                                          context);
+                                    }
+                                  }
+
+                                  if (auth.currentUser != null) {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const MyApp()),
+                                        (route) => false);
+                                  }
+                                }
+                                if (registerForm.currentState!.validate()) {
                                   if (passwordController.text ==
                                       passwordConfirmationController.text) {
                                     try {

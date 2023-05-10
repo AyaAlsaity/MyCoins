@@ -138,12 +138,10 @@ class _ConnectScreenState extends State<ConnectScreen> {
                         Icons.check_rounded,
                         context,
                       );
-                      // setState(() {
-                      //   isfilied = !isfilied;
-                      // });
+                     
                       Timer(const Duration(seconds: 3), () {
                         Navigator.pop(context);
-                      }); // clearTextFormField();
+                      }); 
                     }
                   },
                   child: ButtonScreen(
