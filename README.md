@@ -35,6 +35,12 @@ With features such as adding to favorites, searching for the required currency, 
 4.Enter Your Last Name<br />
 5.Press `Sign up `Button<br />
 
+## App in Dark mode
+View App[https://www.pinterest.com/alsaityaya94/mycoins-dark-mode/]
+
+## App in Ligth mode
+View App[https://www.pinterest.com/alsaityaya94/mycoins-light-mode/]
+
 ## Place
 Benghazi camp
 
