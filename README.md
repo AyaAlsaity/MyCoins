@@ -36,9 +36,6 @@ With features such as adding to favorites, searching for the required currency, 
 - profile user [Get First and Last name  and token from SignUp Screen and Add to Cloud Firestore in Firebase]
 - Favorites Coins [Get data from App all coins and Add to Cloud Firestore in Firebase]
 - Conversion between Coins [Get List coins from Api Conver  Get List from data from App all coins and Add to Cloud Firestore in Firebase ]
-- Flutter FrameWork
-- Figma
-- VS Code
 
 ## Sigup in app
 1.Enter Your Really Email<br />
