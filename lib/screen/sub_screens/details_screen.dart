@@ -38,6 +38,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   double minY = 0;
   double maxX = 0;
   double maxY = 0;
+
   // List favoriteList = [];
 
   void getChartData(String days) async {
@@ -75,58 +76,58 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void initState() {
-    Provider.of<FireStorgeProvoder>(context, listen: false)
-        .getFavorites(widget.coinHome.id.toString());
-
+    // Provider.of<FireStorgeProvoder>(context, listen: false)
+    //     .getFavorites(widget.coinHome.id.toString());
+    getFavorites();
     getChartData('1');
 
     super.initState();
   }
 
-  // getFavorites() async {
-  //   var data = await firestore
-  //       .collection('favorites')
-  //       .where('user_id', isEqualTo: auth.currentUser!.uid)
-  //       .get();
-  //   for (var i = 0; i <= data.docs.length; i++) {
-  //     if (data.docs[i].data()['coin_id'] == widget.coinHome.id) {
-  // setState(() {
-  //   isOk1 = true;
-  // });
-  //     }
-  //   }
-  // }
+  getFavorites() async {
+    var data = await firestore
+        .collection('favorites')
+        .where('user_id', isEqualTo: auth.currentUser!.uid)
+        .get();
+    for (var i = 0; i <= data.docs.length; i++) {
+      if (data.docs[i].data()['coin_id'] == widget.coinHome.id) {
+  setState(() {
+    isOk = true;
+  });
+      }
+    }
+  }
 
-  // addToFaveId(
-  //   String coinId,
-  // ) {
-  //   firestore.collection('favorites').add({
-  //     'user_id': auth.currentUser!.uid,
-  //     "coin_id": coinId,
-  //     "index": widget.index,
-  //   });
+  addToFaveId(
+    String coinId,
+  ) {
+    firestore.collection('favorites').add({
+      'user_id': auth.currentUser!.uid,
+      "coin_id": coinId,
+      "index": widget.index,
+    });
 
-  //   getFavorites();
-  // }
+    getFavorites();
+  }
 
-  // removeFaveId(
-  //   String coinId,
-  // ) async {
-  //   var deletable = await firestore
-  //       .collection('favorites')
-  //       .where("user_id", isEqualTo: auth.currentUser!.uid)
-  //       .where("coin_id", isEqualTo: coinId)
-  //       .get();
-  //   firestore
-  //       .collection('favorites')
-  //       .doc(deletable.docs.first.id.toString())
-  //       .delete()
-  //       .then((value) {
-  //     setState(() {
-  //       isOk1 = false;
-  //     });
-  //   });
-  // }
+  removeFaveId(
+    String coinId,
+  ) async {
+    var deletable = await firestore
+        .collection('favorites')
+        .where("user_id", isEqualTo: auth.currentUser!.uid)
+        .where("coin_id", isEqualTo: coinId)
+        .get();
+    firestore
+        .collection('favorites')
+        .doc(deletable.docs.first.id.toString())
+        .delete()
+        .then((value) {
+      setState(() {
+        isOk = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,24 +227,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
           actions: [
             IconButton(
               onPressed: () async {
-                coinsFireStorgeConsumer
-                    .getFavorites(widget.coinHome.id.toString());
-                coinsFireStorgeConsumer.isOk
+                // coinsFireStorgeConsumer
+                //     .getFavorites(widget.coinHome.id.toString());
+                // coinsFireStorgeConsumer.
+                isOk
                     ? {
-                        coinsFireStorgeConsumer
-                            .removeFaveId(widget.coinHome.id.toString()),
+                        // coinsFireStorgeConsumer
+                        //     .
+                            removeFaveId(widget.coinHome.id.toString()),
                         // initState(),
                         // setState(() {}),
                       }
                     : {
-                        coinsFireStorgeConsumer.addToFaveId(
-                            widget.coinHome.id.toString(), widget.index),
+                        // coinsFireStorgeConsumer.
+                        addToFaveId(
+                            widget.coinHome.id.toString()),
                         // setState(() {}),
                       };
                 initState();
               },
               icon: Icon(
-                favoriteListener.isOk ? Icons.star : Icons.star_border_outlined,
+                isOk ? Icons.star : Icons.star_border_outlined,
                 color: mainColor,
               ),
             ),

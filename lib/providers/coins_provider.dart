@@ -14,23 +14,21 @@ class CoinsProvider with ChangeNotifier {
 
   final _api = Api();
 
-// ///////////////////////////////////// ===>>>>>> go to FireStorgeProvoder
-
   List<CurrencyModel> currencies1 = [
     CurrencyModel(
       id: 1,
-      name: 'USD',
-      price: 5.14,
+      name: 'EGP',
+      price: 30.904154,
     ),
     CurrencyModel(
       id: 2,
-      name: 'EUR',
-      price: 5.35,
+      name: 'JPY',
+      price: 135.074655,
     ),
     CurrencyModel(
       id: 3,
-      name: 'LTK',
-      price: 1.25,
+      name: 'LYD',
+      price: 4.745007,
     ),
   ];
 
@@ -42,7 +40,7 @@ class CoinsProvider with ChangeNotifier {
     selectedcurrenc2 = coinsList.first;
     notifyListeners();
   }
-// //////////////////////////////////////
+
 
   setSelectedCurrencyOne(CurrencyModel? currency) {
     selectedcurrenc1 = currency;
@@ -53,6 +51,7 @@ class CoinsProvider with ChangeNotifier {
     selectedcurrenc2 = coinsModel;
     notifyListeners();
   }
+// //////////////////////////////////////
 
   getCoins() async {
     isLoading = true;

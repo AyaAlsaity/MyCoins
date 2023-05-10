@@ -22,15 +22,15 @@ class _IntroScreenState extends State<IntroScreen> {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     List<Widget> listOfPages = [
       IntroCard(
-          image: 'assets/images/intro1.png',
+          image: 'assets/images/image6.png',
           title: AppLocalizations.of(context)!.intro1title,
           description: "description"),
       IntroCard(
-          image: 'assets/images/intro2.png',
+          image: 'assets/images/image5.png',
           title: AppLocalizations.of(context)!.intro2title,
           description: "description"),
       IntroCard(
-        image: 'assets/images/intro3.png',
+        image: 'assets/images/image4.png',
         title: AppLocalizations.of(context)!.intro3title,
         description: AppLocalizations.of(context)!.intro3desc,
       )

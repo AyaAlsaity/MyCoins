@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../models/currency_model.dart';
+// import '../models/currency_model.dart';
 
 class FireStorgeProvoder with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -13,10 +13,12 @@ class FireStorgeProvoder with ChangeNotifier {
   bool isOk = false;
   String name = '';
   String email = '';
-  List<CurrencyModel> currencies = [];
+  // List<CurrencyModel> currencies = [];
   var data;
   var dataUser;
-  var dataCurrency;
+  // var dataCurrency;
+
+  // CurrencyModel? selectedcurrenc1;
 
   getFavorites(
     String coinId,
@@ -45,7 +47,7 @@ class FireStorgeProvoder with ChangeNotifier {
       "coin_id": coinId,
       "index": index,
     });
-
+    notifyListeners();
     // getFavorites(coinId);
   }
 
@@ -65,6 +67,7 @@ class FireStorgeProvoder with ChangeNotifier {
         .then((value) {
       isOk = false;
     });
+    notifyListeners();
   }
 
 // ///////////////
@@ -74,6 +77,7 @@ class FireStorgeProvoder with ChangeNotifier {
         .collection('favorites')
         .where('user_id', isEqualTo: auth.currentUser!.uid)
         .get();
+    notifyListeners();
   }
 
 // ///////////////
@@ -91,26 +95,40 @@ class FireStorgeProvoder with ChangeNotifier {
         break;
       }
     }
+    notifyListeners();
   }
 
   addUserToFire(String name, String email) {
     firestore
         .collection('users')
         .add({'user_id': auth.currentUser!.uid, "name": name, "email": email});
+    notifyListeners();
   }
 
 // ///////////////
 
-  getCurrency() async {
-    dataCurrency = await firestore.collection('currency').get();
-    for (var i = 0; i <= dataCurrency.docs.length; i++) {
-      currencies = [
-        CurrencyModel(
-          id: i,
-          name: dataCurrency.docs[i].data()['code'],
-          price: dataCurrency.docs[i].data()['price'],
-        ),
-      ];
-    }
-  }
+  // initConversion(){
+  //   // await getCurrency();
+  //   selectedcurrenc1 = currencies.first;
+  //   notifyListeners();
+  // }
+
+  // getCurrency() async {
+  //   dataCurrency = await firestore.collection('currency').get();
+  //   for (var i in dataCurrency.docs) {
+  //     currencies.add(
+  //       CurrencyModel(
+  //         id: i,
+  //         name: dataCurrency.docs[i].data()['code'],
+  //         price: dataCurrency.docs[i].data()['price'],
+  //       ),
+  //     );
+  //   }
+  //   notifyListeners();
+  // }
+
+  // setSelectedCurrencyOne(CurrencyModel? currency) {
+  //   selectedcurrenc1 = currency;
+  //   notifyListeners();
+  // }
 }

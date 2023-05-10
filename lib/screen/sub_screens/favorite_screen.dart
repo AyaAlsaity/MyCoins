@@ -23,22 +23,25 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  // bool isOk1 = true;
+  bool isOk1 = true;
 
-  // var data;
+  var data;
 
-  // getFavorites() async {
-  //   data = await firestore
-  //       .collection('favorites')
-  //       .where('user_id', isEqualTo: auth.currentUser!.uid)
-  //       .get();
-  //   setState(() {});
-  // }
+  getFavorites() async {
+    data = await firestore
+        .collection('favorites')
+        .where('user_id', isEqualTo: auth.currentUser!.uid)
+        .get();
+    setState(() {});
+    
+  }
 
   @override
   void initState() {
-    super.initState();
-    Provider.of<FireStorgeProvoder>(context, listen: false).getFavoritesScreen();
+   
+    getFavorites();
+     super.initState();
+    // Provider.of<FireStorgeProvoder>(context, listen: false).getFavoritesScreen();
     setState(() {});
   }
 
@@ -56,9 +59,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               ? darkBackroundContinarColor
               : secondeyTextColor,
           onRefresh: () async {
-            Provider.of<FireStorgeProvoder>(context, listen: false).getFavoritesScreen();
+            // Provider.of<FireStorgeProvoder>(context, listen: false).getFavoritesScreen();
+            // initState();
           },
-          child: Provider.of<FireStorgeProvoder>(context, listen: true).data == null
+          child: 
+          // Provider.of<FireStorgeProvoder>(context, listen: true).
+          data == null
               ? Center(
                   child: Text(
                     textAlign:TextAlign.center,
@@ -104,14 +110,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   child: Image.network(
                                     coinsConsumer
                                         .coinsList[
-                                            Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']]
+                                            data.docs[index].data()['index']]
                                         .image,
                                     width: 40,
                                     height: 40,
                                   ),
                                 ),
                                 Text(
-                                  '${coinsConsumer.coinsList[Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']].name} (${coinsConsumer.coinsList[Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']].symbol})',
+                                  '${coinsConsumer.coinsList[data.docs[index].data()['index']].name} (${coinsConsumer.coinsList[data.docs[index].data()['index']].symbol})',
                                   style: TextStyle(
                                       color: themeListener.isDark
                                           ? darktitleColor
@@ -120,7 +126,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  '\$ ${coinsConsumer.coinsList[Provider.of<FireStorgeProvoder>(context, listen: true).data.docs[index].data()['index']].currentPrice.toString()}',
+                                  '\$ ${coinsConsumer.coinsList[data.docs[index].data()['index']].currentPrice.toString()}',
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: mainColor,
@@ -133,7 +139,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       ),
                     );
                   }),
-                  itemCount: Provider.of<FireStorgeProvoder>(context, listen: true).data.docs.length,
+                  itemCount: data.docs.length,
                 ),
         ),
       );
