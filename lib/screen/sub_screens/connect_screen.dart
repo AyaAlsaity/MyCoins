@@ -138,10 +138,10 @@ class _ConnectScreenState extends State<ConnectScreen> {
                         Icons.check_rounded,
                         context,
                       );
-                     
+
                       Timer(const Duration(seconds: 3), () {
                         Navigator.pop(context);
-                      }); 
+                      });
                     }
                   },
                   child: ButtonScreen(
@@ -164,7 +164,8 @@ class _ConnectScreenState extends State<ConnectScreen> {
                     ),
                     TextButton(
                       onPressed: () async {
-                        String urlWebsit = 'https://www.udemy.com/';
+                        String urlWebsit =
+                            'https://www.coingecko.com/en/converter';
                         if (await canLaunchUrlString(urlWebsit)) {
                           await launchUrlString(
                             urlWebsit,
